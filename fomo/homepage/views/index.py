@@ -1,15 +1,11 @@
 from django.conf import settings
 from django_mako_plus import view_function
-from django_mako_plus.template import get_template_loader
 from datetime import datetime
+from .. import dmp_render, dmp_render_to_string
 
 @view_function
 def process_request(request):
     context = {
-        'now': datetime.now(),
+        'now': datetime.now().strftime(request.urlparams[0] if request.urlparams[0] else '%H:%M'),
     }
-
-    # this syntax is only needed if you need to customize the way template rendering works
-    tlookup = get_template_loader('/app/path/', subdir="my_templates")
-    template = tlookup.get_template('index.html')
-    return template.render_to_response(request=request, context=context)
+    return dmp_render(request, 'index.html', context)
