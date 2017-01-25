@@ -1,10 +1,17 @@
 <%inherit file="base.htm" />
 
+
 <%block name="content">
     <div class="content">
       <h3>Congratulations -- you've successfully created a new django-mako-plus app!</h3>
       <h4>Next Up: Go through the django-mako-plus tutorial and add Javascript, CSS, and urlparams to this page.</h4>
-      <p class="server-time">The current server time is ${now}.</p>
-      <p class="browser-time">The current browser time is...</p>
+      <p class="server-time">The current server time is ${ now }.</p>
+      <button id="server-time-button">Refresh Server Time</button>
+      <p class="browser-time">The current browser time is .</p>
+
+      <img src="${ STATIC_URL }homepage/media/OM.jpg" alt="Trash in Memphis"/>
+
+
+      <!--<a href="/homepage/contact/"</a> got to .py first then .html then something else -->
     </div>
 </%block>

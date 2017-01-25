@@ -1,3 +1,11 @@
+#site_icon {
+  float: left;
+}
+
+#site_icon > img {
+  height: 50px;
+}
+
 html, body {
     margin: 0;
     padding: 0;

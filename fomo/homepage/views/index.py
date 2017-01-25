@@ -7,7 +7,15 @@ import random
 @view_function
 def process_request(request):
     context = {
-        'now': datetime.now().strftime(request.urlparams[0] if request.urlparams[0] else '%H:%M'),
+        'now': datetime.now(),
         'timecolor': random.choice([ 'red', 'blue', 'green', 'brown' ]),
     }
     return dmp_render(request, 'index.html', context)
+
+@view_function
+def time(request):
+    context = {
+        'now': datetime.now(),
+        'timecolor': random.choice([ 'red', 'blue', 'green', 'brown' ]),
+        }
+    return dmp_render(request, 'index.time.html', context)

@@ -13,9 +13,19 @@
 
     ## add any site-wide scripts or CSS here; for example, jquery:
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="${ STATIC_URL }homepage/media/Bootstrap/css/bootstrap.min.css"/>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     ## render the css with the same name as this page
     ${ get_template_css(self, request, context) }
+
+    <%block name="site_icon">
+      <div id="site_icon">
+        <img src="${ STATIC_URL }homepage/media/OM.jpg" alt="Trash in Memphis"/>
+      </div>
+    </%block>
 
   </head>
   <body>
