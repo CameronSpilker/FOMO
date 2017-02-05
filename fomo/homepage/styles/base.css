@@ -1,20 +1,81 @@
-#site_icon {
-  float: left;
+body{
+  background-color: #a9a9a9;
+}
+.icon{
+  max-height: 40px;
+  max-width: 115.2px;
+  border-radius: 25px;
+  position: relative;
+  top: -8px;
+
+}
+#header_message{
+  position: fixed;
+  z-index: 100000;
+  right: 0;
+}
+#header_main{
+background-color: red;
+text-align: center;
+font-weight: lighter;;
+color: white;
+ border-radius: 5px;
 }
 
-#site_icon > img {
-  height: 50px;
+#body_section_above{
+  background-color: black;
+  color: white;
+  text-align: center;
+   border-radius: 5px;
+
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
+#body_section_left{
+  background-color: orange;
+   border-radius: 5px;
+   
+
+
 }
 
-header {
-    padding: 36px 0;
-    text-align: center;
-    font-size: 2.5em;
-    color: #F4F4F4;
-    background-color: #0088CC;
+#body_section_right{
+  background-color: purple;
+   border-radius: 5px;
+
+
+}
+
+/*@media screen and (max-width: 960px) {
+   #body_section_left, #body_section_right {
+     width:auto;
+     float:none;
+   }
+}*/
+
+#body_section_above_middle{
+  background-color: gray;
+   border-radius: 5px;
+   text-align: center;
+}
+
+
+#body_section_below{
+ text-align: center;
+  color: black;
+   border-radius: 5px;
+
+}
+
+#body_section_middle{
+  background-color: green;
+   border-radius: 5px;
+
+
+}
+
+#body_footer{
+   color: white;
+   text-align: center;
+    border-radius: 5px;
+
 }

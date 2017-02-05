@@ -3,43 +3,135 @@
 ## imports
 <%! from django_mako_plus import get_template_css, get_template_js %>
 
-
 <!DOCTYPE html>
 <html>
   <meta charset="UTF-8">
   <head>
 
-    <title>homepage</title>
+    <title>
+      <%block name="page_title">
+        FOMO Web Site
+      </%block>
+    </title>
 
     ## add any site-wide scripts or CSS here; for example, jquery:
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="${ STATIC_URL }homepage/media/Bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${ STATIC_URL }homepage/media/Bootstrap/css/bootstrap.css"/>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="${ STATIC_URL }homepage/media/Bootstrap/js/bootstrap.min.js"></script>
+    <!--icon line  -->
 
     ## render the css with the same name as this page
     ${ get_template_css(self, request, context) }
 
-    <%block name="site_icon">
-      <div id="site_icon">
-        <img src="${ STATIC_URL }homepage/media/OM.jpg" alt="Trash in Memphis"/>
-      </div>
+    <%block name="icon_logo">
+    <link rel="icon" type="image/png" href="${ STATIC_URL }homepage/media/Logo.png"/>
     </%block>
+
+
 
   </head>
-  <body>
+<body>
 
-    <header>
-      Welcome to the homepage app!
-    </header>
+  <div class="container-fluid" id="header_main">
+    <div class="row">
+        <div class="col-md-12">
+          <%block name ="header_main">
+          </%block>
+        </div><!--col -->
+    </div><!--row -->
+  </div> <!--container -->
 
-    <%block name="content">
-      Site content goes here in sub-templates.
-    </%block>
 
-    ## render the JS with the same name as this page
-    ${ get_template_js(self, request, context) }
 
-  </body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+          <div class="navbar-header">
+                <a class="navbar-brand" title = "Family Organization Music Oriented" a href="/homepage/index/">
+                  <img src = "${ STATIC_URL}homepage/media/Logo.png" class="icon" alt = "Awesome logo"/>
+                </a>
+          </div>
+          <ul class="nav navbar-nav">
+              <%block name="nav_bar">
+               </%block>
+             </ul>
+     <ul class="nav navbar-nav navbar-right">
+        %if user.is_authenticated:
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Account<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/account/index/"><span class="glyphicon glyphicon-user"></span> My Account </a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/account/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          </ul>
+
+        </li>
+        %else:
+            <li><a href="/account/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </li>
+        %endif
+      </ul>
+      </div>
+    </nav>
+
+
+  <div class="container-fluid">
+    <div class="row" id="body_section_above">
+      <div class="alert alert-warning alert-dismissible" role="alert" id="header_message">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%block name="header_message">
+        <strong>Hello!</strong> Welcome to FOMO.
+        </%block>
+      </div>
+        <div class="col-md-12">
+          <%block name="body_section_above">
+          </%block>
+        </div><!--col -->
+    </div><!--row -->
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" id="body_section_above_middle">
+          <%block name="body_section_above_middle">
+          </%block>
+        </div><!--col -->
+    </div><!--row -->
+
+    <div class="row">
+        <div class="col-md-3" id="body_section_left">
+          <%block name="body_section_left">
+          </%block>
+        </div><!--col -->
+        <div class="col-md-6" id="body_section_middle">
+            <%block name="body_section_middle">
+            </%block>
+        </div><!--col -->
+        <div class="col-md-3" id="body_section_right">
+          <%block name="body_section_right">
+          </%block>
+        </div><!--col -->
+    </div><!--row -->
+
+    <div class="row" id="body_section_below">
+        <div class="col-md-12">
+          <%block name="body_section_below">
+          </%block>
+        </div><!--col -->
+    </div><!--row -->
+
+    <div class="row" id="body_footer">
+        <div class="col-md-12">
+          <%block name="body_footer">
+          <% from datetime import datetime %>
+             &copy; Copyright ${ datetime.now().year}. All rights reserved.
+          </%block>
+        </div><!--col -->
+    </div><!--row -->
+  </div> <!--container -->
+
+      ## render the JS with the same name as this page
+      ${ get_template_js(self, request, context) }
+
+</body>
 </html>

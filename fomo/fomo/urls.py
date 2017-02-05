@@ -13,14 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
-from django_mako_plus import route_request
+
 from django.conf.urls import url, include
+from django.contrib import admin
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # the django_mako_plus controller handles every request - this line is the glue that connects Mako to Django
-    url(r'^.*$', route_request),
     url('', include('django_mako_plus.urls')),
 ]

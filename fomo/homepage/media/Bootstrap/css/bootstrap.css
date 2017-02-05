@@ -4169,10 +4169,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
+
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;/*margin bottome was 20px*/
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
