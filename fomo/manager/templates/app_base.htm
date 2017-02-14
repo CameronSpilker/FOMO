@@ -1,0 +1,11 @@
+<%inherit file="/homepage/templates/base.htm" />
+
+<%block name="nav_bar">
+<!--NAV BAR-->
+             <li class="${ 'active' if(request.dmp_router_page == 'index') else '' }"><a href="/homepage/index/">Home</a></li>
+             <li class="${ 'active' if(request.dmp_router_page == 'catalog') else '' }"><a href="/homepage/catalog/">Catalog</a></li>
+             <li class="${ 'active' if(request.dmp_router_page == 'contact') else '' }"><a href="/homepage/contact/">Contact Us</a></li>
+             <li class="${ 'active' if(request.dmp_router_page == 'terms') else '' }"><a href="/homepage/terms/">Terms</a></li>
+             <li class="${ 'active' if(request.dmp_router_page == 'sections') else '' }"><a href="/homepage/sections/">Sections</a></li>
+             <li class="${ 'active' if(request.dmp_router_page == 'faq') else '' }"><a href="/homepage/faq/">FAQ</a></li>
+  </%block>

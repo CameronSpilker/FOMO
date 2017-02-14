@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'homepage',
     'account',
     'catalog',
+    'manager'
+
 ]
 
 MIDDLEWARE = [

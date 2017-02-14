@@ -1,0 +1,10 @@
+<%inherit file="app_base.htm" />
+
+<%block name="body_section_middle">
+
+  % for p in products:
+    ${ p.name }
+  % endfor
+
+
+</%block>
