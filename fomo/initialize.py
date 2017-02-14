@@ -4,10 +4,16 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'fomo.settings'
 import django
 django.setup()
 
+
+#imports for our project
 from django.core import management
 from django.db import connection
 from account.models import FomoUser
+from catalog import models as cmod
+
 from datetime import datetime
+from decimal import Decimal
+
 # ensure the user really wants to do this
 areyousure = input('''
   You are about to drop and recreate the entire database.
@@ -45,18 +51,108 @@ management.call_command('makemigrations')
 management.call_command('migrate')
 
 
+
+#create a Category
+cat1 = cmod.Category()
+cat1.codename = 'Kids'
+cat1.name = 'Kids Toy Products'
+cat1.save()
+
+cat2 = cmod.Category()
+cat2.codename = 'Rentals'
+cat2.name = 'Rental Instruments'
+cat2.save()
+
+cat3 = cmod.Category()
+cat3.codename = 'Strings'
+cat3.name = 'String Instruments'
+cat3.save()
+
+
+# this is a query you pull from database
+#cat2 = Category.objects.get(codename='strings')
+
+
+#create a UniqueProduct
+p0 = cmod.UniqueProduct()
+p0.name = 'Guitar'
+p0.category = cat3
+p0.price = Decimal('99.50')#'' makes it a decimal,
+p0.serial_number = 'ADI3834B32434D3432175'
+p0.save()
+
+p1 = cmod.UniqueProduct()
+p1.name = 'Violin'
+p1.category = cat3
+p1.price = Decimal('685.50')#'' makes it a decimal,
+p1.serial_number = 'IDFJOI73492OIDF'
+p1.save()
+
+p3 = cmod.UniqueProduct()
+p3.name = 'Cello'
+p3.category = cat3
+p3.price = Decimal('474.50')#'' makes it a decimal,
+p3.serial_number = '48548DIUFHOS98454'
+p3.save()
+
+#create a BulkProduct
+p4 = cmod.BulkProduct()
+p4.name = 'Kazoo'
+p4.category = cat1
+p4.price = Decimal('9.50')#'' makes it a decimal,
+p4.quantity = 20
+p4.reorder_trigger = 5
+p4.reorder_quantity = 30
+p4.save()
+
+p5 = cmod.BulkProduct()
+p5.name = 'Harmonica'
+p5.category = cat1
+p5.price = Decimal('6.59')#'' makes it a decimal,
+p5.quantity = 13
+p5.reorder_trigger = 2
+p5.reorder_quantity = 20
+p5.save()
+
+p6 = cmod.BulkProduct()
+p6.name = 'Recorder'
+p6.category = cat1
+p6.price = Decimal('2.50')#'' makes it a decimal,
+p6.quantity = 10
+p6.reorder_trigger = 3
+p6.reorder_quantity = 15
+p6.save()
+
+#create a RentalProduct
+p7 = cmod.RentalProduct()
+p7.name = 'Tuba'
+p7.category = cat2
+p7.price = Decimal('499.99')
+p7.serial_number = '903EROID8034DF'
+
+p8 = cmod.RentalProduct()
+p8.name = 'Trumpet'
+p8.category = cat2
+p8.price = Decimal('122.99')
+p8.serial_number = '343DFOIDNFD'
+
+p9 = cmod.RentalProduct()
+p9.name = 'Trombone'
+p9.category = cat2
+p9.price = Decimal('342.99')
+p9.serial_number = '454DFOSDOINDF'
+
 # imports for our project
 
 
 u1 = FomoUser()
-u1.get_age()
 u1.username = 'Cougar'
 print(u1.first_name)
 u1.first_name = 'Ricky'
 u1.last_name = 'Bobby'
 u1.set_password('1234')
 u1.email = 'email'
-u1.birthdate = datetime.now()
+u1.birthdate = datetime(2017, 1, 23, 1, 23)
 u1.gender = 'M'
 u1.shipping_address = 'shipping address'
 u1.billing_address = 'billing address'
@@ -64,9 +160,10 @@ u1.last_login = datetime(2017, 1, 23, 1, 23)
 u1.credit_card = '5678'
 u1.cc_exp_date = datetime.now()
 u1.cc_code = '123'
-u1.date_joined = datetime.now
+u1.date_joined = datetime.now()
 u1.is_staff = True
 u1.is_admin = True
+u1.is_superuser
 u1.save()
 
 # u11 = FomoUser.objects.exclude(last_name = 'Smith')

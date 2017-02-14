@@ -7,11 +7,7 @@ class FomoUser(AbstractUser):
 #username
 #password
 #
-# CONTACT_CHOICES = (
-# ['text', 'Test'],
-# ['email', 'Email'],
-# ['voice', 'Voice'],
-# )
+
 
 
     birthdate = models.DateTimeField(null=True)
@@ -21,7 +17,7 @@ class FomoUser(AbstractUser):
     credit_card = models.CharField(max_length=20)
     cc_exp_date = models.DateTimeField(null=True)
     cc_code = models.CharField(max_length=4)
-    # pref_contact = models.CharField(null=True, blank=True, choices=CONTACT_CHOICES)
+
 
     def get_age(self):
         age = datetime.datetime.now() - self.birthdate
