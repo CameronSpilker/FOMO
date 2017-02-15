@@ -8,6 +8,8 @@ class Category(models.Model):
     codename = models.TextField(blank=True, null=True)
     name = models.TextField(blank=True, null=True)
 
+    def __str__(self):
+        return self.name
 
 #Product
 class Product(PolymorphicModel):
@@ -45,6 +47,7 @@ class UniqueProduct(Product):
     #modified_date
     serial_number = models.TextField()
 
+#RentalProduct
 class RentalProduct(Product):
     #id
     #name

@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'homepage',
     'account',
     'catalog',
-    'manager'
+    'manager',
+    'formlib',
 
 ]
 

@@ -2,9 +2,33 @@
 
 <%block name="body_section_middle">
 
-  % for p in products:
-    ${ p.name }
-  % endfor
+<table class="table table-striped">
+    <tr>
+      <th>Category</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Serial Number</th>
+      <th>Actions</th>
+    </tr>
 
+  % for p in products:
+
+    <tr>
+        <td>${ p.category.name }</td>
+        <td>${ p.name }</td>
+        <td>${ p.price }</td>
+        <td>${ p.quantity if hasattr(p, 'quantity') else '-'}</td>
+        <!-- duck typing -->
+        <td>${ p.serial_number if hasattr(p, 'serial_number') else '-'}
+        </td>
+        <td>
+            <a href="/manager/product/${ p.id }/">Edit</a>
+            |
+            <a href="/manager/product.delete/${ p.id }/">Delete</a>
+        </td>
+    </tr>
+  % endfor
+</table>
 
 </%block>

@@ -74,19 +74,19 @@ cat3.save()
 
 
 #create a UniqueProduct
-p0 = cmod.UniqueProduct()
-p0.name = 'Guitar'
-p0.category = cat3
-p0.price = Decimal('99.50')#'' makes it a decimal,
-p0.serial_number = 'ADI3834B32434D3432175'
-p0.save()
-
 p1 = cmod.UniqueProduct()
-p1.name = 'Violin'
+p1.name = 'Guitar'
 p1.category = cat3
-p1.price = Decimal('685.50')#'' makes it a decimal,
-p1.serial_number = 'IDFJOI73492OIDF'
+p1.price = Decimal('99.50')#'' makes it a decimal,
+p1.serial_number = 'ADI3834B32434D3432175'
 p1.save()
+
+p2 = cmod.UniqueProduct()
+p2.name = 'Violin'
+p2.category = cat3
+p2.price = Decimal('685.50')#'' makes it a decimal,
+p2.serial_number = 'IDFJOI73492OIDF'
+p2.save()
 
 p3 = cmod.UniqueProduct()
 p3.name = 'Cello'
@@ -129,18 +129,21 @@ p7.name = 'Tuba'
 p7.category = cat2
 p7.price = Decimal('499.99')
 p7.serial_number = '903EROID8034DF'
+p7.save()
 
 p8 = cmod.RentalProduct()
 p8.name = 'Trumpet'
 p8.category = cat2
 p8.price = Decimal('122.99')
 p8.serial_number = '343DFOIDNFD'
+p8.save()
 
 p9 = cmod.RentalProduct()
 p9.name = 'Trombone'
 p9.category = cat2
 p9.price = Decimal('342.99')
 p9.serial_number = '454DFOSDOINDF'
+p9.save()
 
 # imports for our project
 
