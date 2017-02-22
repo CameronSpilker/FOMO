@@ -6,9 +6,6 @@ class FomoUser(AbstractUser):
 
 #username
 #password
-#
-
-
 
     birthdate = models.DateTimeField(null=True)
     gender = models.CharField(max_length=1)

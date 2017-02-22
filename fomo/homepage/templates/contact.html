@@ -2,10 +2,13 @@
 
 <%block name="body_section_middle">
 
-<form method="post">
-  ${ csrf_input } 
+
+${ form }
+
+<!-- <form method="post">
+  ${ csrf_input }
   ${ form.as_p() }
   <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</form> -->
 
 </%block>

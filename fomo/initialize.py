@@ -8,8 +8,11 @@ django.setup()
 #imports for our project
 from django.core import management
 from django.db import connection
-from account.models import FomoUser
+from account import models as amod
+from django.contrib.auth.models import Permission, Group
+from django.contrib.contenttypes.models import ContentType
 from catalog import models as cmod
+
 
 from datetime import datetime
 from decimal import Decimal
@@ -51,6 +54,66 @@ management.call_command('makemigrations')
 management.call_command('migrate')
 
 
+#create some default permissions for our system
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename = 'add_product', name = 'Add a new product to our system',content_type = content_type,)
+
+#create a few groups
+#you are always checking permissions
+######does u1 have "add_fomouser" permission###################
+g1 = Group()
+g1.name = 'Owner'
+g1.save()
+
+g1.permissions.add(Permission.objects.get(codename=('add_product')))
+
+g1.permissions.add(Permission.objects.get(codename=('add_fomouser')))
+g1.permissions.add(Permission.objects.get(codename=('change_fomouser')))
+g1.permissions.add(Permission.objects.get(codename=('delete_fomouser')))
+
+g1.permissions.add(Permission.objects.get(codename=('add_logentry')))
+g1.permissions.add(Permission.objects.get(codename=('change_logentry')))
+g1.permissions.add(Permission.objects.get(codename=('delete_logentry')))
+
+g1.permissions.add(Permission.objects.get(codename=('add_group')))
+g1.permissions.add(Permission.objects.get(codename=('change_group')))
+g1.permissions.add(Permission.objects.get(codename=('delete_group')))
+
+g1.permissions.add(Permission.objects.get(codename=('add_permission')))
+g1.permissions.add(Permission.objects.get(codename=('change_permission')))
+g1.permissions.add(Permission.objects.get(codename=('delete_permission')))
+
+g1.permissions.add(Permission.objects.get(codename=('add_contenttype')))
+g1.permissions.add(Permission.objects.get(codename=('change_contenttype')))
+g1.permissions.add(Permission.objects.get(codename=('delete_contenttype')))
+
+g1.permissions.add(Permission.objects.get(codename=('add_session')))
+g1.permissions.add(Permission.objects.get(codename=('change_session')))
+g1.permissions.add(Permission.objects.get(codename=('delete_session')))
+
+g2 = Group()
+g2.name = 'Salesperson'
+g2.save()
+
+g2.permissions.add(Permission.objects.get(codename=('add_fomouser')))
+g2.permissions.add(Permission.objects.get(codename=('change_fomouser')))
+g2.permissions.add(Permission.objects.get(codename=('delete_fomouser')))
+
+
+g3 = Group()
+g3.name = 'Admin'
+g3.save()
+
+g3.permissions.add(Permission.objects.get(codename=('add_fomouser')))
+g3.permissions.add(Permission.objects.get(codename=('change_fomouser')))
+g3.permissions.add(Permission.objects.get(codename=('delete_fomouser')))
+
+
+# for p in Permission.objects.all()
+#     print(p.codename, '>', p.name)
+#
+#
+#
 
 #create a Category
 cat1 = cmod.Category()
@@ -148,7 +211,7 @@ p9.save()
 # imports for our project
 
 
-u1 = FomoUser()
+u1 = amod.FomoUser()
 u1.username = 'Cougar'
 print(u1.first_name)
 u1.first_name = 'Ricky'
@@ -164,10 +227,17 @@ u1.credit_card = '5678'
 u1.cc_exp_date = datetime.now()
 u1.cc_code = '123'
 u1.date_joined = datetime.now()
-u1.is_staff = True
-u1.is_admin = True
-u1.is_superuser
+# u1.is_staff = True
+# u1.is_admin = True
+# u1.is_superuser = True
 u1.save()
+
+u1.groups.add(g1)
+# p = Permission.objects.get(codename=('add_fomouser'))
+# u1.user_permissions.add(p)
+
+# for p in Permission.objects.all():
+#     u1.user_permissions.add(p)
 
 # u11 = FomoUser.objects.exclude(last_name = 'Smith')
 # print(u11.last_name)
@@ -175,7 +245,7 @@ u1.save()
 #     print(c, c.first_name, c.last_name)
 
 
-u2 = FomoUser()
+u2 = amod.FomoUser()
 u2.first_name = 'Martha'
 u2.last_name = 'Smith'
 u2.username = 'msmith'
@@ -195,7 +265,7 @@ u2.save()
 
 # print(u2.username)
 
-u3 = FomoUser()
+u3 = amod.FomoUser()
 u3.username = 'username2'
 u3.first_name = 'first_name2'
 u3.last_name = 'last_name2'
@@ -215,7 +285,7 @@ u3.save()
 # print(u3.username)
 
 
-u4 = FomoUser()
+u4 = amod.FomoUser()
 u4.first_name = 'Tanner'
 u4.last_name = 'Schmoekel'
 u4.set_password('hellothere')
