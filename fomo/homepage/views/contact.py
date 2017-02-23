@@ -54,9 +54,16 @@ class ContactForm(FormMixIn, forms.Form):
         ['technical', 'I have a technical issue'],
         ['login', "I can't login"],
     ]
+
     def init(self):
         self.fields['name'] = forms.CharField(label='Full Name', max_length=100)
-        self.fields['email'] = forms.EmailField(label='Email', max_length=100)
+        self.fields['contacttype'] = forms.ChoiceField(label='Contact Type', choices=[
+                ['phone', 'Phone Number'],
+                ['email', 'Email Address'],
+        ], initial='phone')
+        self.fields['email'] = forms.EmailField(label='Email', max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-email'}))
+        self.fields['phone'] = forms.EmailField(label='Phone', max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
+        self.fields['cell'] = forms.EmailField(label='Cell', max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
         self.fields['subject'] = forms.ChoiceField(label='Subject', choices=ContactForm.SUBJECT_CHOICES)
         self.fields['message'] = forms.CharField(label='Message', max_length=1000, widget=forms.Textarea())
 

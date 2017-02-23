@@ -31,6 +31,8 @@ class LoginForm(FormMixIn, forms.Form):
         print('>>>>>>>>>>>>>>in the init')
         self.fields['username'] = forms.CharField(required=True)
         self.fields['password'] = forms.CharField(required=True, widget=forms.PasswordInput())
+        #on create user form
+        self.fields['datetime'] = forms.DateField(required=True)
 
 
     # def clean_username(self):
@@ -51,7 +53,7 @@ class LoginForm(FormMixIn, forms.Form):
     def commit(self):
         print('>>>>>>>>>>>>>>in the commit')
         user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
-        login(self.request, user)
+        login(request, user)
 
 #self.request
         #
