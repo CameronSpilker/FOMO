@@ -28,7 +28,7 @@ def process_request(request):
         'firstname': fomouser.first_name,
         'lastname': fomouser.last_name,
         'username': fomouser.username,
-        'password': fomouser.password,
+        # 'password': fomouser.password,
         'email': fomouser.email,
     })
     if form.is_valid():
@@ -50,7 +50,7 @@ class FomoUserEditForm(FormMixIn, forms.Form):
         self.fields['firstname'] = forms.CharField(label="First Name", max_length=100)
         self.fields['lastname'] = forms.CharField(label="Last Name", max_length=100)
         self.fields['username'] = forms.CharField(label="Username", max_length=100)
-        self.fields['password'] = forms.CharField(label="Password", max_length=100, widget=forms.PasswordInput())
+        # self.fields['password'] = forms.CharField(label="Password", max_length=100)
         self.fields['email'] = forms.EmailField(label="Email", max_length=100)
 
     def commit(self, fomouser):
@@ -58,7 +58,7 @@ class FomoUserEditForm(FormMixIn, forms.Form):
         fomouser.first_name = self.cleaned_data.get('firstname')
         fomouser.last_name = self.cleaned_data.get('lastname')
         fomouser.username = self.cleaned_data.get('username')
-        fomouser.password = self.cleaned_data.get('password')
+
         fomouser.email = self.cleaned_data.get('email')
 
         fomouser.save()

@@ -55,8 +55,8 @@ management.call_command('migrate')
 
 
 #create some default permissions for our system
-content_type = ContentType.objects.get_for_model(FomoUser)
-permission = Permission.objects.create(codename = 'add_product', name = 'Add a new product to our system',content_type = content_type,)
+# content_type = ContentType.objects.get_for_model(FomoUser)
+# permission = Permission.objects.create(codename = 'add_product', name = 'Add a new product to our system',content_type = content_type,)
 
 #create a few groups
 #you are always checking permissions
