@@ -1,0 +1,32 @@
+<%inherit file="app_base.htm" />
+
+<%block name="body_section_middle">
+
+<table class="table table-striped">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+      <!-- <th>Password</th> -->
+      <th>Email</th>
+
+    </tr>
+
+  % for f in fomouser:
+
+    <tr>
+        <td>${ f.first_name }</td>
+        <td>${ f.last_name }</td>
+        <td>${ f.username }</td>
+        <!-- <td>${ f.password }</td> -->
+        <td>${ f.email }</td>
+          <td>
+            <a href="/manager/editusers/${ f.id }/">Edit</a>
+            |
+            <a href="/manager/editusers.delete/${ f.id }/">Delete</a>
+        </td>
+    </tr>
+  % endfor
+</table>
+
+</%block>
