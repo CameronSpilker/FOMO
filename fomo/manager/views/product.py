@@ -5,9 +5,12 @@ from datetime import datetime
 from catalog import models as cmod
 from formlib.form import FormMixIn
 from django import forms
+from django.contrib.auth.decorators import login_required, permission_required
 from .. import dmp_render, dmp_render_to_string
 
 @view_function
+@login_required(login_url='/account/login/')
+@permission_required('edit_prod', login_url='/manager/permissions/')
 def process_request(request):
     try:
         product = cmod.Product.objects.get(id=request.urlparams[0])#.get is for a single product
@@ -59,6 +62,8 @@ class ProductEditForm(FormMixIn, forms.Form):
 
     ###############DELETING OF product
 @view_function
+@login_required(login_url='/account/login/')
+@permission_required('delete_prod', login_url='/manager/permissions/')
 def delete(request):
     try:
         product = cmod.Product.objects.get(id=request.urlparams[0])#.get is for a single product

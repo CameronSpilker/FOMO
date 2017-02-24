@@ -12,6 +12,7 @@ from account import models as amod
 from django.contrib.auth.models import Permission, Group
 from django.contrib.contenttypes.models import ContentType
 from catalog import models as cmod
+from account.models import FomoUser
 
 
 from datetime import datetime
@@ -55,9 +56,32 @@ management.call_command('migrate')
 
 
 #create some default permissions for our system
-# content_type = ContentType.objects.get_for_model(FomoUser)
-# permission = Permission.objects.create(codename = 'add_product', name = 'Add a new product to our system',content_type = content_type,)
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='create_prod', name='Add a new product to our system', content_type=content_type,)
 
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='delete_prod', name='Delete a product from our system', content_type=content_type,)
+
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='edit_prod', name='Edit a product in our system', content_type=content_type,)
+
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='create_user', name='Add a new user to our system', content_type=content_type,)
+
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='edit_user', name='Edit a user in our system', content_type=content_type,)
+
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='delete_user', name='Delete a user from our system', content_type=content_type,)
+
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='edit_account', name='User can edit their account', content_type=content_type,)
+
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='delete_account', name='User can delete their account', content_type=content_type,)
+
+content_type = ContentType.objects.get_for_model(FomoUser)
+permission = Permission.objects.create(codename='change_password', name='User can change their password', content_type=content_type,)
 #create a few groups
 #you are always checking permissions
 ######does u1 have "add_fomouser" permission###################
@@ -65,48 +89,41 @@ g1 = Group()
 g1.name = 'Owner'
 g1.save()
 
-g1.permissions.add(Permission.objects.get(codename=('add_product')))
+g1.permissions.add(Permission.objects.get(codename=('create_prod')))
+g1.permissions.add(Permission.objects.get(codename=('edit_prod')))
+g1.permissions.add(Permission.objects.get(codename=('delete_prod')))
 
-g1.permissions.add(Permission.objects.get(codename=('add_fomouser')))
-g1.permissions.add(Permission.objects.get(codename=('change_fomouser')))
-g1.permissions.add(Permission.objects.get(codename=('delete_fomouser')))
+g1.permissions.add(Permission.objects.get(codename=('create_user')))
+g1.permissions.add(Permission.objects.get(codename=('edit_user')))
+g1.permissions.add(Permission.objects.get(codename=('delete_user')))
 
-g1.permissions.add(Permission.objects.get(codename=('add_logentry')))
-g1.permissions.add(Permission.objects.get(codename=('change_logentry')))
-g1.permissions.add(Permission.objects.get(codename=('delete_logentry')))
-
-g1.permissions.add(Permission.objects.get(codename=('add_group')))
-g1.permissions.add(Permission.objects.get(codename=('change_group')))
-g1.permissions.add(Permission.objects.get(codename=('delete_group')))
-
-g1.permissions.add(Permission.objects.get(codename=('add_permission')))
-g1.permissions.add(Permission.objects.get(codename=('change_permission')))
-g1.permissions.add(Permission.objects.get(codename=('delete_permission')))
-
-g1.permissions.add(Permission.objects.get(codename=('add_contenttype')))
-g1.permissions.add(Permission.objects.get(codename=('change_contenttype')))
-g1.permissions.add(Permission.objects.get(codename=('delete_contenttype')))
-
-g1.permissions.add(Permission.objects.get(codename=('add_session')))
-g1.permissions.add(Permission.objects.get(codename=('change_session')))
-g1.permissions.add(Permission.objects.get(codename=('delete_session')))
 
 g2 = Group()
 g2.name = 'Salesperson'
 g2.save()
 
-g2.permissions.add(Permission.objects.get(codename=('add_fomouser')))
-g2.permissions.add(Permission.objects.get(codename=('change_fomouser')))
-g2.permissions.add(Permission.objects.get(codename=('delete_fomouser')))
+g2.permissions.add(Permission.objects.get(codename=('create_prod')))
+g2.permissions.add(Permission.objects.get(codename=('edit_prod')))
+g2.permissions.add(Permission.objects.get(codename=('delete_prod')))
+
 
 
 g3 = Group()
 g3.name = 'Admin'
 g3.save()
 
-g3.permissions.add(Permission.objects.get(codename=('add_fomouser')))
-g3.permissions.add(Permission.objects.get(codename=('change_fomouser')))
-g3.permissions.add(Permission.objects.get(codename=('delete_fomouser')))
+g3.permissions.add(Permission.objects.get(codename=('create_user')))
+g3.permissions.add(Permission.objects.get(codename=('edit_user')))
+g3.permissions.add(Permission.objects.get(codename=('delete_user')))
+
+
+g4 = Group()
+g4.name = 'Customer'
+g4.save()
+
+g4.permissions.add(Permission.objects.get(codename=('edit_account')))
+g4.permissions.add(Permission.objects.get(codename=('change_password')))
+g4.permissions.add(Permission.objects.get(codename=('delete_account')))
 
 
 # for p in Permission.objects.all()
@@ -225,6 +242,7 @@ u1.billing_address = 'billing address'
 u1.last_login = datetime(2017, 1, 23, 1, 23)
 u1.credit_card = '5678'
 u1.cc_exp_date = datetime.now()
+print('>>>>>>>>>', u1.cc_exp_date)
 u1.cc_code = '123'
 u1.date_joined = datetime.now()
 # u1.is_staff = True
@@ -233,6 +251,9 @@ u1.date_joined = datetime.now()
 u1.save()
 
 u1.groups.add(g1)
+
+
+
 # p = Permission.objects.get(codename=('add_fomouser'))
 # u1.user_permissions.add(p)
 
@@ -248,8 +269,8 @@ u1.groups.add(g1)
 u2 = amod.FomoUser()
 u2.first_name = 'Martha'
 u2.last_name = 'Smith'
-u2.username = 'msmith'
-u2.set_password('password')
+u2.username = 'admin'
+u2.set_password('admin')
 u2.email = 'mamaoffive@gmail.com'
 u2.birthdate = datetime(2002, 12, 25, 0, 0)
 u2.gender = 'F'
@@ -262,7 +283,7 @@ u2.cc_code = '001'
 u2.cc_exp_date = datetime(2019, 9, 1, 0, 0)
 u2.save()
 
-
+u2.groups.add(g2)
 # print(u2.username)
 
 u3 = amod.FomoUser()
@@ -282,14 +303,16 @@ u3.cc_exp_date = datetime.now()
 u3.cc_code = "1234"
 u3.save()
 
+u3.groups.add(g4)
+
 # print(u3.username)
 
 
 u4 = amod.FomoUser()
 u4.first_name = 'Tanner'
 u4.last_name = 'Schmoekel'
-u4.set_password('hellothere')
-u4.username = 'tttt'
+u4.set_password('sales')
+u4.username = 'sales'
 u4.email = 'tschmoek@gmail.com'
 u4.billing_address = '123 hello st'
 u4.shipping_address = '483 mystreet'
@@ -301,5 +324,7 @@ u4.last_login = datetime.now()
 u4.cc_code = '123'
 u4.credit_card = "5555555"
 u4.save();
+
+u4.groups.add(g3)
 
 # print(u4.username)

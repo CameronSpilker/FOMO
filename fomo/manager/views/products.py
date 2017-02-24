@@ -3,9 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django_mako_plus import view_function
 from datetime import datetime
 from catalog import models as cmod
+from django.contrib.auth.decorators import login_required, permission_required
 from .. import dmp_render, dmp_render_to_string
 
 @view_function
+@login_required(login_url='/account/login/')
+# @permission_required('edit_prod', login_url='/manager/permissions/')
 def process_request(request):
     #query all products
     # .all()

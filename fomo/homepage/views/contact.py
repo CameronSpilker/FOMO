@@ -3,12 +3,13 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django_mako_plus import view_function
 from formlib.form import FormMixIn
+from django.contrib.auth.decorators import login_required, permission_required
 
 from .. import dmp_render, dmp_render_to_string
 
 
 @view_function
-# @login_required
+@login_required(login_url='/account/login/')
 # # #you are suppose to add this permission to the group
 # @permission_required('account.contactus', raise_exception=True)#account.contactus is an example
 def process_request(request):
@@ -36,7 +37,7 @@ def process_request(request):
         form.commit()
         email = form.cleaned_data.get('email')
         #send mail
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/homepage/successcontact/')
 
 
 
@@ -61,9 +62,9 @@ class ContactForm(FormMixIn, forms.Form):
                 ['phone', 'Phone Number'],
                 ['email', 'Email Address'],
         ], initial='phone')
-        self.fields['email'] = forms.EmailField(label='Email', max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-email'}))
-        self.fields['phone'] = forms.EmailField(label='Phone', max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
-        self.fields['cell'] = forms.EmailField(label='Cell', max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
+        self.fields['email'] = forms.EmailField(label='Email', required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-email'}))
+        self.fields['phone'] = forms.CharField(label='Phone', required=False,  max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
+        self.fields['cell'] = forms.CharField(label='Cell', required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
         self.fields['subject'] = forms.ChoiceField(label='Subject', choices=ContactForm.SUBJECT_CHOICES)
         self.fields['message'] = forms.CharField(label='Message', max_length=1000, widget=forms.Textarea())
 

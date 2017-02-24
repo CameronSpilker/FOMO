@@ -5,26 +5,28 @@ from datetime import datetime
 from account import models as amod
 from formlib.form import FormMixIn
 from django import forms
+from django.contrib.auth.decorators import login_required, permission_required
 from .. import dmp_render, dmp_render_to_string
 
 @view_function
+@login_required(login_url='/account/login/')
 def process_request(request):
     print(">>>>>>>in is request")
 
-    form = SignUpPageForm(request)
+    form = CreateUserForm(request)
     if form.is_valid():
         print(">>>>>>>in is valid")
         form.commit()
-        return HttpResponseRedirect('/account/successsignup/')
+        return HttpResponseRedirect('/manager/edituserstable/')
 
 
     context = {
         'form': form,
 
     }
-    return dmp_render(request, 'signup.html', context)
+    return dmp_render(request, 'createuser.html', context)
 
-class SignUpPageForm(FormMixIn, forms.Form):
+class CreateUserForm(FormMixIn, forms.Form):
 
     def init(self):
         print(">>>>>>>in init")
@@ -37,7 +39,7 @@ class SignUpPageForm(FormMixIn, forms.Form):
                     ])
         self.fields['email'] = forms.EmailField(label="Email")
         self.fields['username'] = forms.CharField(label="Username", max_length=100)
-        self.fields['password'] = forms.CharField(label="Password", widget=forms.PasswordInput())
+        self.fields['set_password'] = forms.CharField(label="Password")
         self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
         self.fields['billing_address'] = forms.CharField(label="Billing Address", max_length=100)
         self.fields['birthdate'] = forms.DateField(label="Birthdate")
@@ -62,7 +64,7 @@ class SignUpPageForm(FormMixIn, forms.Form):
         fomouser.last_name = self.cleaned_data.get('last_name')
         fomouser.email = self.cleaned_data.get('email')
         fomouser.username = self.cleaned_data.get('username')
-        fomouser.set_password(self.cleaned_data.get('password'))
+        fomouser.set_password(self.cleaned_data.get('set_password'))
         fomouser.shipping_address = self.cleaned_data.get('shipping_address')
         fomouser.billing_address = self.cleaned_data.get('billing_address')
         fomouser.birthdate = self.cleaned_data.get('birthdate')

@@ -12,13 +12,14 @@ from .. import dmp_render, dmp_render_to_string
 @login_required(login_url='/account/login/')
 def process_request(request):
     print('>>>>>>>process request')
+
     try:
         print('>>>>>>>process request try')
         fomouser = amod.FomoUser.objects.get(id=request.urlparams[0])#.get is for a single product
         print('>>>', request.urlparams[0])
     except amod.FomoUser.DoesNotExist:
         print('>>>>>>>process request except')
-        return HttpResponseRedirect('/manager/edituserstable/')
+        return HttpResponseRedirect('/account/myinfo/')
 
 #create a form to edit the product information
 #the inital data will be the product information
@@ -27,7 +28,7 @@ def process_request(request):
 #   product.save()
 
 #process the form
-    form = FomoUserEditForm(request, fomouser=fomouser, initial={
+    form = EditUserForm(request, fomouser=fomouser, initial={
         'first_name': fomouser.first_name,
         'last_name': fomouser.last_name,
         'username': fomouser.username,
@@ -40,16 +41,16 @@ def process_request(request):
     if form.is_valid():
         print('>>>>>>>form is valid')
         form.commit(fomouser)
-        return HttpResponseRedirect('/manager/edituserstable/')
+        return HttpResponseRedirect('/account/myinfo/')
 
 
     context = {
         'fomouser':fomouser,
         'form': form,
     }
-    return dmp_render(request, 'editusers.html', context)
+    return dmp_render(request, 'myinfoedit.html', context)
 
-class FomoUserEditForm(FormMixIn, forms.Form):
+class EditUserForm(FormMixIn, forms.Form):
 
     def init(self, fomouser):
         print('>>>>>>>init')
@@ -91,7 +92,7 @@ def delete(request):
     try:
         fomouser = amod.FomoUser.objects.get(id=request.urlparams[0])#.get is for a single product
     except amod.FomoUser.DoesNotExist:
-        return HttpResponseRedirect('/manager/edituserstable/')
+        return HttpResponseRedirect('/account/myinfo/')
 
     fomouser.delete()
-    return HttpResponseRedirect('/manager/edituserstable/')
+    return HttpResponseRedirect('/account/myinfo/')

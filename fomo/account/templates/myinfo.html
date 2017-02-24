@@ -1,0 +1,63 @@
+<%inherit file="/homepage/templates/app_base.htm" />
+
+<%block name="body_section_middle">
+<div class='row'>
+  <div class='col-md-3'>
+  </div>
+    <div class='col-md-6'>
+      <table class="table table-striped">
+          <tr>
+            <th>First Name</th>
+            <td>${ fomouser.first_name }</td>
+          </tr>
+          <tr>
+            <th>Last Name</th>
+            <td>${ fomouser.last_name }</td>
+          </tr>
+          <tr>
+            <th>Username</th>
+            <td>${ fomouser.username }</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>${ fomouser.email }</td>
+          </tr>
+          <tr>
+              <th>Birthdate</th>
+              <td>${ fomouser.birthdate }</td>
+            </tr>
+          <tr>
+            <th>Gender</th>
+            <td>${ fomouser.gender }</td>
+          </tr>
+          <tr>
+            <th>Shipping Address</th>
+            <td>${ fomouser.shipping_address }</td>
+          </tr>
+          <tr>
+            <th>Billing Address</th>
+            <td>${ fomouser.billing_address }</td>
+          </tr>
+          <tr>
+            <th>Credit Card</th>
+            <td>${ fomouser.credit_card }</td>
+          </tr>
+          <tr>
+            <th>CC Exp Date</th>
+            <td>${ fomouser.cc_exp_date }</td>
+          </tr>
+          <tr>
+            <th>CC Code</th>
+            <td>${ fomouser.cc_code }</td>
+          </tr>
+
+
+      </table>
+    </div>
+</div>
+
+<div class='text-center'>
+<a href='/account/myinfoedit/${ fomouser.id }' type="button" class="btn btn-primary btn-md">Edit Account</a>
+<a href='/account/changepassword/${ fomouser.id }' type="button" class="btn btn-primary btn-md">Change Password</a>
+</div>
+</%block>
