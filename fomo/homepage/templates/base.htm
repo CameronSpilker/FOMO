@@ -50,21 +50,26 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
           <div class="navbar-header">
+            %if user.has_perm('account.add_fomouser') and user.has_perm('catalog.add_product'):
                 <a class="navbar-brand" title = "Family Organization Music Oriented" a href="/homepage/index/">
                   <img src = "${ STATIC_URL}homepage/media/Logo.png" class="icon" alt = "Awesome logo"/>
                 </a>
+            %else:
+                  <a class="navbar-brand" title = "Family Organization Music Oriented" a href="/homepage/index/">
+                    <img src = "${ STATIC_URL}homepage/media/Logo.png" class="icon" alt = "Awesome logo"/>
+                  </a>
+            %endif
           </div>
           <ul class="nav navbar-nav">
               <%block name="nav_bar">
                </%block>
              </ul>
      <ul class="nav navbar-nav navbar-right">
-        %if user.is_authenticated:
+        %if request.user.is_authenticated:
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> ${ user.username }'s Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/account/index/">My Account </a></li>
-            <li><a href="/account/changepassword/">Change Password </a></li>
+            <li><a href="/manager/index/">My Account </a></li>
             <li><a href="/account/myinfo/">My Information</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/account/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

@@ -9,7 +9,6 @@ from .. import dmp_render, dmp_render_to_string
 
 
 @view_function
-@login_required(login_url='/account/login/')
 # # #you are suppose to add this permission to the group
 # @permission_required('account.contactus', raise_exception=True)#account.contactus is an example
 def process_request(request):

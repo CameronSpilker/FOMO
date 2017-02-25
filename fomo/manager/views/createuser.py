@@ -5,11 +5,13 @@ from datetime import datetime
 from account import models as amod
 from formlib.form import FormMixIn
 from django import forms
+from django.contrib.auth.models import Permission, Group
 from django.contrib.auth.decorators import login_required, permission_required
 from .. import dmp_render, dmp_render_to_string
 
 @view_function
 @login_required(login_url='/account/login/')
+@permission_required('account.add_fomouser', login_url='/manager/permissions/')
 def process_request(request):
     print(">>>>>>>in is request")
 
@@ -47,6 +49,9 @@ class CreateUserForm(FormMixIn, forms.Form):
         self.fields['cc_exp_date'] = forms.DateField(label="Credit Card Expiration Date")
         self.fields['cc_code'] = forms.CharField(label="Credit Card CVS Code", max_length=4)
 
+        self.fields['groups'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), required=False)
+        self.fields['permissions'] = forms.ModelMultipleChoiceField(queryset=Permission.objects.all(), required=False)
+
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -59,7 +64,6 @@ class CreateUserForm(FormMixIn, forms.Form):
         print(">>>>>>>in commit")
 
         fomouser = amod.FomoUser()
-
         fomouser.first_name = self.cleaned_data.get('first_name')
         fomouser.last_name = self.cleaned_data.get('last_name')
         fomouser.email = self.cleaned_data.get('email')
@@ -73,4 +77,7 @@ class CreateUserForm(FormMixIn, forms.Form):
         fomouser.cc_code = self.cleaned_data.get('cc_code')
 
 
+        fomouser.save()
+        fomouser.user_permissions.set(self.cleaned_data.get('permissions'))
+        fomouser.groups.set(self.cleaned_data.get('groups'))
         fomouser.save()

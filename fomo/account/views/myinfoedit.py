@@ -95,4 +95,4 @@ def delete(request):
         return HttpResponseRedirect('/account/myinfo/')
 
     fomouser.delete()
-    return HttpResponseRedirect('/account/myinfo/')
+    return HttpResponseRedirect('/account/successdelete/')

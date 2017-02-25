@@ -8,7 +8,7 @@ from .. import dmp_render, dmp_render_to_string
 
 @view_function
 @login_required(login_url='/account/login/')
-# @permission_required('edit_prod', login_url='/manager/permissions/')
+@permission_required('catalog.change_product', login_url='/manager/permissions/')
 def process_request(request):
     #query all products
     # .all()
@@ -22,7 +22,7 @@ def process_request(request):
         #what now?
         #return HttpResponseRedirect('/manager/products/')
 
-    products = cmod.Product.objects.order_by('name').all()
+    products = cmod.Product.objects.order_by('category').all()
     print('>>>', products)
 
 
@@ -33,6 +33,8 @@ def process_request(request):
     return dmp_render(request, 'products.html', context)
 
 @view_function
+@login_required(login_url='/account/login/')
+@permission_required('catalog.delete_product', login_url='/manager/permissions/')
 def get_quantity(request):
     #get the current quanitty of product id in url params[0]
 

@@ -11,6 +11,7 @@ from .. import dmp_render, dmp_render_to_string
 
 @view_function
 @login_required(login_url='/account/login/')
+@permission_required('account.change_fomouser', login_url='/manager/permissions/')
 def process_request(request):
     print('>>>>>>>>>>>>>>in the request')
     form = ChangePasswordForm(request)
@@ -20,7 +21,7 @@ def process_request(request):
         form.commit()
         # username = form.cleaned_data.get('username')
         # password = form.cleaned_data.get('password')
-        return HttpResponseRedirect('/account/successpass/')
+        return HttpResponseRedirect('/manager/edituserstable/')
 
     context = {
         'form': form,

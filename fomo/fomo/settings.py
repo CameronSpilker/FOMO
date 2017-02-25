@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# LOGIN_URL = '/account/login/'
+
 AUTH_USER_MODEL = 'account.FomoUser'
 # Application definition
 

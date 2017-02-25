@@ -10,7 +10,7 @@ from .. import dmp_render, dmp_render_to_string
 
 @view_function
 @login_required(login_url='/account/login/')
-@permission_required('edit_prod', login_url='/manager/permissions/')
+@permission_required('catalog.change_product', login_url='/manager/permissions/')
 def process_request(request):
     try:
         product = cmod.Product.objects.get(id=request.urlparams[0])#.get is for a single product
@@ -63,7 +63,6 @@ class ProductEditForm(FormMixIn, forms.Form):
     ###############DELETING OF product
 @view_function
 @login_required(login_url='/account/login/')
-@permission_required('delete_prod', login_url='/manager/permissions/')
 def delete(request):
     try:
         product = cmod.Product.objects.get(id=request.urlparams[0])#.get is for a single product

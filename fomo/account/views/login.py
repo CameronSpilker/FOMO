@@ -19,7 +19,10 @@ def process_request(request):
         # username = form.cleaned_data.get('username')
         # password = form.cleaned_data.get('password')
         return HttpResponseRedirect('/account/successlogin/')
-
+        # if request.GET.get('next') is not None:
+        #     return HttpResponseRedirect('/homepage/index/')
+        # else:
+        #     return HttpResponseRedirect(request.GET.get('next')
 
     return dmp_render(request, 'login.html', {
         'form':form,

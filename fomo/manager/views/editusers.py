@@ -5,11 +5,13 @@ from datetime import datetime
 from account import models as amod
 from formlib.form import FormMixIn
 from django import forms
+from django.contrib.auth.models import Permission, Group
 from django.contrib.auth.decorators import login_required, permission_required
 from .. import dmp_render, dmp_render_to_string
 
 @view_function
 @login_required(login_url='/account/login/')
+@permission_required('account.change_fomouser', login_url='/manager/permissions/')
 def process_request(request):
     print('>>>>>>>process request')
     try:
@@ -34,7 +36,9 @@ def process_request(request):
         'email' : fomouser.email,
         'shipping_address': fomouser.shipping_address,
         'billing_address': fomouser.billing_address,
-        'birthdate': fomouser.birthdate
+        'birthdate': fomouser.birthdate,
+        'groups': fomouser.groups.all(),
+        'permissions': fomouser.user_permissions.all(),
 
     })
     if form.is_valid():
@@ -60,6 +64,8 @@ class FomoUserEditForm(FormMixIn, forms.Form):
         self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
         self.fields['billing_address'] = forms.CharField(label="Billing Address", max_length=100)
         self.fields['birthdate'] = forms.DateField(label="birthdate")
+        self.fields['groups'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), required=False)
+        self.fields['permissions'] = forms.ModelMultipleChoiceField(queryset=Permission.objects.all(), required=False)
         self.fomouser = fomouser
 
 
@@ -74,6 +80,7 @@ class FomoUserEditForm(FormMixIn, forms.Form):
 
     def commit(self, fomouser):
         print('>>>>>>>commit')
+
         fomouser.first_name = self.cleaned_data.get('first_name')
         fomouser.last_name = self.cleaned_data.get('last_name')
         fomouser.username = self.cleaned_data.get('username')
@@ -81,12 +88,18 @@ class FomoUserEditForm(FormMixIn, forms.Form):
         fomouser.billing_address = self.cleaned_data.get('billing_address')
         fomouser.email = self.cleaned_data.get('email')
         fomouser.birthdate = self.cleaned_data.get('birthdate')
+        print('>>>>>>>>>>>jsut before groups')
+        print(self.cleaned_data.get('groups'))
+
+        fomouser.user_permissions.set(self.cleaned_data.get('permissions'))
 
         fomouser.save()
+        print('>>>>>>>>>>>after save')
 
     ###############DELETING OF product
 @view_function
 @login_required(login_url='/account/login/')
+@permission_required('account.delete_fomouser', login_url='/manager/permissions/')
 def delete(request):
     try:
         fomouser = amod.FomoUser.objects.get(id=request.urlparams[0])#.get is for a single product

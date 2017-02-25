@@ -10,7 +10,7 @@ from .. import dmp_render, dmp_render_to_string
 
 @view_function
 @login_required(login_url='/account/login/')
-@permission_required('create_prod', login_url='/manager/permissions/')
+@permission_required('catalog.add_product', login_url='/manager/permissions/')
 def process_request(request):
     print(">>>>>>>in is request")
 
@@ -49,8 +49,6 @@ class CreateProductForm(FormMixIn, forms.Form):
 
         #UNIQUE and rental  product
         self.fields['serial_number'] = forms.CharField(label="Serial Number", required=False, widget=forms.TextInput(attrs={'class': 'producttype-not'}))
-
-
 
 
 
