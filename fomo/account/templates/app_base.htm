@@ -3,8 +3,19 @@
 <!--ACCOUNT APP BASE  -->
 <%block name="nav_bar">
 <!--NAV BAR-->
-             <li class="${ 'active' if(request.dmp_router_page == 'information') else '' }"><a href="/account/index/">Information</a></li>
-             <li class="${ 'active' if(request.dmp_router_page == 'orders') else '' }"><a href="/account/index/">Orders</a></li>
-             <li class="${ 'active' if(request.dmp_router_page == 'other') else '' }"><a href="/homepage/index/">Other Stuff</a></li>
-             <li class="${ 'active' if(request.dmp_router_page == 'sections') else '' }"><a href="/homepage/sections/">Sections</a></li>
+
+     %if user.has_perm('account.add_fomouser') or user.has_perm('catalog.add_product'):
+     <li class="${ 'active' if(request.dmp_router_page == 'account') else '' }"><a href="/manager/index/">Account</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'products') else '' }"><a href="/manager/products/">Products</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'users') else '' }"><a href="/manager/edituserstable/">Users</a></li>
+     %else:
+     <li class="${ 'active' if(request.dmp_router_page == 'index') else '' }"><a href="/homepage/index/">Home</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'catalog') else '' }"><a href="/homepage/catalog/">Catalog</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'contact') else '' }"><a href="/homepage/contact/">Contact Us</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'terms') else '' }"><a href="/homepage/terms/">Terms</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'about') else '' }"><a href="/homepage/about/">About Us</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'sections') else '' }"><a href="/homepage/sections/">Sections</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'faq') else '' }"><a href="/homepage/faq/">FAQ</a></li>
+     %endif
+
   </%block>

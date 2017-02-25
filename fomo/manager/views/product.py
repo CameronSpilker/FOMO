@@ -28,7 +28,8 @@ def process_request(request):
         'name': product.name,
         'category': product.category,
         'price': product.price,
-        'quantity': getattr(product,'quantity', 0)
+        'quantity': getattr(product,'quantity', 0),
+        'serial_number': getattr(product,'serial_number', 0),
     })
     if form.is_valid():
         form.commit(product)
@@ -50,6 +51,8 @@ class ProductEditForm(FormMixIn, forms.Form):
         self.fields['price'] = forms.DecimalField(label="Price")
         if hasattr(product, 'quantity'):
             self.fields['quantity'] = forms.DecimalField(label="Quantity")
+        if hasattr(product, 'serial_number'):
+            self.fields['serial_number'] = forms.CharField(label="Serial Number")
 
 
     def commit(self, product):
@@ -58,6 +61,8 @@ class ProductEditForm(FormMixIn, forms.Form):
         product.price = self.cleaned_data.get('price')
         if hasattr(product, 'quantity'):
             product.quantity = self.cleaned_data.get('quantity')
+        if hasattr(product, 'serial_number'):
+            product.serial_number = self.cleaned_data.get('serial_number')
         product.save()
 
     ###############DELETING OF product
