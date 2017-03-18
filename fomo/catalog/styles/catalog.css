@@ -1,0 +1,12 @@
+#catlist{
+	
+}
+.tile-container{
+	display: inline-block;
+	
+
+}
+.tile-image > img {
+	width: 150px;
+
+}

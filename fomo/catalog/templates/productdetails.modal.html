@@ -1,0 +1,29 @@
+<%inherit file="/homepage/templates/base_ajax.htm" />
+
+<%block name="content">
+
+
+<div class="text-center">
+	<div class="text-left inline-block">
+
+
+<button id="picture_button_previous" class="btn btn-default">Previous</button>
+<button id="picture_button_next" class="btn btn-default">Next</button>
+
+%for img in picture:
+<div class="modal-image">
+	<img class = "product_picture" src= "${ img.path1 }"/>
+	<img class = "product_picture" src= "${ img.path2 }"/>
+	<img class = "product_picture" src= "${ img.path3 }"/>
+	<img class = "product_picture" src= "${ img.path4 }"/>
+</div>
+%endfor
+
+
+<!-- <img class="product_picture" src ="${ STATIC_URL }homepage/media/svg/cymbals.svg"/>
+<img class="product_picture" src ="${ STATIC_URL }homepage/media/svg/ukelele.svg"/> -->
+
+	</div>
+</div>
+
+</%block>

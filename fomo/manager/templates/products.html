@@ -2,7 +2,7 @@
 
 <%block name="body_section_middle">
 
-<a href='/manager/createproduct/' type="button" class="btn pull-right btn-primary btn-md btn-block">Create Product</a>
+<a href='/manager/createproduct/' type="button" class="btn pull-right btn-primary btn-md btn-block"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create Product</a>
 
 <table class="table table-striped">
     <tr>
@@ -22,8 +22,8 @@
         <td>${ p.price }</td>
         <td>
           %if hasattr(p, 'quantity'):
-            <button data-pid="${p.id}"class="update_quantity_button pull-right btn btn-info btn-small">Update</button>
-            <span class="quantity_text">${p.quantity}</span>
+            <button data-pid="${p.id}" class="update_quantity_button pull-right btn btn-info btn-small"><i class="fa fa-refresh fa fa-fw"></i> Update</button>
+            <span class="quantity_text">Unknown</span>
           %else:
             -
           %endif
@@ -35,9 +35,9 @@
         <td>${ p.serial_number if hasattr(p, 'serial_number') else '-'}
         </td>
         <td>
-            <a href="/manager/product/${ p.id }/">Edit</a>
+            <a href="/manager/product/${ p.id }/"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
             |
-            <a class="delete_link" href="/manager/product.delete/${ p.id }/">Delete</a>
+            <a class="delete_link" href="/manager/product.delete/${ p.id }/"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
         </td>
     </tr>
   % endfor

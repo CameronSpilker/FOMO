@@ -57,7 +57,7 @@ class CreateProductForm(FormMixIn, forms.Form):
     def commit(self):
         print(">>>>>>>in commit")
         producttype = self.cleaned_data.get('producttype')
-        print('<<<<<<<<<<<<<<<<<<<<<',producttype)
+        print('<<<<<<<<<<<<<<<<<<<<<', producttype)
         if producttype == 'bulk':
             product = cmod.BulkProduct()
 

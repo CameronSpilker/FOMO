@@ -15,14 +15,46 @@
     </title>
 
     ## add any site-wide scripts or CSS here; for example, jquery:
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="${ STATIC_URL }homepage/media/Bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="${ STATIC_URL }homepage/media/jquery.datetimepicker.min.css"></link>
     <!-- Latest compiled and minified JavaScript -->
     <script src="${ STATIC_URL }homepage/media/Bootstrap/js/bootstrap.min.js"></script>
     <script src="${ STATIC_URL }homepage/media/jquery.datetimepicker.full.js"></script>
+    <script src="${ STATIC_URL }homepage/media/Modal/jquery.loadmodal.js"></script>
+    <script src="${ STATIC_URL }homepage/media/jqueryform/jquery.form.js"></script>
+
+    
     <!--icon line  -->
+
+
+ <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="${ STATIC_URL }homepage/media/Bootstrap/css/bootstrap.css"/>
+
+    <!-- Custom CSS -->
+    <link href="${ STATIC_URL }homepage/styles/cssh/landing-page.css" rel="stylesheet"></link>
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"></link>
+
+
+
+
+
+      
+<!--         <div class="col-sm-3 col-md-3 pull-right">
+          <form class="navbar-form" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+            </div>
+         </form>
+        </div> -->
 
     ## render the css with the same name as this page
     ${ get_template_css(self, request, context) }
@@ -45,9 +77,9 @@
     </div><!--row -->
   </div> <!--container -->
 
+<!--  navbar-fixed-top topnav -->
 
-
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
           <div class="navbar-header">
             %if user.has_perm('account.add_fomouser') and user.has_perm('catalog.add_product'):
@@ -67,34 +99,36 @@
      <ul class="nav navbar-nav navbar-right">
         %if request.user.is_authenticated:
         <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> ${ user.username }'s Account<span class="caret"></span></a>
+        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>  ${ user.username }'s Account
+        <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/manager/index/">My Account </a></li>
-            <li><a href="/account/myinfo/">My Information</a></li>
+            <li><a href="/manager/index/"><i class="fa fa-user-circle" aria-hidden="true"></i> My Account </a></li>
+            <li><a href="/account/myinfo/"><i class="fa fa-id-card" aria-hidden="true"></i> My Information</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="/account/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><a href="/account/logout/"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
           </ul>
-
-        </li>
         %else:
-            <li><a href="/account/login/"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-            <li><a href="/account/signup/"><span class="glyphicon glyphicon-sign-up"></span>Sign up</a></li>
-          </ul>
-        </li>
+        
+            <!-- <li><a href="/account/login/"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li> -->
+            <li><a id="login-modal-button"> Login</a></li>
+
+            <li><a href="/account/signup/"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</a></li>
+          
         %endif
+        </li>
       </ul>
       </div>
-    </nav>
+    </nav >
 
 
   <div class="container-fluid">
     <div class="row" id="body_section_above">
-      <div class="alert alert-warning alert-dismissible" role="alert" id="header_message">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <%block name="header_message">
-        <strong>Hello!</strong> Welcome to FOMO.
-        </%block>
-      </div>
+        <!-- <div class="alert alert-warning alert-dismissible" role="alert" id="header_message">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <%block name="header_message">
+          <strong>Hello!</strong> Welcome to FOMO.
+          </%block>
+        </div> -->
       <!-- <button type="button" id="button" class=" btn btn-primary">Learn More Now!</button> -->
 
       <div class="col-md-12">
@@ -114,18 +148,28 @@
           </%block>
         </div><!--col -->
     </div><!--row -->
-
+ 
+          <%block name="hp1">
+          </%block>
+           <%block name="hp2">
+          </%block>
+           <%block name="hp3">
+          </%block>
+           <%block name="hp4">
+          </%block>
+           <%block name="hp5">
+          </%block>
 
     <div class="row">
-        <div class="col-md-3" id="body_section_left">
+        <div class="col-md-2" id="body_section_left">
           <%block name="body_section_left">
           </%block>
         </div><!--col -->
-        <div class="col-md-6" id="body_section_middle">
+        <div class="col-md-8" id="body_section_middle">
             <%block name="body_section_middle">
             </%block>
         </div><!--col -->
-        <div class="col-md-3" id="body_section_right">
+        <div class="col-md-2" id="body_section_right">
           <%block name="body_section_right">
           </%block>
         </div><!--col -->
@@ -138,15 +182,36 @@
         </div><!--col -->
     </div><!--row -->
 
-    <div class="row" id="body_footer">
-        <div class="col-md-12">
-          <%block name="body_footer">
-          <% from datetime import datetime %>
-             &copy; Copyright ${ datetime.now().year}. All rights reserved.
-          </%block>
-        </div><!--col -->
-    </div><!--row -->
-  </div> <!--container -->
+      <!-- Footer -->
+    <footer>
+        <div class="container" id="body_footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="/homepage/homepage/">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/homepage/about/">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/catalog/index1/">Products</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/homepage/contact/">Contact</a>
+                        </li>
+                    </ul>
+                      <%block name="body_footer">
+                        <% from datetime import datetime %>
+                        &copy; Copyright ${ datetime.now().year}. All rights reserved.
+                      </%block>
+                </div>
+            </div>
+        </div>
+    </footer>
 
       ## render the JS with the same name as this page
       ${ get_template_js(self, request, context) }

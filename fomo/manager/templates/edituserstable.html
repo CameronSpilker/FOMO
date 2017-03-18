@@ -1,7 +1,7 @@
 <%inherit file="app_base.htm" />
 
 <%block name="body_section_middle">
-<a href='/manager/createuser/' type="button" class="btn pull-right btn-primary btn-md btn-block">Create User</a>
+<a href='/manager/createuser/' type="button" class="btn pull-right btn-primary btn-md btn-block"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create User</a>
 <table class="table table-striped">
     <tr>
       <th>First Name</th>
@@ -9,6 +9,7 @@
       <th>Username</th>
       <!-- <th>Password</th> -->
       <th>Email</th>
+      <th>Actions</th>
 
     </tr>
 
@@ -21,11 +22,11 @@
         <!-- <td>${ f.password }</td> -->
         <td>${ f.email }</td>
           <td>
-            <a href="/manager/editusers/${ f.id }/">Edit</a>
+            <a href="/manager/editusers/${ f.id }/"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
             |
-            <a class="delete_link2" href="/manager/editusers.delete/${ f.id }/">Delete</a>
+            <a class="delete_link2" href="/manager/editusers.delete/${ f.id }/"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
             |
-            <a href="/manager/mchangepassword/${ f.id }/">Change Password</a>
+            <a href="/manager/mchangepassword/${ f.id }/"><i class="fa fa-key" aria-hidden="true"></i> Change Password</a>
         </td>
     </tr>
   % endfor

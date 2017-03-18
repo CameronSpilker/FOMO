@@ -1,0 +1,106 @@
+<%inherit file="/homepage/templates/app_base.htm" />
+
+
+
+<%block name="body_section_above">
+
+
+</%block>
+
+
+<%block name="body_section_left">
+<ul class="nav" id="leftnav">
+<!-- put a code for each class -->
+<!-- click on category, returns the same URL with a parameter, filter on the category -->
+
+	% for c in category:
+
+		%if hasattr(c, 'name'):
+			<li><a href="/catalog/index1.get_cat/${ c.id }/">${ c.name }</a></li>
+		%endif
+
+	%endfor
+<li><a href="/catalog/index1/">View all</a></li>
+
+  <div class="input-group" >
+      <input type="text" class="form-control" id="search-input" placeholder="Search for...">
+      <span class="input-group-btn" style="width: 1px">
+        <button class="btn btn-default" id="search-button" style="width: 60px;" type="button">Search</button>
+      </span>
+    </div>
+</ul>
+</%block>
+
+
+
+ <%block name="body_section_middle">
+ <div class="tile-outer">
+
+
+	<div class="tile-container" style="width: 50%">
+      <a data-pid="${product.id}" id="product-picture-modal">
+		<div class="tile-image">
+
+		<img style="height: 350px; width: auto" src='${ product.picture }'/>
+
+		</div>
+        </a>
+		<div class="tile-title">
+			<a class="btn btn-success btn-lg" style="color:white">${ product.name }</a>
+		</div>
+		<br>
+
+	</div>
+
+
+<div class="pd">
+
+<p class="pdtext">Category: ${ product.category.name }</p>
+<p class="pdtext">Description: ${product.desc }</p>
+<p class="pdtext">Name: ${ product.name }</p>
+<p class="pdtext">Price: $${ product.price }</p>
+%if hasattr(product, 'quantity'):
+<p class="pdtext">Quantity Avaliable: ${ product.quantity }</p>
+  <div class="center">
+    <p>
+      </p><div class="input-group">
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button>
+          </span>
+          <input type="text" name="quant[2]" class="form-control input-number" value="1" min="1" max= ${ product.quantity }>
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
+                  <span class="glyphicon glyphicon-plus"></span>
+              </button>
+          </span>
+      </div>
+  <p></p>
+</div>
+
+%endif
+  <button type="button" class="btn btn-warning">Buy Now</button>
+</div>
+
+</div>
+
+ </%block>
+
+
+ 
+ <%block name="body_section_right">
+ <h2 style="text-align: center">Last Viewed Products</h2>
+<ul class="nav" id="rightnav">
+%for p in products[:5]:
+<a style="color: black" href="/catalog/productdetails/${ p.id }/">
+<div class="tile-image">
+  <img style="height: 150px"src = "${ p.picture }"/>
+  <li>$${ p.price }</li>
+  <li><a  style="color:white; text-align: center;" href="/catalog/productdetails/${ p.id }/" class="btn btn-success btn-sm">${ p.name }</a></li>
+</div>
+</a>
+%endfor
+</ul>
+
+ </%block>

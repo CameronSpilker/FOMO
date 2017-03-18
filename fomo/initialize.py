@@ -143,8 +143,8 @@ g4.save()
 
 #create a Category
 cat1 = cmod.Category()
-cat1.codename = 'Kids'
-cat1.name = 'Kids Toy Products'
+cat1.codename = 'Access'
+cat1.name = 'Accessories'
 cat1.save()
 
 cat2 = cmod.Category()
@@ -166,73 +166,169 @@ cat3.save()
 p1 = cmod.UniqueProduct()
 p1.name = 'Guitar'
 p1.category = cat3
-p1.price = Decimal('99.50')#'' makes it a decimal,
-p1.serial_number = 'ADI3834B32434D3432175'
+p1.price = Decimal('999.50')#'' makes it a decimal,
+p1.serial_number = 'ADI383'
+p1.picture = '/static/homepage/media/pic/guitar1.png'
+p1.desc = 'This is a guitar that will give you the power to influence many. The strings can be plucked as fast as you can move them. Be prepared to rise above all others.'
 p1.save()
+
+pp1 = cmod.ProductPicture()
+pp1.path1 = '/static/homepage/media/pic/guitar1.png'
+pp1.path2 = '/static/homepage/media/pic/guitar2.png'
+pp1.path3 = '/static/homepage/media/pic/guitar3.png'
+pp1.path4 = '/static/homepage/media/pic/guitar4.png'
+pp1.path5 = '/static/homepage/media/pic/guitar5.png'
+pp1.product = p1
+pp1.save()
 
 p2 = cmod.UniqueProduct()
 p2.name = 'Violin'
 p2.category = cat3
 p2.price = Decimal('685.50')#'' makes it a decimal,
-p2.serial_number = 'IDFJOI73492OIDF'
+p2.serial_number = 'IDFJOI'
+p2.picture = '/static/homepage/media/pic/violin1.png'
+p2.desc = 'Has anybody ever told you, let me play you a sad song on my little Violin? Well now it is your turn to play them an amazing song on your normal size Violin.'
 p2.save()
 
+
+pp2 = cmod.ProductPicture()
+pp2.path1 = '/static/homepage/media/pic/violin1.png'
+pp2.path2 = '/static/homepage/media/pic/violin2.png'
+pp2.path3 = '/static/homepage/media/pic/violin3.png'
+pp2.path4 = '/static/homepage/media/pic/violin4.png'
+pp2.product = p2
+pp2.save()
+
+
 p3 = cmod.UniqueProduct()
-p3.name = 'Cello'
+p3.name = 'Banjo'
 p3.category = cat3
 p3.price = Decimal('474.50')#'' makes it a decimal,
-p3.serial_number = '48548DIUFHOS98454'
+p3.serial_number = '48548D'
+p3.picture = '/static/homepage/media/pic/banjo1.png'
+p3.desc = '''Is there a better way to become more popular than to use a Banjo? I don't think so! Pick up this beauty and show it off to your friends in Arkansas.'''
 p3.save()
+
+pp3 = cmod.ProductPicture()
+pp3.path1 = '/static/homepage/media/pic/banjo1.png'
+pp3.path2 = '/static/homepage/media/pic/banjo2.png'
+pp3.path3 = '/static/homepage/media/pic/banjo3.png'
+pp3.path4 = '/static/homepage/media/pic/banjo4.png'
+pp3.path5 = '/static/homepage/media/pic/banjo5.png'
+pp3.product = p3
+pp3.save()
 
 #create a BulkProduct
 p4 = cmod.BulkProduct()
-p4.name = 'Kazoo'
+p4.name = 'Amplifier'
 p4.category = cat1
-p4.price = Decimal('9.50')#'' makes it a decimal,
-p4.quantity = 20
+p4.price = Decimal('19.50')#'' makes it a decimal,
+p4.quantity = 1
 p4.reorder_trigger = 5
 p4.reorder_quantity = 30
+p4.picture = '/static/homepage/media/pic/amplifier1.png'
+p4.desc = 'Get ready to plug your newly purchased electrical instrument into this magical Amplifier. You will ruins peoples ear drums...in a good way.'
 p4.save()
 
+pp4 = cmod.ProductPicture()
+pp4.path1 = '/static/homepage/media/pic/amplifier1.png'
+pp4.path2 = '/static/homepage/media/pic/amplifier2.png'
+pp4.path3 = '/static/homepage/media/pic/amplifier3.png'
+pp4.path4 = '/static/homepage/media/pic/amplifier4.png'
+pp4.product = p4
+pp4.save()
+
 p5 = cmod.BulkProduct()
-p5.name = 'Harmonica'
+p5.name = 'Mic'
 p5.category = cat1
-p5.price = Decimal('6.59')#'' makes it a decimal,
+p5.price = Decimal('66.59')#'' makes it a decimal,
 p5.quantity = 13
 p5.reorder_trigger = 2
 p5.reorder_quantity = 20
+p5.picture = '/static/homepage/media/pic/mic1.png'
+p5.desc = '''You can record your lovely voice with this Mic. It's a microphone that captures all that is beautiful in your voice. '''
 p5.save()
 
+pp5 = cmod.ProductPicture()
+pp5.path1 = '/static/homepage/media/pic/mic1.png'
+pp5.path2 = '/static/homepage/media/pic/mic2.png'
+pp5.path3 = '/static/homepage/media/pic/mic3.png'
+pp5.path4 = '/static/homepage/media/pic/mic4.png'
+pp5.product = p5
+pp5.save()
+
 p6 = cmod.BulkProduct()
-p6.name = 'Recorder'
+p6.name = 'Case'
 p6.category = cat1
-p6.price = Decimal('2.50')#'' makes it a decimal,
+p6.price = Decimal('112.50')#'' makes it a decimal,
 p6.quantity = 10
 p6.reorder_trigger = 3
 p6.reorder_quantity = 15
+p6.picture = '/static/homepage/media/pic/case1.png'
+p6.desc = 'This is a Case, what more can we say. Keep your insturment looking fresh and new, as long as you put it in here.'
 p6.save()
+
+pp6 = cmod.ProductPicture()
+pp6.path1 = '/static/homepage/media/pic/case1.png'
+pp6.path2 = '/static/homepage/media/pic/case2.png'
+pp6.path3 = '/static/homepage/media/pic/case3.png'
+pp6.path4 = '/static/homepage/media/pic/case4.png'
+pp6.product = p6
+pp6.save()
 
 #create a RentalProduct
 p7 = cmod.RentalProduct()
-p7.name = 'Tuba'
+p7.name = 'Saxophone'
 p7.category = cat2
 p7.price = Decimal('499.99')
-p7.serial_number = '903EROID8034DF'
+p7.serial_number = '903ERO'
+p7.picture = '/static/homepage/media/pic/saxophone1.png'
+p7.desc = 'This Saxophone is for everyone. It will make you a better person, brother, mother or hedge fund account manager.'
 p7.save()
+
+pp7 = cmod.ProductPicture()
+pp7.path1 = '/static/homepage/media/pic/saxophone1.png'
+pp7.path2 = '/static/homepage/media/pic/saxophone2.png'
+pp7.path3 = '/static/homepage/media/pic/saxophone3.png'
+pp7.path4 = '/static/homepage/media/pic/saxophone4.png'
+pp7.path5 = '/static/homepage/media/pic/saxophone5.png'
+pp7.product = p7
+pp7.save()
 
 p8 = cmod.RentalProduct()
 p8.name = 'Trumpet'
 p8.category = cat2
 p8.price = Decimal('122.99')
-p8.serial_number = '343DFOIDNFD'
+p8.serial_number = '343DFO'
+p8.picture = '/static/homepage/media/pic/trumpet1.png'
+p8.desc = 'There is not a high school band without a Trumpet. So pick up the best quality for the lowest price right here at FOMO.'
 p8.save()
+
+pp8 = cmod.ProductPicture()
+pp8.path1 = '/static/homepage/media/pic/trumpet1.png'
+pp8.path2 = '/static/homepage/media/pic/trumpet2.png'
+pp8.path3 = '/static/homepage/media/pic/trumpet3.png'
+pp8.path4 = '/static/homepage/media/pic/trumpet4.png'
+pp8.product = p8
+pp8.save()
 
 p9 = cmod.RentalProduct()
 p9.name = 'Trombone'
 p9.category = cat2
 p9.price = Decimal('342.99')
-p9.serial_number = '454DFOSDOINDF'
+p9.serial_number = '454DFO'
+p9.picture = '/static/homepage/media/pic/trombone1.png'
+p9.desc = 'There are so many things I could say about this Trombone. But I will say you cannot find a better deal on the internet.'
 p9.save()
+
+pp9 = cmod.ProductPicture()
+pp9.path1 = '/static/homepage/media/pic/trombone1.png'
+pp9.path2 = '/static/homepage/media/pic/trombone2.png'
+pp9.path3 = '/static/homepage/media/pic/trombone3.png'
+pp9.path4 = '/static/homepage/media/pic/trombone4.png'
+pp9.path5 = '/static/homepage/media/pic/trombone5.png'
+pp9.product = p9
+pp9.save()
 
 # imports for our project
 

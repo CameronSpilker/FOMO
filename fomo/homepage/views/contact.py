@@ -34,14 +34,14 @@ def process_request(request):
     form = ContactForm(request)
     if form.is_valid():
         form.commit()
-        email = form.cleaned_data.get('email')
+        # email = form.cleaned_data.get('email')
         #send mail
         return HttpResponseRedirect('/homepage/successcontact/')
 
 
 
     return dmp_render(request, 'contact.html', {
-    'form':form,
+    'form': form,
     })
 
 
@@ -62,7 +62,7 @@ class ContactForm(FormMixIn, forms.Form):
                 ['email', 'Email Address'],
         ], initial='phone')
         self.fields['email'] = forms.EmailField(label='Email', required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-email'}))
-        self.fields['phone'] = forms.CharField(label='Phone', required=False,  max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
+        self.fields['phone'] = forms.CharField(label='Phone', required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
         self.fields['cell'] = forms.CharField(label='Cell', required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
         self.fields['subject'] = forms.ChoiceField(label='Subject', choices=ContactForm.SUBJECT_CHOICES)
         self.fields['message'] = forms.CharField(label='Message', max_length=1000, widget=forms.Textarea())

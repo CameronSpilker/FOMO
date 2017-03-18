@@ -71,6 +71,7 @@ class ChangePasswordForm(FormMixIn, forms.Form):
         if user.is_authenticated:
             user.set_password(self.cleaned_data.get('passwordNEW'))
             user.save()
+        login(self.request, user)
         # user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
         # login(self.request, user)
         # user = self.user

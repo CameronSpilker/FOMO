@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 from django_mako_plus import view_function
 from django.contrib.auth import authenticate, login
@@ -25,7 +25,7 @@ def process_request(request):
         #     return HttpResponseRedirect(request.GET.get('next')
 
     return dmp_render(request, 'login.html', {
-        'form':form,
+        'form': form,
         })
 
 class LoginForm(FormMixIn, forms.Form):
@@ -78,3 +78,37 @@ class LoginForm(FormMixIn, forms.Form):
     # # password = '1234'
     # user = authenticate(username=username, password=password)
     # #log the user in
+
+
+
+#############MODAL##############################
+
+
+
+@view_function
+def modal(request):
+    print('>>>>>>>>>>>>>>in the request')
+    form = ModalLoginForm(request)
+    if form.is_valid():
+        print('>>>>>>>>>>>>>>in the is valid')
+        #do the form action
+        form.commit()
+        # username = form.cleaned_data.get('username')
+        # password = form.cleaned_data.get('password')
+        return HttpResponse('''
+            <script>
+            window.location.href = '/account/successlogin/';
+            </script>
+
+            ''')
+        # if request.GET.get('next') is not None:
+        #     return HttpResponseRedirect('/homepage/index/')
+        # else:
+        #     return HttpResponseRedirect(request.GET.get('next')
+
+    return dmp_render(request, 'login.modal.html', {
+        'form': form,
+        })
+
+class ModalLoginForm(LoginForm):
+    form_action = '/account/login.modal/'

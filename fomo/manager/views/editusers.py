@@ -13,6 +13,8 @@ from .. import dmp_render, dmp_render_to_string
 @login_required(login_url='/account/login/')
 @permission_required('account.change_fomouser', login_url='/manager/permissions/')
 def process_request(request):
+    
+
     print('>>>>>>>process request')
     try:
         print('>>>>>>>process request try')
@@ -33,7 +35,7 @@ def process_request(request):
         'first_name': fomouser.first_name,
         'last_name': fomouser.last_name,
         'username': fomouser.username,
-        'email' : fomouser.email,
+        'email': fomouser.email,
         'shipping_address': fomouser.shipping_address,
         'billing_address': fomouser.billing_address,
         'birthdate': fomouser.birthdate,
@@ -48,7 +50,7 @@ def process_request(request):
 
 
     context = {
-        'fomouser':fomouser,
+        'fomouser': fomouser,
         'form': form,
     }
     return dmp_render(request, 'editusers.html', context)

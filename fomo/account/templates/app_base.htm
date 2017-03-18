@@ -5,9 +5,9 @@
 <!--NAV BAR-->
 
      %if user.has_perm('account.add_fomouser') or user.has_perm('catalog.add_product'):
-     <li class="${ 'active' if(request.dmp_router_page == 'account') else '' }"><a href="/manager/index/">Account</a></li>
-     <li class="${ 'active' if(request.dmp_router_page == 'products') else '' }"><a href="/manager/products/">Products</a></li>
-     <li class="${ 'active' if(request.dmp_router_page == 'users') else '' }"><a href="/manager/edituserstable/">Users</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'account') else '' }"><a href="/manager/index/"><i class="fa fa-grav" aria-hidden="true"></i> Account</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'products') else '' }"><a href="/manager/products/"><i class="fa fa-rocket" aria-hidden="true"></i> Products</a></li>
+     <li class="${ 'active' if(request.dmp_router_page == 'users') else '' }"><a href="/manager/edituserstable/"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
      %else:
      <li class="${ 'active' if(request.dmp_router_page == 'index') else '' }"><a href="/homepage/index/">Home</a></li>
      <li class="${ 'active' if(request.dmp_router_page == 'catalog') else '' }"><a href="/homepage/catalog/">Catalog</a></li>

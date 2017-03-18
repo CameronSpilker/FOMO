@@ -1,0 +1,23 @@
+<%inherit file="/homepage/templates/base_ajax.htm" />
+
+<%block name="content">
+
+
+<div class="text-center">
+	<div class="text-left inline-block">
+
+<!-- %for img in cmod.ProductImage.objects.filter(product=proudct): -->
+<!-- 
+<button id="picture_button_previous" class="btn btn-default">Prevoius</button>
+<button id="picture_button_next" class="btn btn-default">Next</button>
+<img class="product_picture" src ="${ STATIC_URL }homepage/media/svg/accordion.svg"/>
+<img class="product_picture" src ="${ STATIC_URL }homepage/media/svg/cymbals.svg"/>
+<img class="product_picture" src ="${ STATIC_URL }homepage/media/svg/ukelele.svg"/> -->
+
+		<div id="login-modal-form">
+		  ${ form }
+		</div>
+	</div>
+</div>
+
+</%block>

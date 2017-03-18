@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'catalog',
     'manager',
     'formlib',
+    'api',
 
 ]
 
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_mako_plus.RequestInitMiddleware',
+    'fomo.middleware.Last5ProductsMiddleware',
 ]
 
 ROOT_URLCONF = 'fomo.urls'

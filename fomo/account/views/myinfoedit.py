@@ -32,10 +32,10 @@ def process_request(request):
         'first_name': fomouser.first_name,
         'last_name': fomouser.last_name,
         'username': fomouser.username,
-        'email' : fomouser.email,
+        'email': fomouser.email,
         'shipping_address': fomouser.shipping_address,
         'billing_address': fomouser.billing_address,
-        'birthdate': fomouser.birthdate
+        'birthdate': fomouser.birthdate,
 
     })
     if form.is_valid():
@@ -45,7 +45,7 @@ def process_request(request):
 
 
     context = {
-        'fomouser':fomouser,
+        'fomouser': fomouser,
         'form': form,
     }
     return dmp_render(request, 'myinfoedit.html', context)

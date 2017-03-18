@@ -1,0 +1,80 @@
+<%inherit file="/homepage/templates/app_base.htm" />
+
+
+<%block name="body_section_above">
+
+
+</%block>
+
+
+<%block name="body_section_left">
+
+<ul class="nav" id="leftnav">
+<!-- put a code for each class -->
+<!-- click on category, returns the same URL with a parameter, filter on the category -->
+
+	% for c in category:
+
+		%if hasattr(c, 'name'):
+			<li><a href="/catalog/index1.get_cat/${ c.id }/">${ c.name }</a></li>
+		%endif
+
+	%endfor
+
+<li><a href="/catalog/index1/">View all</a></li>
+
+
+  <div class="input-group" >
+      <input type="text" class="form-control" id="search-input" placeholder="Search for...">
+      <span class="input-group-btn" style="width: 1px">
+        <button class="btn btn-default" id="search-button" style="width: 60px;" type="button">Search</button>
+      </span>
+    </div>
+</ul>
+
+</%block>
+
+
+
+ <%block name="body_section_middle">
+ <h1 style="text-align: center">Products</h1>
+ <div class="tile-outer">
+ %for p in products:
+ <a href="/catalog/productdetails/${ p.id }/">
+	<div class="tile-container">
+		<div class="tile-image">
+
+				<img src='${ p.picture }'/>
+		</div>
+		<div class="tile-title">
+
+			<p style="color: black">$${ p.price }</p>
+			<a class="btn btn-success btn-lg" style="color:white" href="/catalog/productdetails/${ p.id }/">${ p.name }</a>
+
+		</div>
+
+	</div>
+	</a>
+%endfor
+</div>
+ </%block>
+
+
+ <%block name="body_section_right">
+ <h2 style="text-align: center">Last Viewed Products</h2>
+<ul class="nav" id="rightnav">
+%for p in last5[:5]:
+<a style="color: black" href="/catalog/productdetails/${ p.id }/">
+<div class="tile-image">
+	<img style="height: 150px"src = "${ p.picture }"/>
+	<li>$${ p.price }</li>
+	<li><a  style="color:white; text-align: center;" href="/catalog/productdetails/${ p.id }/" class="btn btn-success btn-sm">${ p.name }</a></li>
+</div>
+</a>
+
+%endfor
+
+</ul>
+
+
+ </%block>

@@ -25,6 +25,91 @@ body{
     margin-left: -512px;   50%
   }
 }*/
+.center{
+width: 150px;
+  margin: 40px auto;
+}
+.modal-image > img{
+  background-color: white;
+   height: 325px;
+    width: auto;
+    border-radius: 4px;
+  padding: 6px;
+  margin-top: 10px;
+
+}
+}
+.searchid{
+width: 1px;
+padding-right: 10px;
+}
+.searchidinput{
+width: 1px;
+}
+.pd{
+  display: inline-block;
+  background-color: white;
+  padding: 6px;
+/*  background-color: cyan;*/
+  bottom: -8px;
+  border-radius: 4px;
+}
+.pdtext{
+  text-align: left;
+  padding: 1px;
+}
+
+.tile-outer{
+  text-align: center;
+  
+  /*background-color: blue;*/
+ 
+
+}
+
+.tile-container{
+  display: inline-block;
+  /*background-color: orange;*/
+  text-align: center;
+  padding: 12px;
+  margin: 12px;
+  padding: 35px;
+  width: 250px;
+  background-color: white;
+  border-radius: 4px;
+
+
+}
+/*.product-de{
+  display: inline-block;
+  width: 200px;
+}*/
+.tile-image{
+/*  width: 100px;*/
+}
+.tile-image > img {
+ height: 150px;
+ width: auto;
+ 
+  padding: 6px;
+
+}
+.tile-title{
+  padding-top: 12px;
+  font-size: 1.4em;
+  /*background-color: green;*/
+}
+
+#leftnav{
+  position: fixed;
+}
+#rightnav{
+  border-radius: 4px;
+  padding: 25px;
+  background-color: white;
+  display: inline-block;
+  position: static;
+}
 
 .icon{
   max-height: 40px;
@@ -43,6 +128,14 @@ body{
   z-index: 100000;
   right: 0;
 }
+.tile-container-block{
+  background-color: white;
+  border-radius: 4px;
+
+}
+.tile-desc{
+  display: inline;
+}
 /*#button{
   position: fixed;
   z-index: 100000;
@@ -51,18 +144,24 @@ body{
   right: 150px;
 
 }*/
+/*#nav1{
+  position: fixed;
+  z-index: 100000;
+  
+}*/
 #header_main{
 background-color: red;
 text-align: center;
 font-weight: lighter;;
 color: white;
  border-radius: 5px;
+
 }
 
 #body_section_above{
 
-  color: white;
   text-align: center;
+
   /*font-size: 30px;
   font-family: cursive;;*/
    /*border-radius: 5px;*/
@@ -70,7 +169,6 @@ color: white;
 }
 
 #body_section_left{
-  background-color: orange;
    border-radius: 5px;
 
 
@@ -78,7 +176,6 @@ color: white;
 }
 
 #body_section_right{
-  background-color: purple;
    border-radius: 5px;
 
 
@@ -92,29 +189,32 @@ color: white;
 }*/
 
 #body_section_above_middle{
-  background-color: gray;
    border-radius: 5px;
-   text-align: left;
+   text-align: center;
+
 }
 
 
 #body_section_below{
  text-align: center;
-  color: black;
    border-radius: 5px;
 
 }
 
 #body_section_middle{
-  background-color: #Efefef;
+
+  text-align: left;
    border-radius: 5px;
+
+
 
 
 }
 
 #body_footer{
-   color: white;
+
    text-align: center;
     border-radius: 5px;
+
 
 }

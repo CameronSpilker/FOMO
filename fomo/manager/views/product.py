@@ -29,7 +29,7 @@ def process_request(request):
         'category': product.category,
         'price': product.price,
         'quantity': getattr(product,'quantity', 0),
-        'serial_number': getattr(product,'serial_number', 0),
+        'serial_number' : getattr(product,'serial_number', 0),
     })
     if form.is_valid():
         form.commit(product)
