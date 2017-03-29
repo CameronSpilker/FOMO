@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .. import dmp_render, dmp_render_to_string
 
 @view_function
+@login_required(login_url='/account/login/')
 def process_request(request):
     #query all products
     # .all()

@@ -98,6 +98,7 @@
              </ul>
      <ul class="nav navbar-nav navbar-right">
         %if request.user.is_authenticated:
+        <li><a href="/account/signup/"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i> ${ request.user.get_cart_count() }</a></li>
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>  ${ user.username }'s Account
         <span class="caret"></span></a>
@@ -111,8 +112,7 @@
         
             <!-- <li><a href="/account/login/"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li> -->
             <li><a id="login-modal-button"> Login</a></li>
-
-            <li><a href="/account/signup/"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</a></li>
+           <li><a href="/account/signup/"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</a></li>
           
         %endif
         </li>

@@ -13,7 +13,6 @@ import inspect
 class FormMixIn(object):
     """
     A mixin that adds to the Django form class:
-
         - as_full() prints the full set of <form> tags, including the
           csrf token (see templates/form.htm).
         - Automatically adds the POST data if method is post.
@@ -22,28 +21,21 @@ class FormMixIn(object):
         - Adds a commit(...) method to keep form action with the form
           code.
         - Adds the request object to the form.
-
     Template:
-
         from django_mako_plus import view_function
         from formlib.form import FormMixIn
         from django import forms
-
         @view_function
         def process_request(request):
-
             # process the form
             form = MyForm(request, a=1, b=2)
             if form.is_valid():
                 d = form.commit(c=3)
                 return HttpResponseRedirect('/app/successurl/')
-
             # render the template
             return dmp_render(request, 'contact.html', {
                 'form': form,
             })
-
-
         class MyForm(FormMixIn, forms.Form):
             '''An example form'''
             def init(self, a, b):
@@ -53,7 +45,6 @@ class FormMixIn(object):
                 print(b)
                 # add fields here
                 self.fields['name'] = forms.CharField()
-
             def commit(self, c):
                 '''Process the form action'''
                 # do something with c (optional)
@@ -62,19 +53,22 @@ class FormMixIn(object):
                 print('Name is', self.cleaned_data['name'])
                 # return any data (optional)
                 return 4
-
     On your template:
-
         ${ form }
-
     """
-    form_action = None
+    form_id = None                      # set in __init__ below
+    form_action = None                  # None means form submits to the current page
     form_method = 'POST'
     form_submit = 'Submit'
-    field_css = [ 'form-control' ]
+    form_classes = [ 'formlib-form' ]     # list of default classes for the form: <form>
+    field_classes = [ 'form-control' ]      # list of default classes for the fields: <input>, <select>, ...
 
     def __init__(self, request, *args, **kwargs):
         '''Constructor'''
+        # set the id of this form to the name of the subclass
+        if not self.form_id:
+            self.form_id = 'formlib-{}'.format(self.__class__.__qualname__.lower())
+
         # save the request object
         self.request = request
 
@@ -117,7 +111,7 @@ class FormMixIn(object):
     def as_full(self):
         '''Returns the HTML for this form, including <form>, submit, and csrf tags.'''
         # add the bootstrap css
-        css = set(self.field_css)
+        css = set(self.field_classes)
         for field in self.fields.values():
             current = set(( c.strip() for c in field.widget.attrs.get('class', '').split(' ') if c ))
             field.widget.attrs['class'] = ' '.join(css | current)
@@ -136,5 +130,3 @@ class FormMixIn(object):
         Commits the form after it has been validated.
         '''
         pass
-
-

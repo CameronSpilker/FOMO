@@ -17,14 +17,19 @@ class Product(PolymorphicModel):
     name = models.TextField(blank=True, null=True)
     #many to one
     category = models.ForeignKey('Category')
-    price = models.DecimalField(max_digits=8, decimal_places=2)  #999,999.99
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    #999,999.99
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     picture = models.TextField(blank=True, null=True)
     desc = models.TextField(blank=True, null=True)
     # django screams at you if you try to make an abstract product
     #class Meta:
-    #         abstract = True
+    #abstract = True
+
+
+
+
 
 class ProductPicture(models.Model):
     # DONT USE product_id - because of some reasons
@@ -56,6 +61,7 @@ class UniqueProduct(Product):
     #create_date
     #modified_date
     serial_number = models.TextField()
+    status = models.BooleanField(default=True)
 
 #RentalProduct
 class RentalProduct(Product):
@@ -66,3 +72,4 @@ class RentalProduct(Product):
     #create_date
     #modified_date
     serial_number = models.TextField()
+    status = models.BooleanField(default=True)

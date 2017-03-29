@@ -1,5 +1,12 @@
 $(function(){
 
+
+    var options = {
+    target: '#Cart'
+    };
+
+    $('#Cart').ajaxForm(options);//Ajax Form
+    
 	// $.loadmodal('/homepage/index/');
 	console.log($.loadmodal);
 
@@ -26,6 +33,8 @@ $(function(){
    // //alert('search='+search+ ' url='+url);
    //  load(url);
 });//click
+
+
 
 	//plugin bootstrap minus and plus
 //http://jsfiddle.net/laelitenetwork/puJ6G/
@@ -100,6 +109,8 @@ $(".input-number").keydown(function (e) {
             e.preventDefault();
         }
     });
+
+
 
 
 });//ready

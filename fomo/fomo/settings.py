@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,6 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'bndk4%r2#ke=*s_b*_bouycw(ao=a_^^33baipwq4(u_aw#cok'
+
+STRIPE_API_SECRET = "sk_test_6I3M56BwEphFD854SNkXSHRl"
+STRIPE_API_PUB = "pk_test_ir6aB1QiP7s8LDbK8zXWslUS "
+GOOGLE_SERVER_KEY = "AIzaSyAy5uR2XX2y51goP4wXe3i4KWxm1pmT3Nc"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
