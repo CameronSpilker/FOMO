@@ -61,27 +61,15 @@
 <p class="pdtext">Price: $${ product.price }</p>
 %if hasattr(product, 'quantity'):
 <p class="pdtext">Quantity Avaliable: ${ product.quantity }</p>
-  <div class="center">
-    <p>
-      </p><div class="input-group">
-          <span class="input-group-btn">
-              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
-                <span class="glyphicon glyphicon-minus"></span>
-              </button>
-          </span>
-          <input type="text" name="quant[2]" id='qty' class="form-control input-number" value="1" min="1" max= ${ product.quantity }>
-          <span class="input-group-btn">
-              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
-                  <span class="glyphicon glyphicon-plus"></span>
-              </button>
-          </span>
-      </div>
-  <p></p>
+%endif
+  <div class="center" id="purchase_container">
+
+
   ${ form }
 </div>
 
-%endif
-  <a type="button" href="/catalog/checkout/${product.id}/" class="btn btn-warning"><i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i></a>
+
+<!--   <a type="button" href="/catalog/checkout/${product.id}/" class="btn btn-warning"><i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i></a> -->
 </div>
 
 </div>
@@ -92,7 +80,8 @@
  <%block name="body_section_right">
  <h2 style="text-align: center">Last Viewed Products</h2>
 <ul class="nav" id="rightnav">
-%for p in products[:5]:
+%for p in request.user.last5():
+  %if p.id != product.id:
 <a style="color: black" href="/catalog/productdetails/${ p.id }/">
 <div class="tile-image">
   <img style="height: 150px"src = "${ p.picture }"/>
@@ -100,6 +89,7 @@
   <li><a  style="color:white; text-align: center;" href="/catalog/productdetails/${ p.id }/" class="btn btn-success btn-sm">${ p.name }</a></li>
 </div>
 </a>
+  %endif
 %endfor
 </ul>
 

@@ -24,18 +24,21 @@ def process_request(request):
     products = cmod.Product.objects.order_by().all()
     # picture = cmod.ProductPicture.objects.all()
     category = cmod.Category.objects.order_by('name')
- 
-    print('>>>?F<SEDLJFIOEHFUI(H*(EBFU', request.last5)
+
+    # print('>>>?F<SEDLJFIOEHFUI(H*(EBFU', request.last5)
 
 
-    last5 = cmod.Product.objects.filter(id__in=request.last5)
-    print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', last5)
+    # last5 = cmod.Product.objects.filter(id__in=request.last5)
+    # print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', last5)
+
+
+
 
 
     context = {
         'products': products,
         'category': category,
-        'last5': last5,
+
         # 'picture': picture,
     }
     return dmp_render(request, 'index1.html', context)
@@ -46,17 +49,17 @@ def get_cat(request):
     #get the current quanitty of product id in url params[0]
     try:
         print(request.urlparams[0])
-        category = cmod.Category.objects.order_by('name')#.get is for a single product
+        category = cmod.Category.objects.order_by('name')  #.get is for a single product
         products = cmod.Product.objects.filter(category=request.urlparams[0])
         print('>>>>>>>>>>', category)
         print('>>>>>>>>>>', products)
     except (TypeError, cmod.Category.DoesNotExist):
         return HttpResponseRedirect('/catalog/index1/')
 
-        
-    last5 = cmod.Product.objects.filter(id__in=request.last5)
-    print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', last5)
 
+    # last5 = cmod.Product.objects.filter(id__in=request.last5)
+    # print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', last5)
+    last5 = request.user.last5()
     print('>>>>>>>>>>', category)
     context = { 
         'category': category,

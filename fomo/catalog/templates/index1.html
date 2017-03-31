@@ -62,11 +62,12 @@
 
  <%block name="body_section_right">
  <h2 style="text-align: center">Last Viewed Products</h2>
+
 <ul class="nav" id="rightnav">
-%for p in last5[:5]:
+%for p in request.user.last5()[:5]:
 <a style="color: black" href="/catalog/productdetails/${ p.id }/">
 <div class="tile-image">
-	<img style="height: 150px"src = "${ p.picture }"/>
+	<img style="height: 150px" src ="${ p.picture }"/>
 	<li>$${ p.price }</li>
 	<li><a  style="color:white; text-align: center;" href="/catalog/productdetails/${ p.id }/" class="btn btn-success btn-sm">${ p.name }</a></li>
 </div>

@@ -16,16 +16,10 @@ from .. import dmp_render, dmp_render_to_string
 @view_function
 def process_request(request):
 
-    pid = request.urlparams[0]
     currentuser = request.user
     try:
-        print(request.urlparams[0])
-        category = cmod.Category.objects.order_by('name')#.get is for a single product
-        product = cmod.Product.objects.get(id=pid)
         fomouser = amod.FomoUser.objects.get(id=currentuser.id)
-        print('>>>>>>>>>>', category)
-        print('>>>>>>>>>>', product)
-    except (TypeError, cmod.Category.DoesNotExist):
+    except (TypeError, amod.FomoUser.DoesNotExist):
         return HttpResponseRedirect('/catalog/index1/')
 
 
@@ -33,7 +27,6 @@ def process_request(request):
     form = CheckoutForm(request, fomouser=fomouser, initial={
         'first_name': fomouser.first_name,
         'last_name': fomouser.last_name,
-        'shipping_address': fomouser.shipping_address,
 
     })
     if form.is_valid():
@@ -60,7 +53,6 @@ class CheckoutForm(FormMixIn, forms.Form):
         print('>>>>>>>>>>>>>>in the init')
         self.fields['first_name'] = forms.CharField(label="First Name", max_length=100)
         self.fields['last_name'] = forms.CharField(label="Last Name", max_length=100)
-        self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
         self.fields['stripe_token'] = forms.CharField(required=True, widget=forms.HiddenInput())
         self.fomouser = fomouser
 

@@ -19,22 +19,18 @@ def process_request(request):
 
     # # Geocoding an address
     # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
-    # pid = request.urlparams[0]
-    # currentuser = request.user
-    # try:
-    #     print(request.urlparams[0])
-    #     category = cmod.Category.objects.order_by('name')#.get is for a single product
-    #     product = cmod.Product.objects.get(id=pid)
-    #     fomouser = amod.FomoUser.objects.get(id=currentuser.id)
-    #     print('>>>>>>>>>>', category)
-    #     print('>>>>>>>>>>', product)
-    # except (TypeError, cmod.Category.DoesNotExist):
-    #     return HttpResponseRedirect('/catalog/index1/')
+    currentuser = request.user
+    try:
+        fomouser = amod.FomoUser.objects.get(id=currentuser.id)
+    except (TypeError, amod.FomoUser.DoesNotExist):
+        return HttpResponseRedirect('/catalog/index1/')
+    count = 1
+
 
 
     print('>>>>>>>>>>>>>>in the request')
-    form = ShippingPageForm(request, initial={
-        # 'shipping_address': request.POST('shipping_address'),
+    form = ShippingPageForm(request, fomouser=fomouser, initial={
+        'shipping_address': fomouser.shipping_address,
 
     })
 
@@ -46,7 +42,7 @@ def process_request(request):
         form.commit()
         # username = form.cleaned_data.get('username')
         # password = form.cleaned_data.get('password')
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/checkout/')
         # if request.GET.get('next') is not None:
         #     return HttpResponseRedirect('/homepage/index/')
         # else:
@@ -60,13 +56,15 @@ def process_request(request):
 class ShippingPageForm(FormMixIn, forms.Form):
     print('>>>>>>>>>>>>>>in the form')
     form_id = 'shippingpage_form'
-    def init(self):
+    form_submit = 'Continue'
+    def init(self, fomouser):
         print('>>>>>>>>>>>>>>in the init')
         self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
-      # if address1 is not None:
+        # if count > 1:
         self.fields['check_box'] = forms.CharField(widget=forms.CheckboxInput(), required=False)
-      # else:
-      #   self.fomouser = fomouser
+        # else:
+        # self.fields['check_box'] = forms.CharField(widget=forms.HiddenInput(), required=False)
+        self.fomouser = fomouser
 
 
         # , widget=forms.HiddenInput()
@@ -80,6 +78,7 @@ class ShippingPageForm(FormMixIn, forms.Form):
     #this is where you check all of the values
     def clean_shipping_address(self):
         print('>>>>>>>>in the clean')
+        count = 2
         gmaps = googlemaps.Client(key='AIzaSyAy5uR2XX2y51goP4wXe3i4KWxm1pmT3Nc')
         shipping_address = self.cleaned_data.get('shipping_address')
         google = gmaps.geocode(shipping_address)

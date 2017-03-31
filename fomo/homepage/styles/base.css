@@ -25,6 +25,13 @@ body{
     margin-left: -512px;   50%
   }
 }*/
+#id_check_box{
+  display: none;
+
+}
+label[for="id_check_box"] {
+   display: none;
+}
 .center{
 width: 150px;
   margin: 40px auto;

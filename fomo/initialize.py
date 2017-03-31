@@ -398,15 +398,15 @@ u2.groups.add(g3)
 
 u3 = amod.FomoUser()
 u3.username = 'customer'
-u3.first_name = 'first_name2'
-u3.last_name = 'last_name2'
+u3.first_name = 'Cameron'
+u3.last_name = 'Spilker'
 u3.set_password('customer')
 u3.email = 'email2'
 u3.last_login = datetime.now()
 u3.date_joined = datetime.now()
 u3.gender = 'M'
 u3.birthdate = datetime.now()
-u3.shipping_address = "Address for Number 2"
+u3.shipping_address = "1008 south 500 west provo, utah 84601"
 u3.zip_code = '12345'
 u3.country = 'USA'
 u3.billing_address = "Billing address for number 2"
@@ -470,13 +470,14 @@ cart4.qty_ordered = 4
 cart4.save()
 
 sc = amod.ShoppingItem.objects.filter(fomouser=3)
-
+print('>>>>>>>>>>>>>>>>>>>>>>CART>>>>>>>>>>>>>>>>')
 for p in sc:
   print(p.product.name)
   print(p.qty_ordered)
+  print(p.id)
 
 
-
+print('>>>>>>>>>>>>>>>>END CART<<<<<<<<<<<<<<<<<<')
   ########PRODUCT HISTORY##############
 
 phis1 = amod.ProductHistory()
@@ -565,8 +566,8 @@ for c in cart:
 last5 = u3.last5()
 
 for l in last5:
-  print(l.product.name)
-  print(l.view_datetime)
+  print(l.name)
+  print('>>>end last5')
 
 
 ####SUBTOTAL############

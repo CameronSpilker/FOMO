@@ -13,13 +13,13 @@
 <!-- put a code for each class -->
 <!-- click on category, returns the same URL with a parameter, filter on the category -->
 
-	% for c in category:
+  % for c in category:
 
-		%if hasattr(c, 'name'):
-			<li><a href="/catalog/index1.get_cat/${ c.id }/">${ c.name }</a></li>
-		%endif
+    %if hasattr(c, 'name'):
+      <li><a href="/catalog/index1.get_cat/${ c.id }/">${ c.name }</a></li>
+    %endif
 
-	%endfor
+  %endfor
 <li><a href="/catalog/index1/">View all</a></li>
 
   <div class="input-group" >
@@ -34,55 +34,83 @@
 
 
  <%block name="body_section_middle">
- <div class="tile-outer">
-
-
-	<div class="tile-container" style="width: 50%">
-      <a data-pid="${product.id}" id="product-picture-modal">
-		<div class="tile-image">
-
-		<img style="height: 350px; width: auto" src='${ product.picture }'/>
-
-		</div>
-        </a>
-		<div class="tile-title">
-			<a class="btn btn-success btn-lg" style="color:white">${ product.name }</a>
-		</div>
-		<br>
-
-	</div>
-
-
-<div class="pd">
-
-<p class="pdtext">Category: ${ product.category.name }</p>
-<p class="pdtext">Description: ${product.desc }</p>
-<p class="pdtext">Name: ${ product.name }</p>
-<p class="pdtext">Price: $${ product.price }</p>
-%if hasattr(product, 'quantity'):
-<p class="pdtext">Quantity Avaliable: ${ product.quantity }</p>
-  <div class="center">
-    <p>
-      </p><div class="input-group">
-          <span class="input-group-btn">
-              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
-                <span class="glyphicon glyphicon-minus"></span>
-              </button>
-          </span>
-          <input type="text" name="quant[2]" class="form-control input-number" value="1" min="1" max= ${ product.quantity }>
-          <span class="input-group-btn">
-              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
-                  <span class="glyphicon glyphicon-plus"></span>
-              </button>
-          </span>
-      </div>
-  <p></p>
-</div>
+%if not cart:
+     <h1 style="text-align: center;">No Items in Shopping Cart</h1>
+%else:
+ <h1 style="text-align: center;">Items in Shopping Cart</h1>
 %endif
-  <a type="button" href="/catalog/checkout/${product.id}/" class="btn btn-warning"><i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i></a>
-</div>
+ <table class="table table-striped" style="background-color: white; ">
+    <tr>
+      <th>Product</th>
+      <th>Picture</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Extended Price</th>
+      <th>Action</th>
+    </tr>
 
-</div>
+  % for p in cart:
+
+
+    <tr style="background-color: white;">
+        <td><a class="btn btn-success btn-lg" href="/catalog/productdetails/${ p.product.id }/" style="color:white">${ p.product.name }</a></td>
+        <td><img style="text-align: left; height: 100px; width: auto; " src='${ p.product.picture }'/></td>
+        <td>$ ${ p.product.price }</td>
+        <td>${ p.qty_ordered}</td>
+        <td>$${p.qty_ordered * p.product.price }</td>
+
+
+        <!-- ${ p.quantity if hasattr(p, 'quantity') else '-'}</td> -->
+        <!-- duck typing -->
+        <td>
+<!--             <a href="/manager/product/${ p.id }/"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Qty</a>
+            | -->
+            <a class="delete_link" href="/catalog/shoppingcart.delete/${ p.id }/"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove</a>
+        </td>
+    </tr>
+  % endfor
+</table>
+
+%if not cart:
+<table class="table" style="background-color: white;">
+</table>
+%else:
+<a href='/catalog/shoppingcart.clear_cart/' type="button" class="btn btn-success btn-block"><i class="fa fa-trash-o" aria-hidden="true"></i> Clear Cart</a>
+<br>
+<br>
+</table>
+ <h1 style="text-align: center;">Shopping Cart Amount</h1>
+<table class="table" style="background-color: white;">
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Subtotal:</td>
+      <td>$${request.user.calc_subtotal()}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Tax:</td>
+      <td>$${round(request.user.calc_tax(), 2)}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Shipping:</td>
+      <td>$${request.user.calc_shipping()}</td>
+    </tr>
+    <tr style="background-color: #Efefef ;">
+      <td></td>
+      <td>Total:</td>
+      <td>$${round(request.user.calc_total(), 2)}</td>
+    </tr>
+    <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    </tr>
+  </tbody>
+</table>
+<a class="btn btn-success btn-block" href="/catalog/shippingpage/" style="color:white">Checkout</a>
+%endif
  </%block>
 
 
@@ -90,7 +118,7 @@
  <%block name="body_section_right">
  <h2 style="text-align: center">Last Viewed Products</h2>
 <ul class="nav" id="rightnav">
-%for p in products[:5]:
+%for p in last5[:5]:
 <a style="color: black" href="/catalog/productdetails/${ p.id }/">
 <div class="tile-image">
   <img style="height: 150px"src = "${ p.picture }"/>

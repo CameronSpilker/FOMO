@@ -51,8 +51,18 @@ class FomoUser(AbstractUser):
         return age.days
 
     def last5(self):
-        last5 = ProductHistory.objects.filter(fomouser__id=self.id).order_by('-view_datetime')[:5]
-        return last5
+
+        last5 = ProductHistory.objects.filter(fomouser__id=self.id).order_by('-view_datetime')
+        # products = cmod.Product.objects.filter(id__in=last5)
+        last_viewed = []
+
+        for vh in last5:
+            if vh.product not in last_viewed:
+                last_viewed.append(vh.product)
+            if len(last_viewed) >= 6:
+                break
+
+        return last_viewed
 
     def calc_subtotal(self):
         cart = self.get_cart()
@@ -74,7 +84,14 @@ class FomoUser(AbstractUser):
         return tax_amount
 
     def calc_shipping(self):
-        shipping_rate = Decimal(10)
+        cart = self.get_cart()
+        count = 0
+        for c in cart:
+            count = 1
+        if count == 1:
+            shipping_rate = Decimal(10)
+        else:
+            shipping_rate = 0
         print('SHIPPING RATE', shipping_rate)
         return shipping_rate
 
@@ -98,7 +115,6 @@ class FomoUser(AbstractUser):
             sale_item.qty = c.qty_ordered
             sale_item.price = (c.product.price * sale_item.qty)
             sale.total_cost += sale_item.price
-
             sale_item.save()
             print(sale_item.product.name)
             print(sale_item.qty)
@@ -130,7 +146,7 @@ class FomoUser(AbstractUser):
         payment = Payment()
         payment.sale = sale
         payment.stripe_charge_token = stripe_token
-        payment.total_amount_paid = sale.total_cost
+        payment.total_amount_paid = self.calc_total()
         payment.save()
         sale.save()
 
