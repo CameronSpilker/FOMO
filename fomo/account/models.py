@@ -45,6 +45,10 @@ class FomoUser(AbstractUser):
 
     # def remove_cart_item(self, id):
 
+    def product_history(self):
+        history = ProductHistory.objects.all()
+        return history
+
 
     def get_age(self):
         age = datetime.datetime.now() - self.birthdate
@@ -120,6 +124,22 @@ class FomoUser(AbstractUser):
             print(sale_item.qty)
             print(sale_item.price)
             print(sale.total_cost)
+            print('>>>>>>>>>>>sale item product', sale_item.product)
+
+            shipping_sale_item = SaleItem()
+            shipping_sale_item.sale = sale
+            shipping_sale_item.price = self.calc_shipping()
+            shipping_sale_item.product = sale_item.product
+            print('>>>>>>>>>>>>shi', shipping_sale_item.product)
+            shipping_sale_item.save()
+
+            tax_sale_item = SaleItem()
+            tax_sale_item.sale = sale
+            tax_sale_item.price = self.calc_tax()
+            tax_sale_item.product = sale_item.product
+            print('>>>>>>>>>>tsi', tax_sale_item.product)
+            tax_sale_item.save()
+
 
             update_product = cmod.Product.objects.get(id=c.product_id)
             print('>>>>>>>>>>>', update_product)
@@ -131,17 +151,19 @@ class FomoUser(AbstractUser):
                 update_product.status = False
             update_product.save()
 
-        shipping_sale_item = SaleItem()
-        shipping_sale_item.sale = sale
-        shipping_sale_item.price = self.calc_shipping()
-        shipping_sale_item.product = sale_item.product
-        shipping_sale_item.save()
+        # shipping_sale_item = SaleItem()
+        # shipping_sale_item.sale = sale
+        # shipping_sale_item.price = self.calc_shipping()
+        # shipping_sale_item.product = sale_item.product #was sale_item.product
+        # print('>>>>>>>>>>>>shi', shipping_sale_item.product)
+        # shipping_sale_item.save()
 
-        tax_sale_item = SaleItem()
-        tax_sale_item.sale = sale
-        tax_sale_item.price = self.calc_tax()
-        tax_sale_item.product = sale_item.product
-        tax_sale_item.save()
+        # tax_sale_item = SaleItem()
+        # tax_sale_item.sale = sale
+        # tax_sale_item.price = self.calc_tax()
+        # tax_sale_item.product = sale_item.product #was sale_item.product
+        # print('>>>>>>>>>>tsi', tax_sale_item.product)
+        # tax_sale_item.save()
 
         payment = Payment()
         payment.sale = sale

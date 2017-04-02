@@ -24,7 +24,6 @@ def process_request(request):
         fomouser = amod.FomoUser.objects.get(id=currentuser.id)
     except (TypeError, amod.FomoUser.DoesNotExist):
         return HttpResponseRedirect('/catalog/index1/')
-    count = 1
 
 
 
@@ -39,7 +38,7 @@ def process_request(request):
         form.cleaned_data['shipping_address']
         print('>>>>>>>>>>>>>>in the is valid')
         #do the form action
-        form.commit()
+        form.commit(fomouser)
         # username = form.cleaned_data.get('username')
         # password = form.cleaned_data.get('password')
         return HttpResponseRedirect('/catalog/checkout/')
@@ -78,7 +77,6 @@ class ShippingPageForm(FormMixIn, forms.Form):
     #this is where you check all of the values
     def clean_shipping_address(self):
         print('>>>>>>>>in the clean')
-        count = 2
         gmaps = googlemaps.Client(key='AIzaSyAy5uR2XX2y51goP4wXe3i4KWxm1pmT3Nc')
         shipping_address = self.cleaned_data.get('shipping_address')
         google = gmaps.geocode(shipping_address)
@@ -100,6 +98,7 @@ class ShippingPageForm(FormMixIn, forms.Form):
 
     #
     #login belongs inside of commit
-    def commit(self):
+    def commit(self, fomouser):
         print('>>>>>>>>>>>>>>in the commit', self.cleaned_data.get('shipping_address'))
-        pass
+        fomouser.shipping_address = self.cleaned_data.get('shipping_address')
+        fomouser.save()

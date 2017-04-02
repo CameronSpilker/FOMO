@@ -122,14 +122,14 @@ class AddToCartForm(FormMixIn, forms.Form):
             else:
                 si.qty_ordered = 1
             si.save()
-            #update product history
-            ph = amod.ProductHistory()
-            ph.product = product
-            ph.fomouser = self.request.user
-            ph.qty_ordered = self.cleaned_data.get('quantity')
-            ph.added = True
-            ph.in_cart = True
-            ph.save()
+        #update product history
+        ph = amod.ProductHistory()
+        ph.product = product
+        ph.fomouser = self.request.user
+        ph.qty_ordered = self.cleaned_data.get('quantity')
+        ph.added = True
+        ph.in_cart = True
+        ph.save()
 
 
 @view_function

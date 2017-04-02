@@ -591,5 +591,5 @@ print(u3.get_cart_count())
 # ###CLEAR CART###
 # print(u3.clear_cart())
 
-####RECORD SALE######
+# ###RECORD SALE######
 # print(u3.record_sale('stripe token'))

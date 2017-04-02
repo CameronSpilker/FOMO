@@ -24,7 +24,7 @@ var handler = StripeCheckout.configure({
   handler.open({
     name: 'FOMO',
     description: '2 widgets',
-    amount: 2000
+    amount: "${ round((request.user.calc_total() * 100), 2) }"
   });
   e.preventDefault();
 });

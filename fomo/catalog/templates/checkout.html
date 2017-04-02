@@ -2,8 +2,50 @@
 
 
 <%block name="body_section_middle">
-<script src="https://checkout.stripe.com/checkout.js"></script>
 
+<h1 style="text-align: center;">Review your order</h1>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<table class="table" style="background-color: white;">
+  <tbody>
+% for p in cart:
+    <tr>
+      <td></td>
+      <td>${p.product.name}</td>
+      <td>$${p.product.price * p.qty_ordered}</td>
+    </tr>
+% endfor
+  </tbody>
+</table>
+<table class="table" style="background-color: white;">
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Subtotal:</td>
+      <td>$${request.user.calc_subtotal()}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Tax:</td>
+      <td>$${round(request.user.calc_tax(), 2)}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Shipping:</td>
+      <td>$${request.user.calc_shipping()}</td>
+    </tr>
+    <tr style="background-color: #Efefef ;">
+      <td></td>
+      <td>Total:</td>
+      <td>$${round(request.user.calc_total(), 2)}</td>
+    </tr>
+    <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    </tr>
+  </tbody>
+</table>
 <!-- <button id="customButton">Purchase</button> -->
            ${ form }
+
 </%block>

@@ -1,0 +1,32 @@
+<%inherit file="app_base.htm" />
+
+<%block name="body_section_middle">
+<table class="table table-striped">
+    <tr>
+      <th>Product</th>
+      <th>User</th>
+      <th>qty ordered</th>
+      <th>date viewed</th>
+      <th>viewed</th>
+      <th>added to cart</th>
+      <th>purchased</th>
+      <th>currently in  cart</th>
+
+    </tr>
+  % for p in history:
+
+    <tr>
+        <td>${ p.product.name }</td>
+        <td>${ p.fomouser }</td>
+        <td>${ p.qty_ordered }</td>
+        <td>${ p.view_datetime }</td>
+        <td>${ p.viewed }</td>
+        <td>${ p.added }</td>
+        <td>${ p.purchased }</td>
+        <td>${ p.in_cart }</td>
+    </tr>
+  % endfor
+</table>
+
+
+</%block>
