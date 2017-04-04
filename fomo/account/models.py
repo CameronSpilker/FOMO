@@ -126,20 +126,6 @@ class FomoUser(AbstractUser):
             print(sale.total_cost)
             print('>>>>>>>>>>>sale item product', sale_item.product)
 
-            shipping_sale_item = SaleItem()
-            shipping_sale_item.sale = sale
-            shipping_sale_item.price = self.calc_shipping()
-            shipping_sale_item.product = sale_item.product
-            print('>>>>>>>>>>>>shi', shipping_sale_item.product)
-            shipping_sale_item.save()
-
-            tax_sale_item = SaleItem()
-            tax_sale_item.sale = sale
-            tax_sale_item.price = self.calc_tax()
-            tax_sale_item.product = sale_item.product
-            print('>>>>>>>>>>tsi', tax_sale_item.product)
-            tax_sale_item.save()
-
 
             update_product = cmod.Product.objects.get(id=c.product_id)
             print('>>>>>>>>>>>', update_product)
@@ -170,6 +156,10 @@ class FomoUser(AbstractUser):
         payment.stripe_charge_token = stripe_token
         payment.total_amount_paid = self.calc_total()
         payment.save()
+        sale.total_cost = self.calc_total()
+        sale.tax = self.calc_tax()
+        sale.shipping = self.calc_shipping()
+        sale.subtotal = self.calc_subtotal()
         sale.save()
 
 
@@ -202,6 +192,10 @@ class Sale(models.Model):
     fomouser = models.ForeignKey('FomoUser')
     date_sold = models.DateTimeField(auto_now_add=True)
     total_cost = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+    tax = models.DecimalField(default=0, decimal_places=2, max_digits=8)
+    shipping = models.DecimalField(default=0, decimal_places=2, max_digits=8)
+    subtotal = models.DecimalField(default=0, decimal_places=2, max_digits=8)
+
 
 class SaleItem(models.Model):
     sale = models.ForeignKey('Sale')

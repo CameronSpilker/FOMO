@@ -14,8 +14,18 @@ from .. import dmp_render, dmp_render_to_string
 
 
 @view_function
+@login_required(login_url='/account/login/')    
 def process_request(request):
 
- sale = request.user.record_sale('monkey')
+    try:
+        sale = amod.Sale.objects.get(id=request.urlparams[0])
+    except (TypeError, amod.Sale.DoesNotExist):
+        return HttpResponseRedirect('/catalog/index1/')
 
- return dmp_render(request, 'record.html', {'sale': sale})
+    saleitem = amod.SaleItem.objects.filter(sale__id=sale.id)
+    payment = amod.Payment.objects.filter(sale__id=sale.id)
+    return dmp_render(request, 'record.html', {
+        'sale': sale,
+        'saleitem': saleitem,
+        'payment': payment,
+        })

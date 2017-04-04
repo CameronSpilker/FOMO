@@ -9,7 +9,7 @@ from .. import dmp_render, dmp_render_to_string
 from django.contrib.postgres.search import SearchVector
 
 @view_function
-@login_required
+@login_required(login_url='/account/login/')
 def process_request(request):
     products = cmod.Product.objects.order_by().all()
     # picture = cmod.ProductPicture.objects.all()
@@ -38,7 +38,14 @@ def delete(request):
         return HttpResponseRedirect('/catalog/shoppingcart/')
 
     # producthistory.in_cart = False
+    # ph = amod.ProductHistory()
+    # ph.product = shoppingitem
+    # ph.fomouser = request.user
+    # ph.in_cart = False
+    # ph.save()
+
     shoppingitem.delete()
+
 
     return HttpResponseRedirect('/catalog/shoppingcart/')
 

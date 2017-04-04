@@ -2,7 +2,29 @@
 
 
 <%block name="body_section_middle">
+<h1 style="text-align: center;">Thanks for shopping with FOMO, you will receive your receipt shortly.</h1>
+<p style="text-align: center;">
+${sale.fomouser}<br>
+${sale.id}<br>
+%for p in payment:
+	${"{:%d %B %Y %I:%M:%S %p}".format(p.date_paid)}<br>
+%endfor
+Tax: ${sale.tax}<br>
+Shipping: ${sale.shipping}<br>
+Subtotal: ${sale.subtotal}<br>
+Total: ${sale.total_cost}<br>
 
-${ sale }
+
+%for i in saleitem:
+	${i.product.name}
+	${i.qty}<br>
+%endfor
+
+
+
+
+
+
+</p>
 
 </%block>

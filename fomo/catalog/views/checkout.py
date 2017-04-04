@@ -14,6 +14,7 @@ from .. import dmp_render, dmp_render_to_string
 
 
 @view_function
+@login_required(login_url='/account/login/')
 def process_request(request):
 
     currentuser = request.user
@@ -24,6 +25,9 @@ def process_request(request):
 
     cart = request.user.get_cart()
 
+    if (fomouser.get_cart_count() < 1):
+        return HttpResponseRedirect('/catalog/index1/')
+
     print('>>>>>>>>>>>>>>in the request')
     form = CheckoutForm(request, fomouser=fomouser, initial={
         'first_name': fomouser.first_name,
@@ -31,13 +35,16 @@ def process_request(request):
         'shipping_address': fomouser.shipping_address,
 
     })
+
     if form.is_valid():
         print('>>>>>>>>>>>>>>in the is valid')
         #do the form action
         form.commit(fomouser)
         # username = form.cleaned_data.get('username')
         # password = form.cleaned_data.get('password')
-        return HttpResponseRedirect('/catalog/index1/')
+        last_sale = amod.Sale.objects.filter(fomouser__id=currentuser.id).last()
+        print(')))))))))))))))))))))))))', last_sale)
+        return HttpResponseRedirect('/catalog/record/' + str(last_sale.id))
         # if request.GET.get('next') is not None:
         #     return HttpResponseRedirect('/homepage/index/')
         # else:
@@ -72,13 +79,13 @@ class CheckoutForm(FormMixIn, forms.Form):
     #this is where you check all of the values
     def clean(self):
         print('>>>>>>>>in the clean')
-        stripe.api_key = "sk_test_6I3M56BwEphFD854SNkXSHRl"
+        stripe.api_key = settings.STRIPE_API_SECRET
         total = round(self.fomouser.calc_total(), 0) * 100
         ret = stripe.Charge.create(
         amount=total,
         currency="usd",
         source=self.cleaned_data.get('stripe_token'),
-        # obtained with Stripe.js
+        #obtained with Stripe.js
         )
         print('>>>>>>>>>>>>>', ret)
 
@@ -91,8 +98,14 @@ class CheckoutForm(FormMixIn, forms.Form):
     def commit(self, fomouser):
         print('>>>>>>>>>>>>>>in the commit', self.cleaned_data.get('stripe_token'))
         fomouser.record_sale(self.cleaned_data.get('stripe_token'))
-        print(fomouser.record_sale(self.cleaned_data.get('stripe_token')))
-        pass
+        # cart = self.request.user.get_cart()
+
+        # ph = amod.ProductHistory()
+        # ph.product = cart.product
+        # ph.fomouser = self.request.user
+        # ph.purchased = True
+        # ph.save()
+
 
 #self.request
         #

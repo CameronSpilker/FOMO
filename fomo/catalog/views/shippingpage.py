@@ -7,6 +7,7 @@ from django_mako_plus import view_function
 from catalog import models as cmod
 from account import models as amod
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required, permission_required
 from formlib.form import FormMixIn
 
 from .. import dmp_render, dmp_render_to_string
@@ -14,6 +15,7 @@ from .. import dmp_render, dmp_render_to_string
 
 
 @view_function
+@login_required(login_url='/account/login/')
 def process_request(request):
     # gmaps = googlemaps.Client(key='AIzaSyAy5uR2XX2y51goP4wXe3i4KWxm1pmT3Nc')
 
@@ -25,6 +27,8 @@ def process_request(request):
     except (TypeError, amod.FomoUser.DoesNotExist):
         return HttpResponseRedirect('/catalog/index1/')
 
+    if (fomouser.get_cart_count() < 1):
+        return HttpResponseRedirect('/catalog/index1/')
 
 
     print('>>>>>>>>>>>>>>in the request')
@@ -65,22 +69,14 @@ class ShippingPageForm(FormMixIn, forms.Form):
         # self.fields['check_box'] = forms.CharField(widget=forms.HiddenInput(), required=False)
         self.fomouser = fomouser
 
-
-        # , widget=forms.HiddenInput()
-
-
-    # def clean_username(self):
-        #un = self.cleaned_data.get('username')
-
-        #return un
-
     #this is where you check all of the values
     def clean_shipping_address(self):
         print('>>>>>>>>in the clean')
-        gmaps = googlemaps.Client(key='AIzaSyAy5uR2XX2y51goP4wXe3i4KWxm1pmT3Nc')
+        gmaps = googlemaps.Client(key=settings.GOOGLE_SERVER_KEY)
         shipping_address = self.cleaned_data.get('shipping_address')
         google = gmaps.geocode(shipping_address)
         #ask googles gecoding api for corrected address
+        print(google)
         googleaddress = google[0]['formatted_address']
         # print(shipping_address)
         # print('>>>>>>Before IF', googleaddress)

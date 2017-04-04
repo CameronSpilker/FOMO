@@ -4,7 +4,8 @@ $(function(){
 
 	if ($(".errorlist")[0])
 	{
-    $('#id_check_box').show()
+    	$('#id_check_box').show()
+    	
 	} 
     else 
     {

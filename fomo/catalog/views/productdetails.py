@@ -127,7 +127,6 @@ class AddToCartForm(FormMixIn, forms.Form):
         ph.product = product
         ph.fomouser = self.request.user
         ph.qty_ordered = self.cleaned_data.get('quantity')
-        ph.added = True
         ph.in_cart = True
         ph.save()
 

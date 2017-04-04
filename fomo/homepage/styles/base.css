@@ -30,7 +30,7 @@ body{
 
 }
 label[for="id_check_box"] {
-   display: none;
+   display: none; 
 }
 .center{
 width: 150px;
