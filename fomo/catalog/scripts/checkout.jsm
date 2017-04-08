@@ -9,9 +9,10 @@ var handler = StripeCheckout.configure({
   locale: 'auto',
   token: function(token) {
   	console.log(token);
-  	$('#id_stripe_token').val(token.id)
+  	$('#id_stripe_token').val(token.id);
     // You can access the token ID with `token.id`.
     // Get the token ID to your server-side code for use.
+    $('.text-center').html('Authorizing Credit Card').fadeOut(3000);
     $('#checkout_form').submit();
   }
 });

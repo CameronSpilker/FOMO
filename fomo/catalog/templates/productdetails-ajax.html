@@ -1,14 +1,15 @@
 <%inherit file="homepage/templates/base_ajax.htm" />
 
 <%block name="content">
-  ${ product.name } added to cart!
+
+
+ 	 <div id="added_to_cart">
+ 	 	${ product.name } added to cart!
+	</div>
+  <div class="center" id="purchase_container1">
+    ${ form }
+  </div>
+
 </%block>
-
- <%block name="body_section_middle">
-
-  ${ form }
-
-
- </%block>
 
 

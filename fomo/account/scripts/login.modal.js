@@ -29,5 +29,3 @@ $(function(){
 	// 	$(images[current]).show();
 
 	});//click
-
-});//function

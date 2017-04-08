@@ -10,7 +10,6 @@
       <th>viewed</th>
       <th>added to cart</th>
       <th>purchased</th>
-      <th>currently in  cart</th>
 
     </tr>
   % for p in history:
@@ -23,7 +22,6 @@
         <td>${ p.viewed }</td>
         <td>${ p.added }</td>
         <td>${ p.purchased }</td>
-        <td>${ p.in_cart }</td>
     </tr>
   % endfor
 </table>

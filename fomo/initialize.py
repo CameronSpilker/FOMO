@@ -243,7 +243,7 @@ p5 = cmod.BulkProduct()
 p5.name = 'Mic'
 p5.category = cat1
 p5.price = Decimal('1')#'' makes it a decimal,
-p5.quantity = 13
+p5.quantity = 100
 p5.reorder_trigger = 2
 p5.reorder_quantity = 20
 p5.picture = '/static/homepage/media/pic/mic1.png'
@@ -262,7 +262,7 @@ p6 = cmod.BulkProduct()
 p6.name = 'Case'
 p6.category = cat1
 p6.price = Decimal('1')#'' makes it a decimal,
-p6.quantity = 10
+p6.quantity = 100
 p6.reorder_trigger = 3
 p6.reorder_quantity = 15
 p6.picture = '/static/homepage/media/pic/case1.png'
@@ -485,21 +485,18 @@ phis1.product = p5
 phis1.fomouser = u3
 phis1.added = True
 phis1.qty_ordered = 10
-phis1.in_cart = True
 phis1.save()
 
 phis2 = amod.ProductHistory()
 phis2.product = p1
 phis2.fomouser = u3
 phis2.added = True
-phis2.in_cart = True
 phis2.save()
 
 phis3 = amod.ProductHistory()
 phis3.product = p7
 phis3.fomouser = u3
 phis3.added = True
-phis3.in_cart = True
 phis3.save()
 
 phis4 = amod.ProductHistory()
@@ -507,7 +504,6 @@ phis4.product = p6
 phis4.fomouser = u3
 phis4.added = True
 phis4.qty_ordered = 6
-phis4.in_cart = True
 phis4.save()
 
 ###VIEWED BUT NOT ADDED#######
@@ -546,7 +542,6 @@ for h in history:
   print('viewed product: ', h.viewed)
   print('added product: ', h.added)
   print('purchased product: ', h.purchased)
-  print('product in cart: ', h.in_cart)
   print('datetime viewed: ', h.view_datetime)
   print()
 
@@ -593,3 +588,68 @@ print(u3.get_cart_count())
 
 # ###RECORD SALE######
 # print(u3.record_sale('stripe token'))
+
+
+sale = amod.Sale()
+sale.fomouser = u3
+sale.save()
+cart = u3.get_cart()
+for c in cart:
+    sale_item = amod.SaleItem()
+    sale_item.sale = sale
+    sale_item.product = c.product
+    sale_item.qty = c.qty_ordered
+    sale_item.price = (c.product.price * sale_item.qty)
+    sale.total_cost += sale_item.price
+    sale_item.save()
+    print(sale_item.product.name)
+    print(sale_item.qty)
+    print(sale_item.price)
+    print(sale.total_cost)
+    print('>>>>>>>>>>>sale item product', sale_item.product)
+
+
+    update_product = cmod.Product.objects.get(id=c.product_id)
+    print('>>>>>>>>>>>', update_product)
+
+    if hasattr(update_product, 'quantity'):
+        print('>>>>>>>>has quant')
+        update_product.quantity -= sale_item.qty
+    else:
+        update_product.status = False
+    update_history = amod.ProductHistory.objects.filter(fomouser__id=u3.id).filter(product__id=c.product.id).filter(added=True).order_by('-id')[0]
+    update_history.purchased = True
+
+    update_history.save()
+    update_product.save()
+    sale_item.save()
+
+# shipping_sale_item = SaleItem()
+# shipping_sale_item.sale = sale
+# shipping_sale_item.price = self.calc_shipping()
+# shipping_sale_item.product = sale_item.product #was sale_item.product
+# print('>>>>>>>>>>>>shi', shipping_sale_item.product)
+# shipping_sale_item.save()
+
+# tax_sale_item = SaleItem()
+# tax_sale_item.sale = sale
+# tax_sale_item.price = self.calc_tax()
+# tax_sale_item.product = sale_item.product #was sale_item.product
+# print('>>>>>>>>>>tsi', tax_sale_item.product)
+# tax_sale_item.save()
+
+payment = amod.Payment()
+payment.sale = sale
+payment.stripe_charge_token = '123lalkdfnfn3k39dk'
+payment.total_amount_paid = u3.calc_total()
+payment.save()
+sale.total_cost = u3.calc_total()
+sale.tax = u3.calc_tax()
+sale.shipping = u3.calc_shipping()
+sale.subtotal = u3.calc_subtotal()
+sale.save()
+
+
+
+
+u3.clear_cart()

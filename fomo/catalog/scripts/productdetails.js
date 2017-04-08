@@ -114,7 +114,9 @@ $(function(){
 
   var options = {
     target: '#purchase_container',
+
   };
+
 
     $('#cart_form').ajaxForm(options);//ajax form
 
@@ -122,5 +124,8 @@ $(function(){
     //$('#cart_form').ajaxForm({target: '#purchase_container'});
     //Ajax Form
 
-
 });//ready
+
+
+
+

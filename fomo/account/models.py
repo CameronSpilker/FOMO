@@ -80,7 +80,7 @@ class FomoUser(AbstractUser):
         return subtotal
 
     def calc_tax(self):
-        tax_rate = Decimal(.075)
+        tax_rate = Decimal(.0725)
         subtotal = self.calc_subtotal()
 
         tax_amount = (subtotal * tax_rate)
@@ -135,7 +135,12 @@ class FomoUser(AbstractUser):
                 update_product.quantity -= sale_item.qty
             else:
                 update_product.status = False
+            update_history = ProductHistory.objects.filter(fomouser__id=self.id).filter(product__id=c.product.id).filter(added=True).order_by('-id')[0]
+            update_history.purchased = True
+
+            update_history.save()
             update_product.save()
+            sale_item.save()
 
         # shipping_sale_item = SaleItem()
         # shipping_sale_item.sale = sale
@@ -184,7 +189,6 @@ class ProductHistory(models.Model):
     viewed = models.BooleanField(default=True)
     added = models.BooleanField(default=False)
     purchased = models.BooleanField(default=False)
-    in_cart = models.BooleanField(default=False)
 
 ####################################################################
 

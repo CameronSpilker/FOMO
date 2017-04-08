@@ -60,13 +60,36 @@
 <p class="pdtext">Name: ${ product.name }</p>
 <p class="pdtext">Price: $${ product.price }</p>
 %if hasattr(product, 'quantity'):
-<p class="pdtext">Quantity Avaliable: ${ product.quantity }</p>
+
+  %if product.quantity >= 1:
+
+  <p class="pdtext">Quantity Avaliable: ${ product.quantity }</p>
+        <div class="center" id="purchase_container">
+
+          ${ form }
+        </div>
+  %else:
+    <p class="pdtext">Quantity Avaliable: ${ product.quantity }</p>
+    <div class="center" id="purchase_container">
+
+        Out of Stock.
+      </div>
+  %endif
+
+
+%else:
+      %if product.status == True:
+        <div class="center" id="purchase_container">
+
+          ${ form }
+        </div>
+      %else:
+        <div class="center" id="purchase_container">
+
+          Out of Stock.
+        </div>
+      %endif
 %endif
-  <div class="center" id="purchase_container">
-
-
-  ${ form }
-</div>
 
 
 <!--   <a type="button" href="/catalog/checkout/${product.id}/" class="btn btn-warning"><i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i></a> -->

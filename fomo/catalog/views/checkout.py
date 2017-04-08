@@ -59,6 +59,7 @@ def process_request(request):
 class CheckoutForm(FormMixIn, forms.Form):
     print('>>>>>>>>>>>>>>in the form')
     form_id = 'checkout_form'
+    form_submit = 'Pay Now'
     def init(self, fomouser):
         print('>>>>>>>>>>>>>>in the init')
         self.fields['first_name'] = forms.CharField(label="First Name", max_length=100)

@@ -19,7 +19,7 @@ def process_request(request):
 
     try:
         print(request.urlparams[0])
-        category = cmod.Category.objects.order_by('name')
+        category = cmod.Category.objects.order_by('name')  
         #.get is for a single product
         product = cmod.Product.objects.get(id=pid)
         print('>>>>>>>>>>', category)
@@ -27,15 +27,21 @@ def process_request(request):
     except (TypeError, cmod.Category.DoesNotExist):
         return HttpResponseRedirect('/catalog/index1/')
 
-    try:
-        product_history = amod.ProductHistory.objects.filter(fomouser__id=request.user.id).filter(product__id=product.id).order_by('-id')
-        #update product history
-        print(product_history)
-    except amod.ProductHistory.DoesNotExist:
-        ph = amod.ProductHistory()
-        ph.product = product
-        ph.fomouser = request.user
-        ph.save()
+    # if pid not in request.last5:
+    #     request.last5.insert(0, product.id)
+
+    # if product.id in request.last5:
+    #     removeProduct = request.last5.index(product.id)
+    #     del request.last5[removeProduct]
+    # request.last5.insert(0, product.id)
+    # # elif pid in request.last5:
+    # #     request.last5
+
+
+    # if len(request.last5) > 6:
+    #     request.last5[:5]
+
+    # products = cmod.Product.objects.filter(id__in=request.last5).exclude(id=product.id)
 
 
     cart = request.user.get_cart().filter(product__id=product.id)
@@ -65,7 +71,7 @@ def process_request(request):
         'form': form,
         'cart': cart,
     }
-    return dmp_render(request, 'productdetails-ajax.html' if request.method == 'POST' else 'productdetails.html', context)
+    return dmp_render(request, 'productdetails.html', context)
 
     # return dmp_render(request, 'productdetails.html', context)
 
@@ -140,29 +146,12 @@ class AddToCartForm(FormMixIn, forms.Form):
             else:
                 si.qty_ordered = 1
             si.save()
-        try:
-            product_history = amod.ProductHistory.objects.filter(fomouser__id=self.request.user.id).filter(product__id=product.id).order_by('-id')[0]
-            #update product history
-            print(product_history)
-            product_history.added = True
-            product_history.save()
-        except amod.ProductHistory.DoesNotExist:
-            raise forms.ValidationError('Product History Does not Exist')
+        #update product history
+        ph = amod.ProductHistory()
+        ph.product = product
+        ph.fomouser = self.request.user
+        ph.qty_ordered = self.cleaned_data.get('quantity')
+        ph.in_cart = True
+        ph.save()
 
-@view_function
-def modal(request):
 
-    pid = request.urlparams[0]
-
-    try:
-        print(request.urlparams[0])
-        picture = cmod.ProductPicture.objects.filter(product=pid)
-        print(picture)
-    except (TypeError, cmod.ProductPicture.DoesNotExist):
-        return HttpResponseRedirect('/catalog/productdetails/pid')
-
-    context = {
-    'picture': picture,
-    }
-
-    return dmp_render(request, 'productdetails.modal.html', context)
