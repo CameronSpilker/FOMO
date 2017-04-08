@@ -444,7 +444,7 @@ u4.groups.add(g2)
 # print(u4.username)
 
 
-#########SHOPPING ITEM##########
+#########SHOPPING CART U3##########
 
 cart1 = amod.ShoppingItem()
 cart1.fomouser = u3
@@ -470,7 +470,7 @@ cart4.qty_ordered = 4
 cart4.save()
 
 sc = amod.ShoppingItem.objects.filter(fomouser=3)
-print('>>>>>>>>>>>>>>>>>>>>>>CART>>>>>>>>>>>>>>>>')
+print('>>>>>>>>>>>>>>>>>>>>>>CART FOR U3>>>>>>>>>>>>>>>>')
 for p in sc:
   print(p.product.name)
   print(p.qty_ordered)
@@ -478,7 +478,53 @@ for p in sc:
 
 
 print('>>>>>>>>>>>>>>>>END CART<<<<<<<<<<<<<<<<<<')
-  ########PRODUCT HISTORY##############
+
+################################################
+#########SHOPPING ITEM##########
+
+cart11 = amod.ShoppingItem()
+cart11.fomouser = u1
+cart11.product = p5
+cart11.qty_ordered = 10
+cart11.save()
+
+cart12 = amod.ShoppingItem()
+cart12.fomouser = u1
+cart12.product = p4
+cart12.qty_ordered = 15
+cart12.save()
+
+sc = amod.ShoppingItem.objects.filter(fomouser=1)
+print('>>>>>>>>>>>>>>>>>>>>>>CART FOR U1>>>>>>>>>>>>>>>>')
+for p in sc:
+  print(p.product.name)
+  print(p.qty_ordered)
+  print(p.id)
+
+
+print('>>>>>>>>>>>>>>>>END CART<<<<<<<<<<<<<<<<<<')
+#################################################
+
+###########PRODUCT HISTORY FOR USER 1############################
+phis11 = amod.ProductHistory()
+phis11.product = p5
+phis11.fomouser = u1
+phis11.added = True
+phis11.qty_ordered = 10
+phis11.save()
+
+phis12 = amod.ProductHistory()
+phis12.product = p4
+phis12.fomouser = u1
+phis12.added = True
+phis12.qty_ordered = 15
+phis12.save()
+
+
+
+
+
+########PRODUCT HISTORY FOR USER 3##############
 
 phis1 = amod.ProductHistory()
 phis1.product = p5
@@ -590,6 +636,10 @@ print(u3.get_cart_count())
 # print(u3.record_sale('stripe token'))
 
 
+
+
+
+######################EXAMPLE SALE 1 WITH USER 3#########################################
 sale = amod.Sale()
 sale.fomouser = u3
 sale.save()
@@ -653,3 +703,71 @@ sale.save()
 
 
 u3.clear_cart()
+####################################################################################################
+
+
+######################EXAMPLE SALE FOR USER 1######################################
+sale = amod.Sale()
+sale.fomouser = u1
+sale.save()
+cart = u1.get_cart()
+for c in cart:
+    sale_item = amod.SaleItem()
+    sale_item.sale = sale
+    sale_item.product = c.product
+    sale_item.qty = c.qty_ordered
+    sale_item.price = (c.product.price * sale_item.qty)
+    sale.total_cost += sale_item.price
+    sale_item.save()
+    print(sale_item.product.name)
+    print(sale_item.qty)
+    print(sale_item.price)
+    print(sale.total_cost)
+    print('>>>>>>>>>>>sale item product', sale_item.product)
+
+
+    update_product = cmod.Product.objects.get(id=c.product_id)
+    print('>>>>>>>>>>>', update_product)
+
+    if hasattr(update_product, 'quantity'):
+        print('>>>>>>>>has quant')
+        update_product.quantity -= sale_item.qty
+    else:
+        update_product.status = False
+    update_history = amod.ProductHistory.objects.filter(fomouser__id=u1.id).filter(product__id=c.product.id).filter(added=True).order_by('-id')[0]
+    update_history.purchased = True
+
+    update_history.save()
+    update_product.save()
+    sale_item.save()
+
+# shipping_sale_item = SaleItem()
+# shipping_sale_item.sale = sale
+# shipping_sale_item.price = self.calc_shipping()
+# shipping_sale_item.product = sale_item.product #was sale_item.product
+# print('>>>>>>>>>>>>shi', shipping_sale_item.product)
+# shipping_sale_item.save()
+
+# tax_sale_item = SaleItem()
+# tax_sale_item.sale = sale
+# tax_sale_item.price = self.calc_tax()
+# tax_sale_item.product = sale_item.product #was sale_item.product
+# print('>>>>>>>>>>tsi', tax_sale_item.product)
+# tax_sale_item.save()
+
+payment = amod.Payment()
+payment.sale = sale
+payment.stripe_charge_token = 'efasdfer3435qfasdfasd'
+payment.total_amount_paid = u1.calc_total()
+payment.save()
+sale.total_cost = u1.calc_total()
+sale.tax = u1.calc_tax()
+sale.shipping = u1.calc_shipping()
+sale.subtotal = u1.calc_subtotal()
+sale.save()
+
+
+
+
+u1.clear_cart()
+#######################################################################################

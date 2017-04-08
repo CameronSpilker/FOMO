@@ -7,10 +7,17 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <table class="table" style="background-color: white;">
   <tbody>
+      <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Qty</th>
+      <th>Price</th>
+    </tr>
 % for p in cart:
     <tr>
       <td></td>
       <td>${p.product.name}</td>
+      <td>${p.qty_ordered}</td>
       <td>$${p.product.price * p.qty_ordered}</td>
     </tr>
 % endfor
@@ -46,6 +53,7 @@
   </tbody>
 </table>
 <!-- <button id="customButton">Purchase</button> -->
+<h1 style="text-align: center;">Review your Information</h1>
            ${ form }
 
 </%block>
