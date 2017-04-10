@@ -7,6 +7,7 @@ from formlib.form import FormMixIn
 from catalog import models as cmod
 from account import models as amod
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.mail import send_mail, send_mass_mail, EmailMultiAlternatives
 
 import stripe
 
@@ -28,7 +29,7 @@ def process_request(request):
     if (fomouser.get_cart_count() < 1):
         return HttpResponseRedirect('/catalog/index1/')
 
-    print('>>>>>>>>>>>>>>in the request')
+
     form = CheckoutForm(request, fomouser=fomouser, initial={
         'first_name': fomouser.first_name,
         'last_name': fomouser.last_name,
@@ -37,13 +38,39 @@ def process_request(request):
     })
 
     if form.is_valid():
-        print('>>>>>>>>>>>>>>in the is valid')
-        #do the form action
+
         form.commit(fomouser)
-        # username = form.cleaned_data.get('username')
-        # password = form.cleaned_data.get('password')
         last_sale = amod.Sale.objects.filter(fomouser__id=currentuser.id).last()
-        print(')))))))))))))))))))))))))', last_sale)
+
+        try:
+            sale = amod.Sale.objects.get(id=last_sale.id)
+        except (TypeError, amod.Sale.DoesNotExist):
+            return HttpResponseRedirect('/catalog/index1/')
+
+        saleitem = amod.SaleItem.objects.filter(sale__id=sale.id)
+        payment = amod.Payment.objects.filter(sale__id=sale.id)
+
+        subject = 'Your FOMO Order Confirmation'
+        from_email = 'no-reply@familyorientedmusic.net'
+        to_email = [request.user.email]
+        contact_message = "%s: %s via %s" % (
+            'test',
+            'test1',
+            'test2'
+        )
+
+    # send_mail(subject,contact_message,from_email,to_email,fail_silently=False)
+        msg = EmailMultiAlternatives(
+            subject, contact_message, from_email, to_email)
+        html_message = dmp_render_to_string(request, 'email.html', {
+            'sale': sale,
+            'saleitem': saleitem,
+            'payment': payment,})
+        msg.attach_alternative(html_message, "text/html")
+        msg.send()
+
+
+
         return HttpResponseRedirect('/catalog/record/' + str(last_sale.id))
         # if request.GET.get('next') is not None:
         #     return HttpResponseRedirect('/homepage/index/')
