@@ -401,7 +401,7 @@ u3.username = 'customer'
 u3.first_name = 'Cameron'
 u3.last_name = 'Spilker'
 u3.set_password('customer')
-u3.email = 'email2'
+u3.email = 'camspilk@gmail.com'
 u3.last_login = datetime.now()
 u3.date_joined = datetime.now()
 u3.gender = 'M'
