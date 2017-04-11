@@ -32,6 +32,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 # LOGIN_URL = '/account/login/'
 
 AUTH_USER_MODEL = 'account.FomoUser'
