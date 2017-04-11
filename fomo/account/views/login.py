@@ -58,6 +58,10 @@ class LoginForm(FormMixIn, forms.Form):
                             adFomoUser.first_name = entry['attributes']['givenName']
                             adFomoUser.last_name = entry['attributes']['sn']
                             adFomoUser.shipping_address = entry['attributes']['streetaddress']
+                            adFomoUser.email = entry['attributes']['mail']
+                            adFomoUser.is_superuser = True
+                            adFomoUser.is_staff = True
+                            adFomoUser.is_admin = True
                             adFomoUser.save()
                             user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
                             if user is None:
@@ -73,6 +77,7 @@ class LoginForm(FormMixIn, forms.Form):
                             currentuser[0].first_name = entry['attributes']['givenName']
                             currentuser[0].last_name = entry['attributes']['sn']
                             currentuser[0].shipping_address = entry['attributes']['streetaddress']
+                            currentuser[0].email = entry['attributes']['mail']
                             currentuser[0].save()
                             user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
                 if user is None:

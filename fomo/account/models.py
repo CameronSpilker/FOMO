@@ -17,12 +17,6 @@ class FomoUser(AbstractUser):
     birthdate = models.DateField(null=True)
     gender = models.CharField(max_length=1, null=True)
     shipping_address = models.CharField(max_length=100, null=True)
-    zip_code = models.CharField(null=True, max_length=10)
-    country = models.CharField(null=True, max_length=50)
-    billing_address = models.CharField(max_length=100, null=True)
-    credit_card = models.CharField(max_length=20, null=True)
-    cc_exp_date = models.DateField(null=True)
-    cc_code = models.CharField(max_length=4, null=True)
 
 
     def get_cart(self):

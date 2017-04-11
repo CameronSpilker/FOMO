@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django_mako_plus import view_function
 from datetime import datetime
 from account import models as amod
+from django.contrib.auth import authenticate, login
 from formlib.form import FormMixIn
 from django import forms
 from .. import dmp_render, dmp_render_to_string
@@ -39,11 +40,8 @@ class SignUpPageForm(FormMixIn, forms.Form):
         self.fields['username'] = forms.CharField(label="Username", max_length=100)
         self.fields['password'] = forms.CharField(label="Password", widget=forms.PasswordInput())
         self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
-        self.fields['billing_address'] = forms.CharField(label="Billing Address", max_length=100)
         self.fields['birthdate'] = forms.DateField(label="Birthdate")
-        self.fields['credit_card'] = forms.CharField(label="Credit Card", max_length=20)
-        self.fields['cc_exp_date'] = forms.DateField(label="Credit Card Expiration Date")
-        self.fields['cc_code'] = forms.CharField(label="Credit Card CVS Code", max_length=4)
+
 
 
     def clean_username(self):
@@ -64,11 +62,11 @@ class SignUpPageForm(FormMixIn, forms.Form):
         fomouser.username = self.cleaned_data.get('username')
         fomouser.set_password(self.cleaned_data.get('password'))
         fomouser.shipping_address = self.cleaned_data.get('shipping_address')
-        fomouser.billing_address = self.cleaned_data.get('billing_address')
         fomouser.birthdate = self.cleaned_data.get('birthdate')
-        fomouser.credit_card = self.cleaned_data.get('credit_card')
-        fomouser.cc_exp_date = self.cleaned_data.get('cc_exp_date')
-        fomouser.cc_code = self.cleaned_data.get('cc_code')
+
 
 
         fomouser.save()
+        user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+        login(self.request, user)
+

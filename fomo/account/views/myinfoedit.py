@@ -34,7 +34,6 @@ def process_request(request):
         'username': fomouser.username,
         'email': fomouser.email,
         'shipping_address': fomouser.shipping_address,
-        'billing_address': fomouser.billing_address,
         'birthdate': fomouser.birthdate,
 
     })
@@ -59,7 +58,6 @@ class EditUserForm(FormMixIn, forms.Form):
         self.fields['email'] = forms.EmailField(label="Email")
         self.fields['username'] = forms.CharField(label="Username", max_length=100)
         self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
-        self.fields['billing_address'] = forms.CharField(label="Billing Address", max_length=100)
         self.fields['birthdate'] = forms.DateField(label="birthdate")
         self.fomouser = fomouser
 
@@ -79,7 +77,6 @@ class EditUserForm(FormMixIn, forms.Form):
         fomouser.last_name = self.cleaned_data.get('last_name')
         fomouser.username = self.cleaned_data.get('username')
         fomouser.shipping_address = self.cleaned_data.get('shipping_address')
-        fomouser.billing_address = self.cleaned_data.get('billing_address')
         fomouser.email = self.cleaned_data.get('email')
         fomouser.birthdate = self.cleaned_data.get('birthdate')
 
