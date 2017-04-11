@@ -41,9 +41,12 @@ def process_request(request):
 
         form.commit(fomouser)
         last_sale = amod.Sale.objects.filter(fomouser__id=currentuser.id).last()
+        print('last sale', last_sale)
 
         try:
             sale = amod.Sale.objects.get(id=last_sale.id)
+            print('sale id', sale.id)
+            print('last sale id', last_sale.id)
         except (TypeError, amod.Sale.DoesNotExist):
             return HttpResponseRedirect('/catalog/index1/')
 
@@ -53,10 +56,11 @@ def process_request(request):
         subject = 'Your FOMO Order Confirmation'
         from_email = 'no-reply@familyorientedmusic.net'
         to_email = [request.user.email]
+        print('user email', to_email)
         contact_message = "%s: %s via %s" % (
-            'test',
-            'test1',
-            'test2'
+            'To',
+            request.user.first_name,
+            'no-reply@familyorientedmusic.net'
         )
 
     # send_mail(subject,contact_message,from_email,to_email,fail_silently=False)

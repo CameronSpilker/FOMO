@@ -339,19 +339,12 @@ u1.username = 'Cougar'
 print(u1.first_name)
 u1.first_name = 'Ricky'
 u1.last_name = 'Bobby'
-u1.set_password('1234')
-u1.email = 'email'
+u1.set_password('Purplemonkeydishwater1')
+u1.email = 'camspilk@gmail.com'
 u1.birthdate = datetime(2017, 1, 23, 1, 23)
 u1.gender = 'M'
 u1.shipping_address = 'shipping address'
-u1.zip_code = '12345'
-u1.country = 'USA'
-u1.billing_address = 'billing address'
 u1.last_login = datetime(2017, 1, 23, 1, 23)
-u1.credit_card = '5678'
-u1.cc_exp_date = datetime.now()
-print('>>>>>>>>>', u1.cc_exp_date)
-u1.cc_code = '123'
 u1.date_joined = datetime.now()
 # u1.is_staff = True
 # u1.is_admin = True
@@ -378,19 +371,13 @@ u2 = amod.FomoUser()
 u2.first_name = 'Martha'
 u2.last_name = 'Smith'
 u2.username = 'admin'
-u2.set_password('admin')
-u2.email = 'mamaoffive@gmail.com'
+u2.set_password('Purplemonkeydishwater1')
+u2.email = 'camspilk@gmail.com'
 u2.birthdate = datetime(2002, 12, 25, 0, 0)
 u2.gender = 'F'
 u2.shipping_address = '1234 Short Road'
-u2.zip_code = '12345'
-u2.country = 'USA'
-u2.billing_address = '1234 Short Road'
 u2.last_login = datetime(2017, 1, 15, 2, 33)
 u2.date_joined = datetime(2017, 1, 1, 3, 14)
-u2.credit_card = '12349841002'
-u2.cc_code = '001'
-u2.cc_exp_date = datetime(2019, 9, 1, 0, 0)
 u2.save()
 
 u2.groups.add(g3)
@@ -400,19 +387,13 @@ u3 = amod.FomoUser()
 u3.username = 'customer'
 u3.first_name = 'Cameron'
 u3.last_name = 'Spilker'
-u3.set_password('customer')
+u3.set_password('Purplemonkeydishwater1')
 u3.email = 'camspilk@gmail.com'
 u3.last_login = datetime.now()
 u3.date_joined = datetime.now()
 u3.gender = 'M'
 u3.birthdate = datetime.now()
 u3.shipping_address = "1008 south 500 west provo, utah 84601"
-u3.zip_code = '12345'
-u3.country = 'USA'
-u3.billing_address = "Billing address for number 2"
-u3.credit_card = "1234567812345678"
-u3.cc_exp_date = datetime.now()
-u3.cc_code = "1234"
 u3.save()
 
 u3.groups.add(g4)
@@ -423,20 +404,14 @@ u3.groups.add(g4)
 u4 = amod.FomoUser()
 u4.first_name = 'Tanner'
 u4.last_name = 'Schmoekel'
-u4.set_password('sales')
+u4.set_password('Purplemonkeydishwater1')
 u4.username = 'sales'
-u4.email = 'tschmoek@gmail.com'
-u4.billing_address = '123 hello st'
-u4.zip_code = '12345'
-u4.country = 'USA'
+u4.email = 'camspilk@gmail.com'
 u4.shipping_address = '483 mystreet'
 u4.birthdate = datetime.now()
-u4.cc_exp_date = datetime.now()
 u4.gender = 'm'
 u4.date_joined = datetime.now()
 u4.last_login = datetime.now()
-u4.cc_code = '123'
-u4.credit_card = "5555555"
 u4.save();
 
 u4.groups.add(g2)
