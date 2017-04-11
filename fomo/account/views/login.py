@@ -4,6 +4,8 @@ from django import forms
 from django_mako_plus import view_function
 from django.contrib.auth import authenticate, login
 from formlib.form import FormMixIn
+from account import models as amod
+from ldap3 import Server, Connection, ALL
 
 from .. import dmp_render, dmp_render_to_string
 
@@ -36,52 +38,67 @@ class LoginForm(FormMixIn, forms.Form):
         self.fields['password'] = forms.CharField(required=True, widget=forms.PasswordInput())
 
 
-    # def clean_username(self):
-        #un = self.cleaned_data.get('username')
+def clean(self):
+        userLocal = self.cleaned_data.get('username') + '@familyorientedmusic.local'
+        userNet = self.cleaned_data.get('username') + '@familyorientedmusic.net'
 
-        #return un
+        s = Server('128.187.61.57', port=389, use_ssl=False, get_info=ALL)
+        c = Connection(s, user=userLocal, password=self.cleaned_data.get('password'), auto_bind='NONE', version=3, authentication='SIMPLE', client_strategy='SYNC', auto_referrals=True, check_names=True, read_only=False, lazy=False, raise_exceptions=False)
+        if not c.bind():
+            print('error in bind', c.user)
+        else:
+            currentuser = amod.FomoUser.objects.filter(username=self.cleaned_data.get('username'))
+            print('after current user', currentuser)
+            c.search('cn=users,dc=familyorientedmusic,dc=local','(objectclass=Person)',
+                    attributes = ['mail', 'givenName', 'sn', 'streetaddress'])
+            if not currentuser:
+                for entry in c.response:
+                    print('in the for loop', entry)
+                    if 'mail' in entry['attributes']:
+                        print('in the mail if statement', entry['attributes']['mail'])
+                        if entry['attributes']['mail'] == userNet:
+                            adFomoUser = amod.FomoUser()
+                            adFomoUser.username = self.cleaned_data.get('username')
+                            adFomoUser.set_password(self.cleaned_data.get('password'))
+                            adFomoUser.first_name = entry['attributes']['givenName']
+                            adFomoUser.last_name = entry['attributes']['sn']
+                            adFomoUser.shipping_address = entry['attributes']['streetaddress']
+                            adFomoUser.save()
+                            user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+                            if user is None:
+                                raise forms.ValidationError('Invalid username or password.')
+                            return self.cleaned_data
 
-    #this is where you check all of the values
-    def clean(self):
+            else:
+                for entry in c.response:
+                    print('in the for loop', entry)
+                    if 'mail' in entry['attributes']:
+                        print('in the mail if statement', entry['attributes']['mail'])
+                        if entry['attributes']['mail'] == userNet:
+                            currentuser[0].first_name = entry['attributes']['givenName']
+                            currentuser[0].last_name = entry['attributes']['sn']
+                            currentuser[0].shipping_address = entry['attributes']['streetaddress']
+                            currentuser[0].save()
+                            user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+                if user is None:
+                    raise forms.ValidationError('Invalid username or password.')
+                return self.cleaned_data
+
+
         user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+
         if user is None:
             raise forms.ValidationError('Invalid username or password.')
 
         return self.cleaned_data
 
-    #
-    #login belongs inside of commit
-    def commit(self):
-        print('>>>>>>>>>>>>>>in the commit')
-        user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
-        login(self.request, user)
-
-#self.request
-        #
-        # if user is not None:
-        #     login(request, user)
-        #     print('>>>>>>>>>>>>>>auth')
-        #     return True
-        #         #go to account page
-        #     # return HttpResponseRedirect('/account/index/')
-        #     # Redirect to a success page.
-        # else:
-        #         # Return an 'invalid login' error message.
-        #     print('>>>>>>>>>>>>>>NOTTTTTT')
-        #     return False
-
-    # print('>>>>>>>>>>>>>> in print boya')
-    # username = request.POST.get('username', '')
-    # password = request.POST.get('password', '')
-    # #authenticate the user
-    # # username = 'Cougar'
-    # # password = '1234'
-    # user = authenticate(username=username, password=password)
-    # #log the user in
 
 
 
-#############MODAL##############################
+#login belongs inside of commit
+def commit(self):
+    user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+    login(self.request, user)
 
 
 
