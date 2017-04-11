@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate, login
 from formlib.form import FormMixIn
 from account import models as amod
 from ldap3 import Server, Connection, ALL
-
 from .. import dmp_render, dmp_render_to_string
 
 
@@ -18,13 +17,7 @@ def process_request(request):
         print('>>>>>>>>>>>>>>in the is valid')
         #do the form action
         form.commit()
-        # username = form.cleaned_data.get('username')
-        # password = form.cleaned_data.get('password')
         return HttpResponseRedirect('/account/successlogin/')
-        # if request.GET.get('next') is not None:
-        #     return HttpResponseRedirect('/homepage/index/')
-        # else:
-        #     return HttpResponseRedirect(request.GET.get('next')
 
     return dmp_render(request, 'login.html', {
         'form': form,
@@ -38,7 +31,9 @@ class LoginForm(FormMixIn, forms.Form):
         self.fields['password'] = forms.CharField(required=True, widget=forms.PasswordInput())
 
 
-def clean(self):
+
+    #this is where you check all of the values
+    def clean(self):
         userLocal = self.cleaned_data.get('username') + '@familyorientedmusic.local'
         userNet = self.cleaned_data.get('username') + '@familyorientedmusic.net'
 
@@ -92,15 +87,10 @@ def clean(self):
 
         return self.cleaned_data
 
-
-
-
-#login belongs inside of commit
-def commit(self):
-    user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
-    login(self.request, user)
-
-
+    def commit(self):
+        print('>>>>>>>>>>>>>>in the commit')
+        user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+        login(self.request, user)
 
 @view_function
 def modal(request):
@@ -110,18 +100,12 @@ def modal(request):
         print('>>>>>>>>>>>>>>in the is valid')
         #do the form action
         form.commit()
-        # username = form.cleaned_data.get('username')
-        # password = form.cleaned_data.get('password')
         return HttpResponse('''
             <script>
             window.location.href = '/account/successlogin/';
             </script>
 
             ''')
-        # if request.GET.get('next') is not None:
-        #     return HttpResponseRedirect('/homepage/index/')
-        # else:
-        #     return HttpResponseRedirect(request.GET.get('next')
 
     return dmp_render(request, 'login.modal.html', {
         'form': form,

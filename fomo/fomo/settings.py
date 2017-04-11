@@ -30,7 +30,11 @@ GOOGLE_SERVER_KEY = "AIzaSyAy5uR2XX2y51goP4wXe3i4KWxm1pmT3Nc"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.familyorientedmusic.net',
+    'localhost',
+    '127.0.0.1'
+    ]
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
@@ -42,9 +46,6 @@ EMAIL_USE_TLS = True
 AUTH_USER_MODEL = 'account.FomoUser'
 # Application definition
 
-
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_mako_plus',
+    'django_python3_ldap',
     'polymorphic',
     'homepage',
     'account',
@@ -121,7 +123,7 @@ TEMPLATES = [
 
             # whether to minify using rjsmin, rcssmin during 1) collection of static files, and 2) on the fly as .jsm and .cssm files are rendered
             # rjsmin and rcssmin are fast enough that doing it on the fly can be done without slowing requests down
-            'MINIFY_JS_CSS': True,
+            'MINIFY_JS_CSS': False,
 
             # the name of the SASS binary to run if a .scss file is newer than the resulting .css file
             # happens when the corresponding template.html is accessed the first time after server startup
@@ -171,9 +173,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fomo',
         'USER': 'postgres',
-        'PASSWORD': '1234',
+        'PASSWORD': 'Purplemonkeydishwater1',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5430',
     }
 }
 
@@ -217,7 +219,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
      # SECURITY WARNING: this next line must be commented out at deployment
-     BASE_DIR,
+     # BASE_DIR,
  )
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -243,6 +245,10 @@ LOGGING = {
              'handlers': ['console'],
              'level': 'DEBUG',
              'propagate': False,
+         },
+         'django_python3_ldap': {
+            'handlers': ['console'],
+            'level': 'INFO',
          },
      },
  }
