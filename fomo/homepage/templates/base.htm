@@ -1,22 +1,18 @@
 ## this is the skeleton of all pages on in this app - it defines the basic html tags
-
 ## imports
 <%! from django_mako_plus import get_template_css, get_template_js %>
-
 <!DOCTYPE html>
 <html>
   <meta charset="UTF-8">
   <head>
-
     <title>
-      <%block name="page_title">
-        FOMO Web Site
-      </%block>
+    <%block name="page_title">
+    FOMO Web Site
+    </%block>
     </title>
-
     ## add any site-wide scripts or CSS here; for example, jquery:
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<!--     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <!--     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="${ STATIC_URL }homepage/media/Bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="${ STATIC_URL }homepage/media/jquery.datetimepicker.min.css"></link>
@@ -25,173 +21,156 @@
     <script src="${ STATIC_URL }homepage/media/jquery.datetimepicker.full.js"></script>
     <script src="${ STATIC_URL }homepage/media/Modal/jquery.loadmodal.js"></script>
     <script src="${ STATIC_URL }homepage/media/jqueryform/jquery.form.js"></script>
-
     
     <!--icon line  -->
-
-
- <!-- Bootstrap Core CSS -->
+    <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="${ STATIC_URL }homepage/media/Bootstrap/css/bootstrap.css"/>
-
     <!-- Custom CSS -->
     <link href="${ STATIC_URL }homepage/styles/cssh/landing-page.css" rel="stylesheet"></link>
-
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"></link>
-
-
     ## render the css with the same name as this page
     ${ get_template_css(self, request, context) }
-
     <%block name="icon_logo">
     <link rel="icon" type="image/png" href="${STATIC_URL}homepage/media/Logo.png"/>
     </%block>
-
-
-
   </head>
-<body>
-
-  <div class="container-fluid" id="header_main">
-    <div class="row">
-        <div class="col-md-12">
-          <%block name ="header_main">
-          </%block>
-        </div><!--col -->
-    </div><!--row -->
-  </div> <!--container -->
-
-<!--  navbar-fixed-top topnav -->
-
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-          <div class="navbar-header">
-            %if user.has_perm('account.add_fomouser') and user.has_perm('catalog.add_product'):
-                <a class="navbar-brand" title = "Family Organization Music Oriented" a href="/homepage/index/">
-                  <img src = "${ STATIC_URL}homepage/media/Logo.png" class="icon" alt = "Awesome logo"/>
-                </a>
-            %else:
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid" id="header_main">
+        <div class="row">
+          <div class="col-md-12">
+            <%block name ="header_main">
+            </%block>
+            </div><!--col -->
+            </div><!--row -->
+            </div> <!--container -->
+            <!--  navbar-fixed-top topnav -->
+            <nav class="navbar navbar-default" role="navigation">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  %if user.has_perm('account.add_fomouser') and user.has_perm('catalog.add_product'):
                   <a class="navbar-brand" title = "Family Organization Music Oriented" a href="/homepage/index/">
                     <img src = "${ STATIC_URL}homepage/media/Logo.png" class="icon" alt = "Awesome logo"/>
                   </a>
-            %endif
-          </div>
-          <ul class="nav navbar-nav">
-              <%block name="nav_bar">
-               </%block>
-             </ul>
-     <ul class="nav navbar-nav navbar-right">
-        %if request.user.is_authenticated:
-        <li><a href="/catalog/shoppingcart/"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i> <span class="badge" id="cart_count_span"> ${ request.user.get_cart_count() }</span></a></li>
-        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>  ${ user.first_name }'s Account
-        <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/manager/index/"><i class="fa fa-user-circle" aria-hidden="true"></i> My Account </a></li>
-            <li><a href="/account/myinfo/"><i class="fa fa-id-card" aria-hidden="true"></i> My Information</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/account/logout/"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-          </ul>
-        %else:
-        
-            <!-- <li><a href="/account/login/"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li> -->
-            <li><a id="login-modal-button"> Login</a></li>
-           <li><a href="/account/signup/"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</a></li>
-          
-        %endif
-        </li>
-      </ul>
-      </div>
-    </nav >
+                  %else:
+                  <a class="navbar-brand" title = "Family Organization Music Oriented" a href="/homepage/index/">
+                    <img src = "${ STATIC_URL}homepage/media/Logo.png" class="icon" alt = "Awesome logo"/>
+                  </a>
+                  %endif
+                </div>
+                <ul class="nav navbar-nav">
+                  <%block name="nav_bar">
+                  </%block>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  %if request.user.is_authenticated:
+                  <li><a href="/catalog/shoppingcart/"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i> <span class="badge" id="cart_count_span"> ${ request.user.get_cart_count() }</span></a></li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>  ${ user.first_name }'s Account
+                      <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/manager/index/"><i class="fa fa-user-circle" aria-hidden="true"></i> My Account </a></li>
+                        <li><a href="/account/myinfo/"><i class="fa fa-id-card" aria-hidden="true"></i> My Information</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/account/logout/"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                      </ul>
+                      %else:
+                      
+                      <!-- <li><a href="/account/login/"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li> -->
+                      <li><a id="login-modal-button"> Login</a></li>
+                      <li><a href="/account/signup/"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</a></li>
+                      
+                      %endif
+                    </li>
+                  </ul>
+                </div>
+              </nav >
+              <div class="container-fluid">
+                <div class="row" id="body_section_above">
+                  <!-- <div class="alert alert-warning alert-dismissible" role="alert" id="header_message">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <%block name="header_message">
+                    <strong>Hello!</strong> Welcome to FOMO.
+                    </%block>
+                  </div> -->
+                  <!-- <button type="button" id="button" class=" btn btn-primary">Learn More Now!</button> -->
+                  <div class="col-md-12">
+                    <%block name="homepagepicture">
+                    </%block>
+                  </div>
+                  <div class="col-md-12">
+                    <%block name="body_section_above">
+                    </%block>
+                    </div><!--col -->
+                    </div><!--row -->
+                    <div class="row">
+                      <div class="col-md-6 col-md-offset-3" id="body_section_above_middle">
+                        <%block name="body_section_above_middle">
+                        </%block>
+                        </div><!--col -->
+                        </div><!--row -->
+                        
+                        <%block name="hp1">
+                        </%block>
+                        <%block name="hp2">
+                        </%block>
+                        <%block name="hp3">
+                        </%block>
+                        <%block name="hp4">
+                        </%block>
+                        <%block name="hp5">
+                        </%block>
+                        <div class="row">
+                          <div class="col-md-2" id="body_section_left">
+                            <%block name="body_section_left">
+                            </%block>
+                            </div><!--col -->
+                            <div class="col-md-8" id="body_section_middle">
+                              <%block name="body_section_middle">
+                              </%block>
+                              </div><!--col -->
+                              <div class="col-md-2" id="body_section_right">
+                                <%block name="body_section_right">
+                                </%block>
+                                </div><!--col -->
+                                </div><!--row -->
+                                <div class="row" id="body_section_below">
+                                  <div class="col-md-12">
+                                    <%block name="body_section_below">
+                                    </%block>
+                                    </div><!--col -->
+                                    </div><!--row -->
+                                  </div>
+                                  
+                                  <div class="footer text-center">
+                                  <ul class="list-inline">
+                                    <li>
+                                      <a href="/homepage/index/">Home</a>
+                                    </li>
+                                    <li class="footer-menu-divider">&sdot;</li>
+                                    <li>
+                                      <a href="/homepage/about/">About</a>
+                                    </li>
+                                    <li class="footer-menu-divider">&sdot;</li>
+                                    <li>
+                                      <a href="/catalog/index/">Products</a>
+                                    </li>
+                                    <li class="footer-menu-divider">&sdot;</li>
+                                    <li>
+                                      <a href="/homepage/contact/">Contact</a>
+                                    </li>
+                                  </ul>
+                                  <% from datetime import datetime %>
+                                  &copy; Copyright ${ datetime.now().year}. All rights reserved.
+                                </div>
 
 
-  <div class="container-fluid">
-    <div class="row" id="body_section_above">
-        <!-- <div class="alert alert-warning alert-dismissible" role="alert" id="header_message">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <%block name="header_message">
-          <strong>Hello!</strong> Welcome to FOMO.
-          </%block>
-        </div> -->
-      <!-- <button type="button" id="button" class=" btn btn-primary">Learn More Now!</button> -->
+                                </div>
 
-      <div class="col-md-12">
-    <%block name="homepagepicture">
-    </%block>
-  </div>
-
-        <div class="col-md-12">
-          <%block name="body_section_above">
-          </%block>
-        </div><!--col -->
-    </div><!--row -->
-
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3" id="body_section_above_middle">
-          <%block name="body_section_above_middle">
-          </%block>
-        </div><!--col -->
-    </div><!--row -->
- 
-          <%block name="hp1">
-          </%block>
-           <%block name="hp2">
-          </%block>
-           <%block name="hp3">
-          </%block>
-           <%block name="hp4">
-          </%block>
-           <%block name="hp5">
-          </%block>
-
-    <div class="row">
-        <div class="col-md-2" id="body_section_left">
-          <%block name="body_section_left">
-          </%block>
-        </div><!--col -->
-        <div class="col-md-8" id="body_section_middle">
-            <%block name="body_section_middle">
-            </%block>
-        </div><!--col -->
-        <div class="col-md-2" id="body_section_right">
-          <%block name="body_section_right">
-          </%block>
-        </div><!--col -->
-    </div><!--row -->
-
-    <div class="row" id="body_section_below">
-        <div class="col-md-12">
-          <%block name="body_section_below">
-          </%block>
-        </div><!--col -->
-    </div><!--row -->
-
-      <!-- Footer -->
-    <footer>
-          <ul class="list-inline">
-              <li>
-                  <a href="/homepage/homepage/">Home</a>
-              </li>
-              <li class="footer-menu-divider">&sdot;</li>
-              <li>
-                  <a href="/homepage/about/">About</a>
-              </li>
-              <li class="footer-menu-divider">&sdot;</li>
-              <li>
-                  <a href="/catalog/index1/">Products</a>
-              </li>
-              <li class="footer-menu-divider">&sdot;</li>
-              <li>
-                  <a href="/homepage/contact/">Contact</a>
-              </li>
-          </ul>
-          <% from datetime import datetime %>
-          &copy; Copyright ${ datetime.now().year}. All rights reserved.
-    </footer>
-
-      ## render the JS with the same name as this page
-      ${ get_template_js(self, request, context) }
-
-</body>
-</html>
+                                <!-- Footer -->
+                                ## render the JS with the same name as this page
+                                ${ get_template_js(self, request, context) }
+                              </body>
+                            </html>
