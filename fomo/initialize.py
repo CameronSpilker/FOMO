@@ -57,39 +57,7 @@ management.call_command('migrate')
 
 for p in Permission.objects.all():
     print(p.codename)
-# add_fomouser
-# change_fomouser
-# delete_fomouser
-# add_logentry
-# change_logentry
-# delete_logentry
-# add_group
-# change_group
-# delete_group
-# add_permission
-# change_permission
-# delete_permission
-# add_bulkproduct
-# change_bulkproduct
-# delete_bulkproduct
-# add_category
-# change_category
-# delete_category
-# add_product
-# change_product
-# delete_product
-# add_rentalproduct
-# change_rentalproduct
-# delete_rentalproduct
-# add_uniqueproduct
-# change_uniqueproduct
-# delete_uniqueproduct
-# add_contenttype
-# change_contenttype
-# delete_contenttype
-# add_session
-# change_session
-# delete_session
+
 
 
 #you are always checking permissions
@@ -135,13 +103,6 @@ g4.save()
 
 
 
-
-# for p in Permission.objects.all()
-#     print(p.codename, '>', p.name)
-#
-#
-#
-
 #create a Category
 cat1 = cmod.Category()
 cat1.codename = 'Access'
@@ -167,7 +128,7 @@ cat3.save()
 p1 = cmod.UniqueProduct()
 p1.name = 'Guitar'
 p1.category = cat3
-p1.price = Decimal('100')#'' makes it a decimal,
+p1.price = Decimal('300')#'' makes it a decimal,
 p1.serial_number = 'ADI383'
 p1.picture = '/static/homepage/media/pic/guitar1.png'
 p1.desc = 'This is a guitar that will give you the power to influence many. The strings can be plucked as fast as you can move them. Be prepared to rise above all others.'
@@ -185,7 +146,7 @@ pp1.save()
 p2 = cmod.UniqueProduct()
 p2.name = 'Violin'
 p2.category = cat3
-p2.price = Decimal('100')#'' makes it a decimal,
+p2.price = Decimal('1000')#'' makes it a decimal,
 p2.serial_number = 'IDFJOI'
 p2.picture = '/static/homepage/media/pic/violin1.png'
 p2.desc = 'Has anybody ever told you, let me play you a sad song on my little Violin? Well now it is your turn to play them an amazing song on your normal size Violin.'
@@ -223,8 +184,8 @@ pp3.save()
 p4 = cmod.BulkProduct()
 p4.name = 'Amplifier'
 p4.category = cat1
-p4.price = Decimal('1')#'' makes it a decimal,
-p4.quantity = 100
+p4.price = Decimal('250')#'' makes it a decimal,
+p4.quantity = 10
 p4.reorder_trigger = 5
 p4.reorder_quantity = 30
 p4.picture = '/static/homepage/media/pic/amplifier1.png'
@@ -242,8 +203,8 @@ pp4.save()
 p5 = cmod.BulkProduct()
 p5.name = 'Mic'
 p5.category = cat1
-p5.price = Decimal('1')#'' makes it a decimal,
-p5.quantity = 100
+p5.price = Decimal('115')#'' makes it a decimal,
+p5.quantity = 15
 p5.reorder_trigger = 2
 p5.reorder_quantity = 20
 p5.picture = '/static/homepage/media/pic/mic1.png'
@@ -261,8 +222,8 @@ pp5.save()
 p6 = cmod.BulkProduct()
 p6.name = 'Case'
 p6.category = cat1
-p6.price = Decimal('1')#'' makes it a decimal,
-p6.quantity = 100
+p6.price = Decimal('20')#'' makes it a decimal,
+p6.quantity = 50
 p6.reorder_trigger = 3
 p6.reorder_quantity = 15
 p6.picture = '/static/homepage/media/pic/case1.png'
@@ -281,7 +242,7 @@ pp6.save()
 p7 = cmod.RentalProduct()
 p7.name = 'Saxophone'
 p7.category = cat2
-p7.price = Decimal('50')
+p7.price = Decimal('600')
 p7.serial_number = '903ERO'
 p7.picture = '/static/homepage/media/pic/saxophone1.png'
 p7.desc = 'This Saxophone is for everyone. It will make you a better person, brother, mother or hedge fund account manager.'
@@ -299,7 +260,7 @@ pp7.save()
 p8 = cmod.RentalProduct()
 p8.name = 'Trumpet'
 p8.category = cat2
-p8.price = Decimal('50')
+p8.price = Decimal('550')
 p8.serial_number = '343DFO'
 p8.picture = '/static/homepage/media/pic/trumpet1.png'
 p8.desc = 'There is not a high school band without a Trumpet. So pick up the best quality for the lowest price right here at FOMO.'
@@ -316,7 +277,7 @@ pp8.save()
 p9 = cmod.RentalProduct()
 p9.name = 'Trombone'
 p9.category = cat2
-p9.price = Decimal('50')
+p9.price = Decimal('750')
 p9.serial_number = '454DFO'
 p9.picture = '/static/homepage/media/pic/trombone1.png'
 p9.desc = 'There are so many things I could say about this Trombone. But I will say you cannot find a better deal on the internet.'
@@ -336,7 +297,6 @@ pp9.save()
 
 u1 = amod.FomoUser()
 u1.username = 'Cougar'
-print(u1.first_name)
 u1.first_name = 'Ricky'
 u1.last_name = 'Bobby'
 u1.set_password('Purplemonkeydishwater1')
@@ -353,18 +313,6 @@ u1.save()
 
 u1.groups.add(g1)
 
-
-
-# p = Permission.objects.get(codename=('add_fomouser'))
-# u1.user_permissions.add(p)
-
-# for p in Permission.objects.all():
-#     u1.user_permissions.add(p)
-
-# u11 = FomoUser.objects.exclude(last_name = 'Smith')
-# print(u11.last_name)
-# for c in u11:
-#     print(c, c.first_name, c.last_name)
 
 
 u2 = amod.FomoUser()
@@ -445,14 +393,7 @@ cart4.qty_ordered = 4
 cart4.save()
 
 sc = amod.ShoppingItem.objects.filter(fomouser=3)
-print('>>>>>>>>>>>>>>>>>>>>>>CART FOR U3>>>>>>>>>>>>>>>>')
-for p in sc:
-  print(p.product.name)
-  print(p.qty_ordered)
-  print(p.id)
 
-
-print('>>>>>>>>>>>>>>>>END CART<<<<<<<<<<<<<<<<<<')
 
 ################################################
 #########SHOPPING ITEM##########
@@ -470,14 +411,7 @@ cart12.qty_ordered = 15
 cart12.save()
 
 sc = amod.ShoppingItem.objects.filter(fomouser=1)
-print('>>>>>>>>>>>>>>>>>>>>>>CART FOR U1>>>>>>>>>>>>>>>>')
-for p in sc:
-  print(p.product.name)
-  print(p.qty_ordered)
-  print(p.id)
 
-
-print('>>>>>>>>>>>>>>>>END CART<<<<<<<<<<<<<<<<<<')
 #################################################
 
 ###########PRODUCT HISTORY FOR USER 1############################
@@ -555,61 +489,6 @@ phis7.save()
 history = amod.ProductHistory.objects.filter(fomouser=3)
 
 
-for h in history:
-  print('>>>>>>>>>>>>>>>>>>')
-  print('first name: ', h.fomouser.first_name)
-  print('product name: ', h.product.name)
-  print('qty ordered: ', h.qty_ordered)
-  print('viewed product: ', h.viewed)
-  print('added product: ', h.added)
-  print('purchased product: ', h.purchased)
-  print('datetime viewed: ', h.view_datetime)
-  print()
-
-
-#######################Convienece Functions##########################
-
-
-######CART############
-cart = u3.get_cart()
-
-for c in cart:
-  print(c.product.name)
-  print(c.qty_ordered)
-
-
-########LAST5#########
-last5 = u3.last5()
-
-for l in last5:
-  print(l.name)
-  print('>>>end last5')
-
-
-####SUBTOTAL############
-print(u3.calc_subtotal())
-
-
-#####Shipping#########
-print(u3.calc_shipping())
-
-
-########TAX########
-print(u3.calc_tax())
-
-
-#####TOTAL#########
-print(u3.calc_total())
-
-###Cart Count##
-print(u3.get_cart_count())
-
-# ###CLEAR CART###
-# print(u3.clear_cart())
-
-# ###RECORD SALE######
-# print(u3.record_sale('stripe token'))
-
 
 
 
@@ -627,18 +506,11 @@ for c in cart:
     sale_item.price = (c.product.price * sale_item.qty)
     sale.total_cost += sale_item.price
     sale_item.save()
-    print(sale_item.product.name)
-    print(sale_item.qty)
-    print(sale_item.price)
-    print(sale.total_cost)
-    print('>>>>>>>>>>>sale item product', sale_item.product)
 
 
     update_product = cmod.Product.objects.get(id=c.product_id)
-    print('>>>>>>>>>>>', update_product)
 
     if hasattr(update_product, 'quantity'):
-        print('>>>>>>>>has quant')
         update_product.quantity -= sale_item.qty
     else:
         update_product.status = False
@@ -649,19 +521,6 @@ for c in cart:
     update_product.save()
     sale_item.save()
 
-# shipping_sale_item = SaleItem()
-# shipping_sale_item.sale = sale
-# shipping_sale_item.price = self.calc_shipping()
-# shipping_sale_item.product = sale_item.product #was sale_item.product
-# print('>>>>>>>>>>>>shi', shipping_sale_item.product)
-# shipping_sale_item.save()
-
-# tax_sale_item = SaleItem()
-# tax_sale_item.sale = sale
-# tax_sale_item.price = self.calc_tax()
-# tax_sale_item.product = sale_item.product #was sale_item.product
-# print('>>>>>>>>>>tsi', tax_sale_item.product)
-# tax_sale_item.save()
 
 payment = amod.Payment()
 payment.sale = sale
@@ -694,18 +553,12 @@ for c in cart:
     sale_item.price = (c.product.price * sale_item.qty)
     sale.total_cost += sale_item.price
     sale_item.save()
-    print(sale_item.product.name)
-    print(sale_item.qty)
-    print(sale_item.price)
-    print(sale.total_cost)
-    print('>>>>>>>>>>>sale item product', sale_item.product)
 
 
     update_product = cmod.Product.objects.get(id=c.product_id)
-    print('>>>>>>>>>>>', update_product)
 
     if hasattr(update_product, 'quantity'):
-        print('>>>>>>>>has quant')
+    
         update_product.quantity -= sale_item.qty
     else:
         update_product.status = False
@@ -716,19 +569,6 @@ for c in cart:
     update_product.save()
     sale_item.save()
 
-# shipping_sale_item = SaleItem()
-# shipping_sale_item.sale = sale
-# shipping_sale_item.price = self.calc_shipping()
-# shipping_sale_item.product = sale_item.product #was sale_item.product
-# print('>>>>>>>>>>>>shi', shipping_sale_item.product)
-# shipping_sale_item.save()
-
-# tax_sale_item = SaleItem()
-# tax_sale_item.sale = sale
-# tax_sale_item.price = self.calc_tax()
-# tax_sale_item.product = sale_item.product #was sale_item.product
-# print('>>>>>>>>>>tsi', tax_sale_item.product)
-# tax_sale_item.save()
 
 payment = amod.Payment()
 payment.sale = sale
@@ -742,7 +582,4 @@ sale.subtotal = u1.calc_subtotal()
 sale.save()
 
 
-
-
 u1.clear_cart()
-#######################################################################################

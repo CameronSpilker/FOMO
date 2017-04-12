@@ -13,7 +13,6 @@ from formlib.form import FormMixIn
 from .. import dmp_render, dmp_render_to_string
 
 
-
 @view_function
 @login_required(login_url='/account/login/')
 def process_request(request):
@@ -85,7 +84,7 @@ class ShippingPageForm(FormMixIn, forms.Form):
         if shipping_address != googleaddress:
           self.data['shipping_address'] = googleaddress
           print('>>>>IN THE IF', self.cleaned_data['shipping_address'])
-          raise forms.ValidationError("Check the box if the corrected address is okay.")
+          raise forms.ValidationError("Select continue if the corrected address is okay.")
           #if different
           # self.cleaned_data['address1'] = google address 1
           # raise forms.ValidationError("is this okay?") "check box to verify the address"
