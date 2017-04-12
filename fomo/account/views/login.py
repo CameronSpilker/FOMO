@@ -34,55 +34,55 @@ class LoginForm(FormMixIn, forms.Form):
 
     #this is where you check all of the values
     def clean(self):
-        userLocal = self.cleaned_data.get('username') + '@familyorientedmusic.local'
-        userNet = self.cleaned_data.get('username') + '@familyorientedmusic.net'
+        # userLocal = self.cleaned_data.get('username') + '@familyorientedmusic.local'
+        # userNet = self.cleaned_data.get('username') + '@familyorientedmusic.net'
 
-        s = Server('128.187.61.57', port=389, use_ssl=False, get_info=ALL)
-        c = Connection(s, user=userLocal, password=self.cleaned_data.get('password'), auto_bind='NONE', version=3, authentication='SIMPLE', client_strategy='SYNC', auto_referrals=True, check_names=True, read_only=False, lazy=False, raise_exceptions=False)
-        if not c.bind():
-            print('error in bind', c.user)
-        else:
-            currentuser = amod.FomoUser.objects.filter(username=self.cleaned_data.get('username'))
-            print('after current user', currentuser)
-            c.search('cn=users,dc=familyorientedmusic,dc=local','(objectclass=Person)',
-                    attributes = ['mail', 'givenName', 'sn', 'streetaddress'])
-            if not currentuser:
-                for entry in c.response:
-                    print('in the for loop', entry)
-                    if 'mail' in entry['attributes']:
-                        print('in the mail if statement', entry['attributes']['mail'])
-                        if entry['attributes']['mail'] == userNet:
-                            adFomoUser = amod.FomoUser()
-                            adFomoUser.username = self.cleaned_data.get('username')
-                            adFomoUser.set_password(self.cleaned_data.get('password'))
-                            adFomoUser.first_name = entry['attributes']['givenName']
-                            adFomoUser.last_name = entry['attributes']['sn']
-                            adFomoUser.shipping_address = entry['attributes']['streetaddress']
-                            adFomoUser.email = entry['attributes']['mail']
-                            adFomoUser.is_superuser = True
-                            adFomoUser.is_staff = True
-                            adFomoUser.is_admin = True
-                            adFomoUser.save()
-                            user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
-                            if user is None:
-                                raise forms.ValidationError('Invalid username or password.')
-                            return self.cleaned_data
+        # s = Server('128.187.61.57', port=389, use_ssl=False, get_info=ALL)
+        # c = Connection(s, user=userLocal, password=self.cleaned_data.get('password'), auto_bind='NONE', version=3, authentication='SIMPLE', client_strategy='SYNC', auto_referrals=True, check_names=True, read_only=False, lazy=False, raise_exceptions=False)
+        # if not c.bind():
+        #     print('error in bind', c.user)
+        # else:
+        #     currentuser = amod.FomoUser.objects.filter(username=self.cleaned_data.get('username'))
+        #     print('after current user', currentuser)
+        #     c.search('cn=users,dc=familyorientedmusic,dc=local','(objectclass=Person)',
+        #             attributes = ['mail', 'givenName', 'sn', 'streetaddress'])
+        #     if not currentuser:
+        #         for entry in c.response:
+        #             print('in the for loop', entry)
+        #             if 'mail' in entry['attributes']:
+        #                 print('in the mail if statement', entry['attributes']['mail'])
+        #                 if entry['attributes']['mail'] == userNet:
+        #                     adFomoUser = amod.FomoUser()
+        #                     adFomoUser.username = self.cleaned_data.get('username')
+        #                     adFomoUser.set_password(self.cleaned_data.get('password'))
+        #                     adFomoUser.first_name = entry['attributes']['givenName']
+        #                     adFomoUser.last_name = entry['attributes']['sn']
+        #                     adFomoUser.shipping_address = entry['attributes']['streetaddress']
+        #                     adFomoUser.email = entry['attributes']['mail']
+        #                     adFomoUser.is_superuser = True
+        #                     adFomoUser.is_staff = True
+        #                     adFomoUser.is_admin = True
+        #                     adFomoUser.save()
+        #                     user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+        #                     if user is None:
+        #                         raise forms.ValidationError('Invalid username or password.')
+        #                     return self.cleaned_data
 
-            else:
-                for entry in c.response:
-                    print('in the for loop', entry)
-                    if 'mail' in entry['attributes']:
-                        print('in the mail if statement', entry['attributes']['mail'])
-                        if entry['attributes']['mail'] == userNet:
-                            currentuser[0].first_name = entry['attributes']['givenName']
-                            currentuser[0].last_name = entry['attributes']['sn']
-                            currentuser[0].shipping_address = entry['attributes']['streetaddress']
-                            currentuser[0].email = entry['attributes']['mail']
-                            currentuser[0].save()
-                            user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
-                if user is None:
-                    raise forms.ValidationError('Invalid username or password.')
-                return self.cleaned_data
+        #     else:
+        #         for entry in c.response:
+        #             print('in the for loop', entry)
+        #             if 'mail' in entry['attributes']:
+        #                 print('in the mail if statement', entry['attributes']['mail'])
+        #                 if entry['attributes']['mail'] == userNet:
+        #                     currentuser[0].first_name = entry['attributes']['givenName']
+        #                     currentuser[0].last_name = entry['attributes']['sn']
+        #                     currentuser[0].shipping_address = entry['attributes']['streetaddress']
+        #                     currentuser[0].email = entry['attributes']['mail']
+        #                     currentuser[0].save()
+        #                     user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+        #         if user is None:
+        #             raise forms.ValidationError('Invalid username or password.')
+        #         return self.cleaned_data
 
 
         user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
