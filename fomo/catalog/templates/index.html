@@ -8,29 +8,30 @@
 
 
 <%block name="body_section_left">
+<div style="position: inherit; width:175px; margin-top:85px;">
+	  <div class="input-group" >
+	      <input type="text" class="form-control" id="search-input" placeholder="Search...">
+	      <span class="input-group-btn" style="width: 1px">
+	        <button class="btn btn-default" id="search-button" style="width: 60px;" type="button">Search</button>
+	      </span>
+	    </div>
+	<ul class="nav" id="leftnav" style="position:inherit;">
+	<!-- put a code for each class -->
+	<!-- click on category, returns the same URL with a parameter, filter on the category -->
 
-<ul class="nav" id="leftnav">
-<!-- put a code for each class -->
-<!-- click on category, returns the same URL with a parameter, filter on the category -->
+		% for c in category:
 
-	% for c in category:
+			%if hasattr(c, 'name'):
+				<li><a href="/catalog/index.get_cat/${ c.id }/">${ c.name }</a></li>
+			%endif
 
-		%if hasattr(c, 'name'):
-			<li><a href="/catalog/index.get_cat/${ c.id }/">${ c.name }</a></li>
-		%endif
+		%endfor
 
-	%endfor
-
-<li><a href="/catalog/index/">View all</a></li>
+	<li><a href="/catalog/index/">View all</a></li>
 
 
-  <div class="input-group" >
-      <input type="text" class="form-control" id="search-input" placeholder="Search for...">
-      <span class="input-group-btn" style="width: 1px">
-        <button class="btn btn-default" id="search-button" style="width: 60px;" type="button">Search</button>
-      </span>
-    </div>
-</ul>
+	</ul>
+</div>
 
 </%block>
 
@@ -41,19 +42,22 @@
  <div class="tile-outer">
  %for p in products:
  <a href="/catalog/productdetails/${ p.id }/">
-	<div class="tile-container">
+	<div class="tile-container" style="padding:15px; margin:10px;">
 		<div class="tile-image">
 
 				<img src='${ p.picture }'/>
 		</div>
 		<div class="tile-title">
 
-			<p style="color: black">$${ p.price }</p>
-			<a class="btn btn-success btn-lg" style="color:white" href="/catalog/productdetails/${ p.id }/">${ p.name }</a>
+
+				<p style="color: black">${ p.name }<br>$${ p.price }</p>
+
+			<a class="btn btn-success btn-lg" style="color:white" href="/catalog/productdetails/${ p.id }/">View ${ p.name } &rsaquo;</a>
 
 		</div>
 
 	</div>
+
 	</a>
 %endfor
 </div>
@@ -61,24 +65,31 @@
 
 
  <%block name="body_section_right">
-
+ %if request.user.is_authenticated:
  %if not request.user.last5():
 
  %else:
- 	<h2 style="text-align: center">Recently Viewed Products</h2>
-	<ul class="nav" id="rightnav">
-		%for p in request.user.last5()[:5]:
-		<a style="color: black" href="/catalog/productdetails/${ p.id }/">
-			<div class="tile-image">
-				<img style="height: 150px" src ="${ p.picture }"/>
-				<li>$${ p.price }</li>
-				<li><a  style="color:white; text-align: center;" href="/catalog/productdetails/${ p.id }/" class="btn btn-success btn-sm">${ p.name }</a></li>
-			</div>
-		</a>
+ 	<div style="margin-top:30px; margin-left: -20px; width:210px;">
+	 	<h4 style="text-align: center">Recently Viewed Products</h4>
+		<ul class="nav" id="rightnav" style="padding:20px;">
+			%for p in request.user.last5()[:5]:
+				<div style="padding-bottom: ;">
+					<a style="color: black" href="/catalog/productdetails/${ p.id }/">
+						<div class="tile-image">
+							<img style="height: 150px" src ="${ p.picture }"/>
+							<li>${ p.name }</li>
+							<li>$${ p.price }</li>
+							<!-- <li><a  style="color:white; text-align: center;" href="/catalog/productdetails/${ p.id }/" class="btn btn-success btn-sm">${ p.name }</a></li>
+		 -->				</div>
+					</a>
+				</div>
+				<hr style="border-top:2px solid #a9a9a9;">
 
-		%endfor
+			%endfor
 
-	</ul>
+		</ul>
+	</div>
 
+%endif
 %endif
  </%block>

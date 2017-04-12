@@ -49,10 +49,10 @@ class ContactForm(FormMixIn, forms.Form):
 
     SUBJECT_CHOICES = [
 
-        ['payment', 'Payment issue'],
-        ['upset', 'I am upset at something'],
-        ['technical', 'I have a technical issue'],
-        ['login', "I can't login"],
+        ['payment', 'Regarding payment'],
+        ['upset', 'Trouble loggin in'],
+        ['technical', 'Technical issue'],
+        ['login', "Other concern(s)"],
     ]
 
     def init(self):
@@ -62,7 +62,6 @@ class ContactForm(FormMixIn, forms.Form):
                 ['email', 'Email Address'],
         ], initial='phone')
         self.fields['email'] = forms.EmailField(label='Email', required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-email'}))
-        self.fields['phone'] = forms.CharField(label='Phone', required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
         self.fields['cell'] = forms.CharField(label='Cell', required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'contacttype-phone'}))
         self.fields['subject'] = forms.ChoiceField(label='Subject', choices=ContactForm.SUBJECT_CHOICES)
         self.fields['message'] = forms.CharField(label='Message', max_length=1000, widget=forms.Textarea())
