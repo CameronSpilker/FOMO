@@ -85,19 +85,25 @@
  %if request.user.get_last5_count() <= 1:
 
  %else:
-    <h2 style="text-align: center">Recently Viewed Products</h2>
-    <ul class="nav" id="rightnav">
-    %for p in request.user.last5():
-          %if p.id != product.id:
-        <a style="color: black" href="/catalog/productdetails/${ p.id }/">
-          <div class="tile-image">
-            <img style="height: 150px"src = "${ p.picture }"/>
-            <li>$${ p.price }</li>
-            <li><a  style="color:white; text-align: center;" href="/catalog/productdetails/${ p.id }/" class="btn btn-success btn-sm">${ p.name }</a></li>
-          </div>
-        </a>
-          %endif
-    %endfor
+    <div style="margin-top:10px; margin-left: -13px; width:210px;">
+    <h4 style="text-align: center">Recently Viewed Products</h4>
+    <ul class="nav" id="rightnav" style="padding:20px;">
+      %for p in request.user.last5()[:5]:
+        <div style="padding-bottom: ;">
+          <a style="color: black" href="/catalog/productdetails/${ p.id }/">
+            <div class="tile-image">
+              <img style="height: 150px" src ="${ p.picture }"/>
+              <li>${ p.name }</li>
+              <li>$${ p.price }</li>
+              <!-- <li><a  style="color:white; text-align: center;" href="/catalog/productdetails/${ p.id }/" class="btn btn-success btn-sm">${ p.name }</a></li>
+     -->        </div>
+          </a>
+        </div>
+        <hr style="border-top:2px solid #a9a9a9;">
+
+      %endfor
+
     </ul>
+  </div>
 %endif
  </%block>
