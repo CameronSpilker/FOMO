@@ -9,68 +9,50 @@
 
 
 <%block name="body_section_left">
-<ul class="nav" id="leftnav">
-<!-- put a code for each class -->
-<!-- click on category, returns the same URL with a parameter, filter on the category -->
-
-	% for c in category:
-
-		%if hasattr(c, 'name'):
-			<li><a href="/catalog/index.get_cat/${ c.id }/">${ c.name }</a></li>
-		%endif
-
-	%endfor
-<li><a href="/catalog/index/">View all</a></li>
-
-  <div class="input-group" >
-      <input type="text" class="form-control" id="search-input" placeholder="Search for...">
-      <span class="input-group-btn" style="width: 1px">
-        <button class="btn btn-default" id="search-button" style="width: 60px;" type="button">Search</button>
-      </span>
-    </div>
-</ul>
+    <a style="margin-top:15px;" href="/catalog/index" class="btn btn-primary pull-right">&lsaquo; Back to catalog</a>
 </%block>
 
 
 
  <%block name="body_section_middle">
+ 
  <div class="tile-outer">
 
 
-	<div class="tile-container" style="width: 50%">
-      <a data-pid="${product.id}" id="product-picture-modal">
-		<div class="tile-image">
-
-		<img style="height: 350px; width: auto" src='${ product.picture }'/>
-
-		</div>
+    <!-- <a href="" class="btn btn-primary">&lsaquo; Back to catalog</a>
+ -->
+  	<div class="tile-container" style="width: 50%">
+        <a href="#" data-pid="${product.id}" id="product-picture-modal">
+    		<div class="tile-image text-center" style="text-align: center;">
+    		    <img style="height: 350px; width: auto; display:inline-block;" src='${ product.picture }'/>
+    		</div>
         </a>
-		<div class="tile-title">
-			<a class="btn btn-success btn-lg" style="color:white">${ product.name }</a>
-		</div>
-		<br>
+  		<!-- <div class="tile-title">
+  			<a class="btn btn-success btn-lg" style="color:white">${ product.name }</a>
+  		</div> -->
+  	
 
 	</div>
 
 
 <div class="pd">
 
+<h2>${ product.name }</h2>
 <p class="pdtext">Category: ${ product.category.name }</p>
 <p class="pdtext">Description: ${product.desc }</p>
-<p class="pdtext">Name: ${ product.name }</p>
-<p class="pdtext">Price: $${ product.price }</p>
+<p class="pdtext">Price: $${ product.price }<br>
 %if hasattr(product, 'quantity'):
 
   %if product.quantity >= 1:
 
-  <p class="pdtext">Quantity Avaliable: ${ product.quantity }</p>
-        <div class="center" id="purchase_container">
+  Quantity Avaliable: ${ product.quantity }</p>
+        <div class="center" id="purchase_container" style="margin:20px auto;">
 
           ${ form }
         </div>
   %else:
-    <p class="pdtext">Quantity Avaliable: ${ product.quantity }</p>
-    <div class="center" id="purchase_container">
+    Quantity Avaliable: ${ product.quantity }</p>
+    <div class="center" id="purchase_container" style="margin:20px auto;">
 
         Out of Stock.
       </div>
@@ -79,21 +61,20 @@
 
 %else:
       %if product.status == True:
-        <div class="center" id="purchase_container">
+        <div class="center" id="purchase_container" style="margin:20px auto;">
 
           ${ form }
         </div>
       %else:
-        <div class="center" id="purchase_container">
+        <div class="center" id="purchase_container" style="margin:20px auto;">
 
           Out of Stock.
         </div>
       %endif
 %endif
-
+</div>
 
 <!--   <a type="button" href="/catalog/checkout/${product.id}/" class="btn btn-warning"><i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i></a> -->
-</div>
 
 </div>
  </%block>
