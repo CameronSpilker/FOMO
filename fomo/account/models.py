@@ -48,6 +48,7 @@ class FomoUser(AbstractUser):
         age = datetime.datetime.now() - self.birthdate
         return age.days
 
+
     def last5(self):
 
         last5 = ProductHistory.objects.filter(fomouser__id=self.id).order_by('-view_datetime')
@@ -61,6 +62,14 @@ class FomoUser(AbstractUser):
                 break
 
         return last_viewed
+
+    def get_last5_count(self):
+        last5 = self.last5()
+        count = 0 
+        for c in last5:
+            count = count + 1
+        return count
+
 
     def calc_subtotal(self):
         cart = self.get_cart()
