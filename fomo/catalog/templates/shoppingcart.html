@@ -41,12 +41,12 @@
 
    <table class="table table-striped" style="background-color: white; ">
       <tr>
-        <th>Product</th>
-        <th>Picture</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Extended Price</th>
-        <th>Action</th>
+        <th><strong>Product</strong></th>
+        <th><strong>Picture</strong></th>
+        <th><strong>Price</strong></th>
+        <th><strong>Quantity</strong></th>
+        <th><strong>Extended Price</strong></th>
+        <th><strong>Action</strong></th>
       </tr>
 
     % for p in cart:
@@ -75,7 +75,9 @@
   <table class="table" style="background-color: white;">
   </table>
   %else:
-  <a href='/catalog/shoppingcart.clear_cart/' type="button" class="btn btn-success btn-block"><i class="fa fa-trash-o" aria-hidden="true"></i> Clear Cart</a>
+  <div class="text-center">
+  <a href='/catalog/shoppingcart.clear_cart/' type="button" class="btn btn-success"><i class="fa fa-trash-o" aria-hidden="true"></i> Clear Cart</a>
+  </div>
   <br>
   <br>
   </table>
@@ -109,7 +111,9 @@
       </tr>
     </tbody>
   </table>
-  <a class="btn btn-success btn-block" href="/catalog/shippingpage/" style="color:white">Checkout</a>
+  <div class="text-center">
+  <a class="btn btn-success" href="/catalog/shippingpage/" style="color:white">Checkout</a>
+  </div>
   %endif
 %endif
  </%block>
