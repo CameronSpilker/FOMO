@@ -76,7 +76,7 @@
                       %else:
                       
                       <!-- <li><a href="/account/login/"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li> -->
-                      <li><a id="login-modal-button"> Login</a></li>
+                      <li><a id="login-modal-button" href="#"> Login</a></li>
                       <li><a href="/account/signup/"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</a></li>
                       
                       %endif
@@ -93,10 +93,20 @@
                     </%block>
                   </div> -->
                   <!-- <button type="button" id="button" class=" btn btn-primary">Learn More Now!</button> -->
-                  <div class="col-md-12">
-                    <%block name="homepagepicture">
-                    </%block>
-                  </div>
+                  
+                        <%block name="homepagepicture">
+                        </%block>
+                        <%block name="hp1">
+                        </%block>
+                        <%block name="hp2">
+                        </%block>
+                        <%block name="hp3">
+                        </%block>
+                        <%block name="hp4">
+                        </%block>
+                        <%block name="hp5">
+                        </%block>
+
                   <div class="col-md-12">
                     <%block name="body_section_above">
                     </%block>
@@ -109,16 +119,7 @@
                         </div><!--col -->
                         </div><!--row -->
                         
-                        <%block name="hp1">
-                        </%block>
-                        <%block name="hp2">
-                        </%block>
-                        <%block name="hp3">
-                        </%block>
-                        <%block name="hp4">
-                        </%block>
-                        <%block name="hp5">
-                        </%block>
+                        
                         <div class="row">
                           <div class="col-md-2" id="body_section_left">
                             <%block name="body_section_left">
