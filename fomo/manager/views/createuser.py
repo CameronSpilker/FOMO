@@ -43,12 +43,7 @@ class CreateUserForm(FormMixIn, forms.Form):
         self.fields['username'] = forms.CharField(label="Username", max_length=100)
         self.fields['set_password'] = forms.CharField(label="Password")
         self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
-        self.fields['billing_address'] = forms.CharField(label="Billing Address", max_length=100)
         self.fields['birthdate'] = forms.DateField(label="Birthdate")
-        self.fields['credit_card'] = forms.CharField(label="Credit Card", max_length=20)
-        self.fields['cc_exp_date'] = forms.DateField(label="Credit Card Expiration Date")
-        self.fields['cc_code'] = forms.CharField(label="Credit Card CVS Code", max_length=4)
-
         self.fields['groups'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), required=False)
         self.fields['permissions'] = forms.ModelMultipleChoiceField(queryset=Permission.objects.all(), required=False)
 
@@ -70,11 +65,7 @@ class CreateUserForm(FormMixIn, forms.Form):
         fomouser.username = self.cleaned_data.get('username')
         fomouser.set_password(self.cleaned_data.get('set_password'))
         fomouser.shipping_address = self.cleaned_data.get('shipping_address')
-        fomouser.billing_address = self.cleaned_data.get('billing_address')
         fomouser.birthdate = self.cleaned_data.get('birthdate')
-        fomouser.credit_card = self.cleaned_data.get('credit_card')
-        fomouser.cc_exp_date = self.cleaned_data.get('cc_exp_date')
-        fomouser.cc_code = self.cleaned_data.get('cc_code')
 
 
         fomouser.save()
