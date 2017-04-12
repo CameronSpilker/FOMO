@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from .. import dmp_render, dmp_render_to_string
 
-
+#details
 @view_function
 def process_request(request):
     pid = request.urlparams[0]

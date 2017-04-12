@@ -13,7 +13,7 @@ import stripe
 
 from .. import dmp_render, dmp_render_to_string
 
-
+#checkoutpy
 @view_function
 @login_required(login_url='/account/login/')
 def process_request(request):
