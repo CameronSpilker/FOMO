@@ -10,15 +10,16 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .. import dmp_render, dmp_render_to_string
 
 @view_function
-# @login_required(login_url='/account/login/')
-# @permission_required('account.change_fomouser', login_url='/manager/permissions/')
+@login_required(login_url='/account/login/')
+@permission_required('account.change_fomouser', login_url='/manager/permissions/')
 def process_request(request):
 
 
     print('>>>>>>>process request')
     try:
         print('>>>>>>>process request try')
-        fomouser = amod.FomoUser.objects.get(id=request.urlparams[0])#.get is for a single product
+        uid = request.urlparams[0]
+        fomouser = amod.FomoUser.objects.get(id=uid)#.get is for a single product
         print('>>>', request.urlparams[0])
     except amod.FomoUser.DoesNotExist:
         print('>>>>>>>process request except')

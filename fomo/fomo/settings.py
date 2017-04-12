@@ -173,9 +173,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fomo',
         'USER': 'postgres',
-        'PASSWORD': 'Purplemonkeydishwater1',
+        'PASSWORD': 'lb050591',
         'HOST': 'localhost',
-        'PORT': '5430',
+        'PORT': '',
     }
 }
 
@@ -219,7 +219,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
      # SECURITY WARNING: this next line must be commented out at deployment
-    # BASE_DIR,
+     BASE_DIR,
  )
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
