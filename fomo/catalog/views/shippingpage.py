@@ -25,10 +25,10 @@ def process_request(request):
     try:
         fomouser = amod.FomoUser.objects.get(id=currentuser.id)
     except (TypeError, amod.FomoUser.DoesNotExist):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
     if (fomouser.get_cart_count() < 1):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
 
     print('>>>>>>>>>>>>>>in the request')

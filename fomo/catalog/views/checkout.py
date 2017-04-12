@@ -22,12 +22,12 @@ def process_request(request):
     try:
         fomouser = amod.FomoUser.objects.get(id=currentuser.id)
     except (TypeError, amod.FomoUser.DoesNotExist):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
     cart = request.user.get_cart()
 
     if (fomouser.get_cart_count() < 1):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
 
     form = CheckoutForm(request, fomouser=fomouser, initial={
@@ -48,7 +48,7 @@ def process_request(request):
             print('sale id', sale.id)
             print('last sale id', last_sale.id)
         except (TypeError, amod.Sale.DoesNotExist):
-            return HttpResponseRedirect('/catalog/index1/')
+            return HttpResponseRedirect('/catalog/index/')
 
         saleitem = amod.SaleItem.objects.filter(sale__id=sale.id)
         payment = amod.Payment.objects.filter(sale__id=sale.id)

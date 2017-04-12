@@ -25,7 +25,7 @@ def process_request(request):
         print('>>>>>>>>>>', category)
         print('>>>>>>>>>>', product)
     except (TypeError, cmod.Category.DoesNotExist):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
     # if pid not in request.last5:
     #     request.last5.insert(0, product.id)
