@@ -1,112 +1,107 @@
 <%inherit file="/homepage/templates/app_base.htm" />
-
-
-<%block name="body_section_middle">
-<div class="container-fluid" style="background-color: white; border-radius: 5px;">
-    	<div class="row">
-    		<div class="span4">
-                <img src="${ STATIC_URL }homepage/media/Logo.png" style="height: 50px" class="img-rounded logo">
-    			<address>
-			        <strong>Family Oriented Music Organization</strong><br>
-			        P.O Box 3171<br>
-			        Provo, UT 84601<br>
-		    	</address>
-    		</div>
-    		<div class="span4 well" style="background-color:#Ff3B3f; color: white;">
-    			<table class="invoice-head">
-    				<tbody>
-    					<tr>
-    						<td class="pull-left"><strong>Customer: ${ sale.fomouser} </strong></td>
-    					</tr>
-    					<tr>
-    						<td class="pull-left"><strong>Receipt #${sale.id}</strong></td>
-    					</tr>
-    					<tr>
-    						<td class="pull-left"><strong>Date:
-
-    							%for p in payment:
-									${"{:%d %B %Y %I:%M:%S %p}".format(p.date_paid)}
-								%endfor
-
-
-    						</strong></td>
-    					</tr>
-    				</tbody>
-    			</table>
-    		</div>
-    	</div>
-    	<div class="row">
-    		<div class="span8" >
-    			<h2>Receipt</h2>
-    		</div>
-    	</div>
-    	<div class="row">
-		  	<div class="span8 well invoice-body" style="background-color:#Ff3B3f; color: white;">
-		  		<table class="table">
-					<thead>
-						<tr>
-							<th>Product</th>
-							<th>Quantity</th>
-							<th>Amount</th>
-						</tr>
-					</thead>
-					<tbody>
-					%for i in saleitem:
-					<tr>
-							<td>${i.product.name}</td>
-							<td>${i.qty}</td>
-							<td>$${i.product.price * i.qty}
-					</tr>
-					%endfor
-						<tr>
-							<td>&nbsp;</td>
-
-							<td><strong>Subtotal:</strong></td>
-							<td><strong>$${sale.subtotal}</strong></td>
-						</tr>
-						<tr>
-							<td>&nbsp;</td>
-
-							<td><strong>Tax:</strong></td>
-							<td><strong>$${sale.tax}</strong></td>
-						</tr>
-						<tr>
-							<td>&nbsp;</td>
-
-							<td><strong>Shipping:</strong></td>
-							<td><strong>$${sale.shipping}</strong></td>
-						</tr>
-						<tr>
-							<td>&nbsp;</td>
-
-							<td><strong>Total:</strong></td>
-							<td><strong>$${sale.total_cost}</strong></td>
-						</tr>
-					</tbody>
-				</table>
-		  	</div>
-  		</div>
-  		<div class="row" >
-  			<div class="span8 well invoice-thank" style="background-color:#Ff3B3f; color: white;">
-  				<h5 style="text-align:center;">Thank You!</h5>
-  				<h6 style="text-align:center;">You will be receiving an email shortly.</h6>
-  			</div>
-  		</div>
-  		<div class="row">
-  		<ul class="list-inline" style="text-align: center">
-                        <li>
-                            <strong>Phone:</strong> <a href="/homepage/contact/">801-231-4832</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                             <strong>Website:</strong> <a href="/homepage/index/">www.familyorientedmusic.net</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <strong>Email:</strong> <a href="/homepage/contact/">cameron@familyorientedmusic.com</a>
-                        </li>
-                      
-                    </ul>
-  		</div>
+<%block name="homepagepicture">
+<div class="container" style="background-color: white; color:black; border-radius: 15px;margin-top: 15px">
+  <div class="row" style="padding: 0px 10px 0px 10px">
+    <div class="span4">
+      <img src="${ STATIC_URL }homepage/media/Logo.png" style="height: 50px" class="img-rounded logo">
+      <address>
+        <strong>Family Oriented Music Organization</strong><br>
+        P.O Box 3171<br>
+        Provo, UT 84601<br>
+      </address>
     </div>
-</%block>
+    <div class="span4 well" style="background-color:#Efefef;">
+      <table class="invoice-head">
+        <tbody>
+          <tr>
+            <td class="pull-left"><strong>Customer: ${ user.first_name} </strong></td>
+          </tr>
+          <tr>
+            <td class="pull-left"><strong>Receipt #${sale.id}</strong></td>
+          </tr>
+          <tr>
+            %for p in payment:
+            <td class="pull-left"><strong>Date:
+              ${"{:%d %B %Y %I:%M %p}".format(p.date_paid)}
+            </strong></td>
+            %endfor
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px 10px 0px 10px">
+      <div class="span8" >
+        <h2>Receipt</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px 10px 0px 10px">
+      <div class="span8 well invoice-body" style="background-color:#Efefef;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="text-center">Product</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-center">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            %for i in saleitem:
+            <tr>
+              <td>${i.product.name}</td>
+              <td>${i.qty}</td>
+              <td>$${int(i.product.price) * int(i.qty)}
+              </tr>
+              %endfor
+              <tr>
+                <td>&nbsp;</td>
+                <td><strong></strong></td>
+                <td><strong></strong></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><strong>Subtotal:</strong></td>
+                <td><strong>$${sale.subtotal}</strong></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><strong>Tax:</strong></td>
+                <td><strong>$${sale.tax}</strong></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><strong>Shipping:</strong></td>
+                <td><strong>$${sale.shipping}</strong></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><strong>Total:</strong></td>
+                <td><strong>$${sale.total_cost}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row" style="padding: 0px 10px 0px 10px">
+        <div class="span8 well invoice-thank" style="background-color:#Efefef;">
+          <h5 style="text-align:center;">Thank You!</h5>
+          <h6 style="text-align:center;">You will be receiving an email shortly.</h6>
+        </div>
+      </div>
+      <div class="row">
+        <ul class="list-inline" style="text-align: center;padding-left: 10px">
+          <li>
+            <strong>Phone:</strong> <a href="/homepage/contact/">801-231-4832</a>
+          </li>
+          <li class="footer-menu-divider">&sdot;</li>
+          <li>
+            <strong>Website:</strong> <a href="/homepage/index/">www.familyorientedmusic.net</a>
+          </li>
+          <li class="footer-menu-divider">&sdot;</li>
+          <li>
+            <strong>Email:</strong> <a href="/homepage/contact/">tanner@familyorientedmusic.com</a>
+          </li>
+          
+        </ul>
+      </div>
+      </div
+      </%block>
