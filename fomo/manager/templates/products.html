@@ -22,7 +22,7 @@
         <td>${ p.price }</td>
         <td>
           %if hasattr(p, 'quantity'):
-            <button data-pid="${p.id}" class="update_quantity_button pull-right btn btn-primary btn-small"><i class="fa fa-refresh fa fa-fw"></i> Update</button>
+            <button data-pid="${p.id}" class="update_quantity_button pull-right btn btn-primary btn-xs"><i class="fa fa-refresh fa fa-fw"></i> Update</button>
             <span class="quantity_text">-</span>
           %else:
             -
