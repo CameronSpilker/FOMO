@@ -65,7 +65,7 @@
 
 
  <%block name="body_section_right">
-
+ %if request.user.is_authenticated:
  %if not request.user.last5():
 
  %else:
@@ -90,5 +90,6 @@
 		</ul>
 	</div>
 
+%endif
 %endif
  </%block>
