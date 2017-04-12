@@ -41,7 +41,7 @@ def process_request(request):
 
         # 'picture': picture,
     }
-    return dmp_render(request, 'index1.html', context)
+    return dmp_render(request, 'index.html', context)
 
 
 @view_function
@@ -54,7 +54,7 @@ def get_cat(request):
         print('>>>>>>>>>>', category)
         print('>>>>>>>>>>', products)
     except (TypeError, cmod.Category.DoesNotExist):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
 
     # last5 = cmod.Product.objects.filter(id__in=request.last5)
@@ -66,7 +66,7 @@ def get_cat(request):
         'products': products,
         'last5': last5,
     }
-    return dmp_render(request, 'index1.html', context)
+    return dmp_render(request, 'index.html', context)
 
 
 # @view_function
@@ -79,7 +79,7 @@ def get_cat(request):
 #         print('>>>>>>>>>>', category)
 #         print('>>>>>>>>>>', products)
 #     except (TypeError, cmod.Product.DoesNotExist):
-#         return HttpResponseRedirect('/catalog/index1/')
+#         return HttpResponseRedirect('/catalog/index/')
 
         
 #     last5 = cmod.Product.objects.filter(id__in=request.last5)

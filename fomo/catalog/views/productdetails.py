@@ -25,7 +25,7 @@ def process_request(request):
         print('>>>>>>>>>>', category)
         print('>>>>>>>>>>', product)
     except (TypeError, cmod.Category.DoesNotExist):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
     try:
         product_history = amod.ProductHistory.objects.filter(fomouser__id=request.user.id).filter(product__id=product.id).order_by('-id')

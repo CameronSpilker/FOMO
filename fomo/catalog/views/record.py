@@ -19,7 +19,7 @@ def process_request(request):
     try:
         sale = amod.Sale.objects.get(id=request.urlparams[0])
     except (TypeError, amod.Sale.DoesNotExist):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
     saleitem = amod.SaleItem.objects.filter(sale__id=sale.id)
     payment = amod.Payment.objects.filter(sale__id=sale.id)
