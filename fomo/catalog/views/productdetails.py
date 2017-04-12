@@ -37,17 +37,18 @@ def process_request(request):
         ph.fomouser = request.user
         ph.save()
 
+    cart = 0
+    if request.user.is_authenticated:
+        cart = request.user.get_cart().filter(product__id=product.id)
+        for c in cart:
+            print('>>>>>>>', c.id)
+            print('>>>>>>>', c.product.name)
+        print(">>>>>>>>>>> user cart", cart)
 
-    cart = request.user.get_cart().filter(product__id=product.id)
-    for c in cart:
-        print('>>>>>>>', c.id)
-        print('>>>>>>>', c.product.name)
-    print(">>>>>>>>>>> user cart", cart)
-
-    last5Item = amod.ProductHistory()
-    last5Item.fomouser = request.user
-    last5Item.product = product
-    last5Item.save()
+        last5Item = amod.ProductHistory()
+        last5Item.fomouser = request.user
+        last5Item.product = product
+        last5Item.save()
 
 
     form = AddToCartForm(request, product=product, initial={
