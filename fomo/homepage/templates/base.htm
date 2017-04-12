@@ -67,8 +67,11 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>  ${ user.first_name }'s Account
                       <span class="caret"></span></a>
                       <ul class="dropdown-menu">
-                        <li><a href="/manager/index/"><i class="fa fa-user-circle" aria-hidden="true"></i> My Account </a></li>
+                        <!-- <li><a href="/manager/index/"><i class="fa fa-user-circle" aria-hidden="true"></i> My Account </a></li> -->
                         <li><a href="/account/myinfo/"><i class="fa fa-id-card" aria-hidden="true"></i> My Information</a></li>
+                        %if user.has_perm('account.add_fomouser') and user.has_perm('catalog.add_product'):
+                        <li><a href="/manager/products/"><i class="fa fa-id-card" aria-hidden="true"></i>Manager view</a></li>
+                        %endif
                         <li role="separator" class="divider"></li>
                         <li><a href="/account/logout/"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                       </ul>
