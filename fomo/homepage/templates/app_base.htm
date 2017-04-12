@@ -4,8 +4,8 @@
 <%block name="nav_bar">
 <!--NAV BAR-->
 
-             <li class="${ 'active' if(request.dmp_router_page == 'index') else '' }"><a href="/homepage/index/">Home</a></li>
-             <li class="${ 'active' if(request.dmp_router_page == 'index1') else '' }"><a href="/catalog/index1/">Catalog</a></li>
+             <li class="${ 'active' if(request.dmp_router_app == 'homepage' and request.dmp_router_page == 'index') else '' }"><a href="/homepage/index/">Home</a></li>
+             <li class="${ 'active' if(request.dmp_router_app == 'catalog') else '' }"><a href="/catalog/index/">Catalog</a></li>
              <li class="${ 'active' if(request.dmp_router_page == 'contact') else '' }"><a href="/homepage/contact/">Contact Us</a></li>
              <li class="${ 'active' if(request.dmp_router_page == 'terms') else '' }"><a href="/homepage/terms/">Terms</a></li>
              <li class="${ 'active' if(request.dmp_router_page == 'about') else '' }"><a href="/homepage/about/">About Us</a></li>

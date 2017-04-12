@@ -18,7 +18,7 @@ def process_request(request):
         print('>>>>>>>>>>', category)
         print('>>>>>>>>>>', products)
     except (TypeError, cmod.Product.DoesNotExist):
-        return HttpResponseRedirect('/catalog/index1/')
+        return HttpResponseRedirect('/catalog/index/')
 
 
     last5 = cmod.Product.objects.filter(id__in=request.last5)
