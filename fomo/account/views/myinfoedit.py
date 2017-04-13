@@ -58,7 +58,7 @@ class EditUserForm(FormMixIn, forms.Form):
         self.fields['email'] = forms.EmailField(label="Email")
         self.fields['username'] = forms.CharField(label="Username", max_length=100)
         self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
-        self.fields['birthdate'] = forms.DateField(label="birthdate")
+        self.fields['birthdate'] = forms.DateField(label="Birthdate")
         self.fomouser = fomouser
 
 
