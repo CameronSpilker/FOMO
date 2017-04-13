@@ -43,6 +43,7 @@
   <p class="pdtext" style="font-size:16px;">Category: ${ product.category.name }</p>
   <p class="pdtext" style="font-size:16px;">${product.desc }<br>
 
+%if request.user.is_authenticated:
 %if hasattr(product, 'quantity'):
 
   %if product.quantity >= 1:
@@ -73,6 +74,12 @@
           Out of Stock.
         </div>
       %endif
+%endif
+%else:
+      <div class="center" id="purchase_container" style="margin:20px auto;">
+
+        Please <a href="/account/login/">login</a> to add items to cart.
+      </div>
 %endif
 </div>
 </div>
