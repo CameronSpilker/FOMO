@@ -51,8 +51,6 @@ def get_cat(request):
         print(request.urlparams[0])
         category = cmod.Category.objects.order_by('name')  #.get is for a single product
         products = cmod.Product.objects.filter(category=request.urlparams[0])
-        print('>>>>>>>>>>', category)
-        print('>>>>>>>>>>', products)
     except (TypeError, cmod.Category.DoesNotExist):
         return HttpResponseRedirect('/catalog/index/')
 
