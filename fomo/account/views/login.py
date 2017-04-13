@@ -17,7 +17,9 @@ def process_request(request):
         print('>>>>>>>>>>>>>>in the is valid')
         #do the form action
         form.commit()
-        if request.user.has_perm('account.add_fomouser'):
+        if request.GET.get('next'):
+            return HttpResponseRedirect(request.GET.get('next'))
+        elif request.user.has_perm('account.add_fomouser'):
             return HttpResponse(
                 ''' <script>
                         window.location.href = '/manager/products/';
@@ -125,9 +127,10 @@ def modal(request):
         else:
             return HttpResponse(
                 ''' <script>
-                        window.location.href = '/homepage/index/';
+                        location.reload();
                     </script>
                 ''')
+
 
     return dmp_render(request, 'login.modal.html', {
         'form': form,

@@ -16,7 +16,10 @@ def process_request(request):
     if form.is_valid():
         print(">>>>>>>in is valid")
         form.commit()
-        return HttpResponseRedirect('/account/successsignup/')
+        if request.GET.get('next'):
+            return HttpResponseRedirect('/account/successsignup/?next=' + request.GET.get('next'))
+        else:
+            return HttpResponseRedirect('/account/successsignup/')
 
 
     context = {
