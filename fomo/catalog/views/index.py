@@ -56,17 +56,11 @@ def get_cat(request):
 
     # last5 = cmod.Product.objects.filter(id__in=request.last5)
     # print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', last5)
-<<<<<<< HEAD
-
-    
-    last5 = request.user.last5()
     print('>>>>>>>>>>', category)
-=======
     last5 = 0
     if request.user.is_authenticated:
         last5 = request.user.last5()
         print('>>>>>>>>>>', category)
->>>>>>> 048349a825e287efbc38796b44526cb1e7d9f245
     context = { 
         'category': category,
         'products': products,
