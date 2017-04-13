@@ -20,8 +20,9 @@ def process_request(request):
     except (TypeError, cmod.Product.DoesNotExist):
         return HttpResponseRedirect('/catalog/index/')
 
-
-    last5 = cmod.Product.objects.filter(id__in=request.last5)
+    last5 = 0
+    if request.user.is_authenticated:
+        last5 = cmod.Product.objects.filter(id__in=request.last5)
     print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', last5)
 
     print('>>>>>>>>>>', category)

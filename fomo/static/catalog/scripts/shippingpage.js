@@ -4,7 +4,8 @@ $(function(){
 
 	if ($(".errorlist")[0])
 	{
-    	$('#id_check_box').show()
+    	html = '<div></div><br>'
+    	$(".errorlist").hide().append(html).fadeIn(2000);
     	
 	} 
     else 

@@ -6,6 +6,7 @@ from catalog import models as cmod
 from django.contrib.auth.decorators import login_required, permission_required
 from .. import dmp_render, dmp_render_to_string
 
+
 @view_function
 def process_request(request):
     #query all products
@@ -58,8 +59,10 @@ def get_cat(request):
 
     # last5 = cmod.Product.objects.filter(id__in=request.last5)
     # print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', last5)
-    last5 = request.user.last5()
-    print('>>>>>>>>>>', category)
+    last5 = 0
+    if request.user.is_authenticated:
+        last5 = request.user.last5()
+        print('>>>>>>>>>>', category)
     context = { 
         'category': category,
         'products': products,
