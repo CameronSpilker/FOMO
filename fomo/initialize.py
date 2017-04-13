@@ -296,7 +296,7 @@ pp9.save()
 
 
 u1 = amod.FomoUser()
-u1.username = 'Cougar'
+u1.username = 'owner'
 u1.first_name = 'Ricky'
 u1.last_name = 'Bobby'
 u1.set_password('Purplemonkeydishwater1')
