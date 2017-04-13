@@ -77,7 +77,7 @@ ${product.name} -
 %else:
       <div class="center" id="purchase_container" style="margin:20px auto;">
 
-        Please <a href="/account/login/">login</a> to add items to cart.
+        Please <a id="lllogin-modal-product-button" href="/account/login/?next=/catalog/productdetails/${product.id}/">login</a> to add items to cart.
       </div>
 %endif
 </div>
@@ -98,7 +98,8 @@ ${product.name} -
     <div style="margin-top:10px; margin-left: -13px; width:210px;">
     <h4 style="text-align: center">Recently Viewed Products</h4>
     <ul class="nav" id="rightnav" style="padding:20px;">
-      %for p in request.user.last5()[:5]:
+      %for p in request.user.last5()[:6]:
+        %if p.id != product.id:
         <div style="padding-bottom: ;">
           <a style="color: black" href="/catalog/productdetails/${ p.id }/">
             <div class="tile-image">
@@ -110,7 +111,7 @@ ${product.name} -
           </a>
         </div>
         <hr style="border-top:2px solid #a9a9a9;">
-
+        %endif
       %endfor
 
     </ul>
