@@ -58,6 +58,8 @@ def get_cat(request):
 
     # last5 = cmod.Product.objects.filter(id__in=request.last5)
     # print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', last5)
+
+    
     last5 = request.user.last5()
     print('>>>>>>>>>>', category)
     context = { 
