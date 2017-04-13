@@ -4,6 +4,10 @@
 
 <h1 style="text-align: center;">You have successfully signed up and logged in!</h1>
 
-<a href='${request.GET.get('next')}' type="button" class="btn btn-primary btn-md">&lsaquo; Back to page</a>
+%if request.GET.get('next'):
+<a style="margin-top:25px;" href='${request.GET.get('next')}' type="button" class="btn btn-primary btn-md">&lsaquo; Back to page</a>
+%else:
+<a style="margin-top:25px;" href='/homepage/index' type="button" class="btn btn-primary btn-md">&lsaquo; Back to homepage</a>
+%endif
 
 </%block>
