@@ -50,7 +50,7 @@ class ContactForm(FormMixIn, forms.Form):
     SUBJECT_CHOICES = [
 
         ['payment', 'Regarding payment'],
-        ['upset', 'Trouble loggin in'],
+        ['upset', 'Trouble logging in'],
         ['technical', 'Technical issue'],
         ['login', "Other concern(s)"],
     ]

@@ -45,8 +45,8 @@ class ChangePasswordForm(FormMixIn, forms.Form):
         print('>>>>>>>>>>>>>>in the init')
         # self.fields['username'] = forms.CharField(required=True)
         # self.fields['password'] = forms.CharField(required=True, widget=forms.PasswordInput())
-        self.fields['passwordNEW'] = forms.CharField(label="New Password", required=True, widget=forms.PasswordInput())
-        self.fields['passwordNEW2'] = forms.CharField(label="Confirm New Password", required=True, widget=forms.PasswordInput())
+        self.fields['passwordNEW'] = forms.CharField(label="New Password", required=True, min_length=8, widget=forms.PasswordInput())
+        self.fields['passwordNEW2'] = forms.CharField(label="Confirm New Password", required=True, min_length=8, widget=forms.PasswordInput())
         self.fomouser = fomouser
 
     # def clean_username(self):
@@ -65,6 +65,7 @@ class ChangePasswordForm(FormMixIn, forms.Form):
         if passwordNEW != passwordNEW2:
             print('>>>>>>>>> password')
             raise forms.ValidationError('New passwords does not match.')
+        
 
         # if user is None:
         #     raise forms.ValidationError('Invalid username or password.')

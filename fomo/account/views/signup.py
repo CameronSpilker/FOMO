@@ -38,7 +38,7 @@ class SignUpPageForm(FormMixIn, forms.Form):
                     ])
         self.fields['email'] = forms.EmailField(label="Email")
         self.fields['username'] = forms.CharField(label="Username", max_length=100)
-        self.fields['password'] = forms.CharField(label="Password", widget=forms.PasswordInput())
+        self.fields['password'] = forms.CharField(label="Password", min_length=8, widget=forms.PasswordInput())
         self.fields['shipping_address'] = forms.CharField(label="Shipping Address", max_length=100)
         self.fields['birthdate'] = forms.DateField(label="Birthdate")
 
