@@ -66,6 +66,7 @@ class SignUpPageForm(FormMixIn, forms.Form):
         fomouser.set_password(self.cleaned_data.get('password'))
         fomouser.shipping_address = self.cleaned_data.get('shipping_address')
         fomouser.birthdate = self.cleaned_data.get('birthdate')
+        fomouser.gender = self.cleaned_data.get('gender')
 
 
 
