@@ -185,7 +185,7 @@ p4 = cmod.BulkProduct()
 p4.name = 'Amplifier'
 p4.category = cat1
 p4.price = Decimal('250')#'' makes it a decimal,
-p4.quantity = 10
+p4.quantity = 20
 p4.reorder_trigger = 5
 p4.reorder_quantity = 30
 p4.picture = '/static/homepage/media/pic/amplifier1.png'
@@ -204,7 +204,7 @@ p5 = cmod.BulkProduct()
 p5.name = 'Mic'
 p5.category = cat1
 p5.price = Decimal('115')#'' makes it a decimal,
-p5.quantity = 15
+p5.quantity = 25
 p5.reorder_trigger = 2
 p5.reorder_quantity = 20
 p5.picture = '/static/homepage/media/pic/mic1.png'
@@ -488,98 +488,3 @@ phis7.save()
 
 history = amod.ProductHistory.objects.filter(fomouser=3)
 
-
-
-
-
-
-######################EXAMPLE SALE 1 WITH USER 3#########################################
-sale = amod.Sale()
-sale.fomouser = u3
-sale.save()
-cart = u3.get_cart()
-for c in cart:
-    sale_item = amod.SaleItem()
-    sale_item.sale = sale
-    sale_item.product = c.product
-    sale_item.qty = c.qty_ordered
-    sale_item.price = (c.product.price * sale_item.qty)
-    sale.total_cost += sale_item.price
-    sale_item.save()
-
-
-    update_product = cmod.Product.objects.get(id=c.product_id)
-
-    if hasattr(update_product, 'quantity'):
-        update_product.quantity -= sale_item.qty
-    else:
-        update_product.status = False
-    update_history = amod.ProductHistory.objects.filter(fomouser__id=u3.id).filter(product__id=c.product.id).filter(added=True).order_by('-id')[0]
-    update_history.purchased = True
-
-    update_history.save()
-    update_product.save()
-    sale_item.save()
-
-
-payment = amod.Payment()
-payment.sale = sale
-payment.stripe_charge_token = '123lalkdfnfn3k39dk'
-payment.total_amount_paid = u3.calc_total()
-payment.save()
-sale.total_cost = u3.calc_total()
-sale.tax = u3.calc_tax()
-sale.shipping = u3.calc_shipping()
-sale.subtotal = u3.calc_subtotal()
-sale.save()
-
-
-
-
-u3.clear_cart()
-####################################################################################################
-
-
-######################EXAMPLE SALE FOR USER 1######################################
-sale = amod.Sale()
-sale.fomouser = u1
-sale.save()
-cart = u1.get_cart()
-for c in cart:
-    sale_item = amod.SaleItem()
-    sale_item.sale = sale
-    sale_item.product = c.product
-    sale_item.qty = c.qty_ordered
-    sale_item.price = (c.product.price * sale_item.qty)
-    sale.total_cost += sale_item.price
-    sale_item.save()
-
-
-    update_product = cmod.Product.objects.get(id=c.product_id)
-
-    if hasattr(update_product, 'quantity'):
-    
-        update_product.quantity -= sale_item.qty
-    else:
-        update_product.status = False
-    update_history = amod.ProductHistory.objects.filter(fomouser__id=u1.id).filter(product__id=c.product.id).filter(added=True).order_by('-id')[0]
-    update_history.purchased = True
-
-    update_history.save()
-    update_product.save()
-    sale_item.save()
-
-
-payment = amod.Payment()
-payment.sale = sale
-payment.stripe_charge_token = 'efasdfer3435qfasdfasd'
-payment.total_amount_paid = u1.calc_total()
-payment.save()
-sale.total_cost = u1.calc_total()
-sale.tax = u1.calc_tax()
-sale.shipping = u1.calc_shipping()
-sale.subtotal = u1.calc_subtotal()
-sale.save()
-
-
-u1.clear_cart()

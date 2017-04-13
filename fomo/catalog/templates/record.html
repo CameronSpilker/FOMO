@@ -3,7 +3,7 @@
 <div class="container" style="background-color: white; color:black; border-radius: 15px;margin-top: 15px">
   <div class="row" style="padding: 0px 10px 0px 10px">
     <div class="span4">
-      <img src="${ STATIC_URL }homepage/media/Logo.png" style="height: 50px" class="img-rounded logo">
+      <img src="${ STATIC_URL }homepage/media/Logo.png" style="height: 50px; padding-top: 10px;" class="img-rounded logo">
       <address>
         <strong>Family Oriented Music Organization</strong><br>
         P.O Box 3171<br>
@@ -14,7 +14,7 @@
       <table class="invoice-head">
         <tbody>
           <tr>
-            <td class="pull-left"><strong>Customer: ${ user.first_name} </strong></td>
+            <td class="pull-left"><strong>Customer: ${ user.first_name} ${ user.last_name } </strong></td>
           </tr>
           <tr>
             <td class="pull-left"><strong>Receipt #${sale.id}</strong></td>
@@ -22,7 +22,7 @@
           <tr>
             %for p in payment:
             <td class="pull-left"><strong>Date:
-              ${"{:%d %B %Y %I:%M %p}".format(p.date_paid)}
+              ${"{:%d %B %Y}".format(p.date_paid)}
             </strong></td>
             %endfor
           </tr>
