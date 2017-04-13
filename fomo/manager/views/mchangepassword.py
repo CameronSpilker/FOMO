@@ -46,8 +46,8 @@ class ChangePasswordForm(FormMixIn, forms.Form):
         print('>>>>>>>>>>>>>>in the init')
         # self.fields['username'] = forms.CharField(required=True)
         # self.fields['password'] = forms.CharField(required=True, widget=forms.PasswordInput())
-        self.fields['passwordNEW'] = forms.CharField(label="New Password", required=True, widget=forms.PasswordInput())
-        self.fields['passwordNEW2'] = forms.CharField(label="Confirm New Password", required=True, widget=forms.PasswordInput())
+        self.fields['passwordNEW'] = forms.CharField(label="New Password", min_length=8, required=True, widget=forms.PasswordInput())
+        self.fields['passwordNEW2'] = forms.CharField(label="Confirm New Password", min_length=8, required=True, widget=forms.PasswordInput())
         self.fomouser = fomouser
 
     # def clean_username(self):

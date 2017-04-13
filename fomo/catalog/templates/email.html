@@ -39,7 +39,7 @@
 									<img src="https://www.familyorientedmusic.net/static/homepage/media/Logo.png" style="width:100%; max-width:100px;">
 								</td>
 								<td>
-									Customer: ${ sale.fomouser}<br>
+									Customer: ${ sale.fomouser.first_name } ${ sale.fomouser.last_name }<br>
 									Receipt #${sale.id}<br>
 									Date:
 									%for p in payment:
