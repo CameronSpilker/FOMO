@@ -12,7 +12,7 @@ var handler = StripeCheckout.configure({
   	$('#id_stripe_token').val(token.id);
     // You can access the token ID with `token.id`.
     // Get the token ID to your server-side code for use.
-    $('.text-center').html('Authorizing Credit Card').fadeOut(3000);
+    $('.formlib-form .text-center').html('Authorizing Credit Card').fadeOut(3500);
     $('#checkout_form').submit();
   }
 });
