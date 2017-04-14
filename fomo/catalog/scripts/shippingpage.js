@@ -2,15 +2,9 @@
 $(function(){
 
 
-	if ($(".errorlist")[0])
+	if ($(".errorlist"))
 	{
-    
-    	$(".errorlist").hide().fadeIn(2000)
-    	
-	} 
-    else 
-    {
-    // Do something if class does not exist
+    	$(".errorlist").fadeIn(3000)	
 	}
 
 });//ready function

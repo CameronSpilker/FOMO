@@ -10,20 +10,9 @@ from .. import dmp_render, dmp_render_to_string
 @login_required(login_url='/account/login/')
 @permission_required('catalog.change_product', login_url='/manager/permissions/')
 def process_request(request):
-    #query all products
-    # .all()
-    # .filter(name='trumpet')
-    # .exclude()
-    #(List of products)
-    ###################.get(id=12334) -- you only get one thing back
-    #try:
-        #.get(id=1234)
-    #except cmod.Product.DoesNotExist:
-        #what now?
-        #return HttpResponseRedirect('/manager/products/')
 
-    products = cmod.Product.objects.order_by('category').all()
-    print('>>>', products)
+
+    products = cmod.Product.objects.order_by('-create_date').all()
 
 
 
