@@ -130,38 +130,4 @@ class CheckoutForm(FormMixIn, forms.Form):
     def commit(self, fomouser):
         print('>>>>>>>>>>>>>>in the commit', self.cleaned_data.get('stripe_token'))
         fomouser.record_sale(self.cleaned_data.get('stripe_token'))
-        # cart = self.request.user.get_cart()
 
-        # ph = amod.ProductHistory()
-        # ph.product = cart.product
-        # ph.fomouser = self.request.user
-        # ph.purchased = True
-        # ph.save()
-
-
-#self.request
-        #
-        # if user is not None:
-        #     login(request, user)
-        #     print('>>>>>>>>>>>>>>auth')
-        #     return True
-        #         #go to account page
-        #     # return HttpResponseRedirect('/account/index/')
-        #     # Redirect to a success page.
-        # else:
-        #         # Return an 'invalid login' error message.
-        #     print('>>>>>>>>>>>>>>NOTTTTTT')
-        #     return False
-
-    # print('>>>>>>>>>>>>>> in print boya')
-    # username = request.POST.get('username', '')
-    # password = request.POST.get('password', '')
-    # #authenticate the user
-    # # username = 'Cougar'
-    # # password = '1234'
-    # user = authenticate(username=username, password=password)
-    # #log the user in
-
-
-
-#############MODAL##############################
