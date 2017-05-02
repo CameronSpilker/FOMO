@@ -1,4 +1,4 @@
-This is a website for a madeup company called "Family Oriented Music Orgainization"
+This is a website for a made-up company called "Family Oriented Music Orgainization"
 
 Here is the Home Page
 <br>
