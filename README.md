@@ -1,6 +1,9 @@
-This is a website for a made-up company called "Family Oriented Music Orgainization"
+# Family Oriented Music Orgainization Website -- has functionality of a normal online store
 
-Here is the Home Page
+* Customers can create, update, and delete account. Browse and add items to cart. Purchase products and recieve confirmation email.
+* Employees can create, update, and delete customer accounts. Create, update, and delete products. Everything a customer can do.
+
+## Here is the Home Page
 <br>
 <br>
-<a href="https://imgflip.com/gif/1ob4u1"><img src="https://i.imgflip.com/1ob4u1.gif" title="made at imgflip.com"/></a>
+<img src="https://cloud.githubusercontent.com/assets/22181707/25669607/3c4e115a-2fe7-11e7-8c43-8db3b613656c.gif" />
