@@ -24,6 +24,6 @@
 <br>
 
 ## Employee View
-<img src="https://cloud.githubusercontent.com/assets/22181707/25674531/614f28b6-2ff8-11e7-9a09-d1c8b766ab33.gif" />
+<img src="https://cloud.githubusercontent.com/assets/22181707/25675747/d0a8319a-2ffc-11e7-8854-19898f4886c5.gif" />
 <br>
 <br>
